@@ -12,5 +12,9 @@
         public const int GameImageUrlMaxLength = 2048;
         public const int GameDescriptionMinLength = 20;
         public const int GameDescriptionMaxLength = 2000;
+
+        // Collection
+        public const int CollectionTitleMinLength = 3;
+        public const int CollectionTitleMaxLength = 100;
     }
 }
