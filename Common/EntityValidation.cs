@@ -1,6 +1,7 @@
 ﻿namespace TheBigThree.Common
 {
-    public class EntityValidation
+    public static class EntityValidation
     {
+
     }
 }
