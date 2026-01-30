@@ -1,6 +1,90 @@
-﻿namespace TheBigThree.Services
+﻿using Microsoft.EntityFrameworkCore;
+using TheBigThree.Contracts;
+using TheBigThree.Data;
+using TheBigThree.ViewModels;
+using TheBigThree.Models;
+
+namespace TheBigThree.Services;
+
+public class CollectionService : ICollectionService
 {
-    public class CollectionService
+    private readonly TheBigThreeDbContext dbContext;
+
+    public CollectionService(TheBigThreeDbContext dbContext)
     {
+        this.dbContext = dbContext;
+    }
+
+    public async Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync()
+    {
+        return await dbContext.Collections
+            .AsNoTracking()
+            .Select(c => new CollectionAllViewModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Publisher = c.User.UserName!,
+                TotalStars = c.TotalStars,
+                GameImages = c.Games.Select(g => g.ImageUrl).ToList()
+            })
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<CollectionAllViewModel>> GetMineCollectionsAsync(string userId)
+    {
+        return await dbContext.Collections
+            .AsNoTracking()
+            .Where(c => c.UserId == userId)
+            .Select(c => new CollectionAllViewModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Publisher = c.User.UserName!,
+                TotalStars = c.TotalStars,
+                GameImages = c.Games.Select(g => g.ImageUrl).ToList()
+            })
+            .ToListAsync();
+    }
+
+    public async Task<CollectionFormViewModel> GetNewAddFormModelAsync()
+    {
+        var genres = await dbContext.Genres
+            .Select(g => new GenreSelectViewModel { Id = g.Id, Name = g.Name })
+            .ToListAsync();
+
+        var model = new CollectionFormViewModel();
+
+        for (int i = 0; i < 3; i++)
+        {
+            model.Games.Add(new GameFormViewModel { Genres = genres });
+        }
+
+        return model;
+    }
+
+    public async Task AddCollectionAsync(CollectionFormViewModel model, string userId)
+    {
+        await Task.CompletedTask;
+    }
+
+    public async Task<CollectionDetailsViewModel?> GetCollectionDetailsByIdAsync(int id)
+    {
+        return await dbContext.Collections
+            .Where(c => c.Id == id)
+            .Select(c => new CollectionDetailsViewModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Publisher = c.User.UserName!,
+                TotalStars = c.TotalStars,
+                Games = c.Games.Select(g => new GameDetailsViewModel
+                {
+                    Title = g.Title,
+                    Description = g.Description,
+                    ImageUrl = g.ImageUrl,
+                    Genre = g.Genre.Name
+                }).ToList()
+            })
+            .FirstOrDefaultAsync();
     }
 }

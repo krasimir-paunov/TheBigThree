@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TheBigThree.Contracts;
 using TheBigThree.Data;
+using TheBigThree.Services;
 
 namespace TheBigThree
 {
@@ -21,6 +23,8 @@ namespace TheBigThree
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<TheBigThreeDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<ICollectionService, CollectionService>();
 
             var app = builder.Build();
 
