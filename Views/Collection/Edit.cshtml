@@ -1,0 +1,60 @@
+﻿@model CollectionFormViewModel
+
+@{
+    ViewBag.Title = "Edit Your Big Three";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form asp-action="Edit" asp-route-id="@Context.Request.RouteValues["id"]" method="post">
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="form-label">Collection Title</label>
+                <input asp-for="Title" class="form-control" placeholder="e.g., My Favorite RPGs" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <h4 class="mt-4">The Games</h4>
+            <div class="row">
+                @for (int i = 0; i < Model.Games.Count; i++)
+                {
+                    <div class="col-md-4 border p-3">
+                        <h5>Game #@(i + 1)</h5>
+                        <div class="mb-2">
+                            <label asp-for="@Model.Games[i].Title">Title</label>
+                            <input asp-for="@Model.Games[i].Title" class="form-control" />
+                            <span asp-validation-for="@Model.Games[i].Title" class="text-danger"></span>
+                        </div>
+                        <div class="mb-2">
+                            <label asp-for="@Model.Games[i].ImageUrl">Image URL</label>
+                            <input asp-for="@Model.Games[i].ImageUrl" class="form-control" />
+                            <span asp-validation-for="@Model.Games[i].ImageUrl" class="text-danger"></span>
+                        </div>
+                        <div class="mb-2">
+                            <label asp-for="@Model.Games[i].GenreId">Genre</label>
+                            <select asp-for="@Model.Games[i].GenreId" class="form-control"
+                                    asp-items="@(new SelectList(Model.Games[i].Genres, "Id", "Name"))">
+                                <option value="">-- Select Genre --</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label asp-for="@Model.Games[i].Description">Why is it in your Big Three?</label>
+                            <textarea asp-for="@Model.Games[i].Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="@Model.Games[i].Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

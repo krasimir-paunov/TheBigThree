@@ -39,6 +39,7 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Mine()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
             var model = await collectionService.GetMineCollectionsAsync(userId);
 
             return View(model);
@@ -89,6 +90,32 @@ namespace TheBigThree.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            var model = await collectionService.GetCollectionForEditAsync(id, userId);
+
+            if (model == null) return RedirectToAction(nameof(Mine));
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, CollectionFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var freshModel = await collectionService.GetNewAddFormModelAsync();
+                model.Games.ForEach(g => g.Genres = freshModel.Games[0].Genres);
+                return View(model);
+            }
+
+            await collectionService.EditCollectionAsync(model, id);
+
+            return RedirectToAction(nameof(Mine));
         }
     }
 }

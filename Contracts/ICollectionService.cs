@@ -13,5 +13,8 @@ namespace TheBigThree.Contracts
 
         Task<CollectionDetailsViewModel?> GetCollectionDetailsByIdAsync(int id);
         Task<bool> UserHasCollectionAsync(string userId);
+
+        Task<CollectionFormViewModel?> GetCollectionForEditAsync(int id, string userId);
+        Task EditCollectionAsync(CollectionFormViewModel model, int id);
     }
 }

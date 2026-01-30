@@ -41,8 +41,9 @@ public class CollectionService : ICollectionService
 
     public async Task<IEnumerable<CollectionAllViewModel>> GetMineCollectionsAsync(string userId)
     {
-        var collections = await dbContext.Collections
+        var collectionsData = await dbContext.Collections
                 .AsNoTracking()
+                .Where(c => c.UserId == userId)
                 .Select(c => new
                 {
                     c.Id,
@@ -53,11 +54,11 @@ public class CollectionService : ICollectionService
                 })
                 .ToListAsync();
 
-        return collections.Select(c => new CollectionAllViewModel
+        return collectionsData.Select(c => new CollectionAllViewModel
         {
             Id = c.Id,
             Title = c.Title,
-            Publisher = c.UserName!.Split('@')[0],
+            Publisher = c.UserName?.Split('@')[0] ?? "Unknown",
             TotalStars = c.TotalStars,
             GameImages = c.GameImages
         });
@@ -146,5 +147,56 @@ public class CollectionService : ICollectionService
     {
 
         return await dbContext.Collections.AnyAsync(c => c.UserId == userId);
+    }
+
+    public async Task<CollectionFormViewModel?> GetCollectionForEditAsync(int id, string userId)
+    {
+        var collection = await dbContext.Collections
+            .Include(c => c.Games)
+            .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
+
+        if (collection == null) return null;
+
+        var genres = await dbContext.Genres
+            .Select(g => new GenreSelectViewModel { Id = g.Id, Name = g.Name })
+            .ToListAsync();
+
+        return new CollectionFormViewModel
+        {
+            Title = collection.Title,
+            Games = collection.Games.Select(g => new GameFormViewModel
+            {
+                Title = g.Title,
+                ImageUrl = g.ImageUrl,
+                Description = g.Description,
+                GenreId = g.GenreId,
+                Genres = genres
+            }).ToList()
+        };
+    }
+
+    public async Task EditCollectionAsync(CollectionFormViewModel model, int id)
+    {
+        var collection = await dbContext.Collections
+                .Include(c => c.Games)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (collection != null)
+        {
+            collection.Title = model.Title;
+
+            for (int i = 0; i < collection.Games.Count; i++)
+            {
+                var gameEntity = collection.Games.ElementAt(i);
+                var gameModel = model.Games[i];
+
+                gameEntity.Title = gameModel.Title;
+                gameEntity.Description = gameModel.Description;
+                gameEntity.ImageUrl = gameModel.ImageUrl;
+                gameEntity.GenreId = gameModel.GenreId;
+            }
+
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
