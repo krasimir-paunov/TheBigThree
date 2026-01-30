@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TheBigThree.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class TheBigThreeDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public TheBigThreeDbContext(DbContextOptions<TheBigThreeDbContext> options)
             : base(options)
         {
         }

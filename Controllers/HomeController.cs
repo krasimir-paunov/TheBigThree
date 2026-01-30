@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using TheBigThree.Models;
+using TheBigThree.ViewModels;
 
 namespace TheBigThree.Controllers
 {

@@ -1,4 +1,4 @@
-namespace TheBigThree.Models
+namespace TheBigThree.ViewModels
 {
     public class ErrorViewModel
     {

@@ -9,7 +9,7 @@ using TheBigThree.Data;
 
 namespace TheBigThree.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TheBigThreeDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
