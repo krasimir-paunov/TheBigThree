@@ -35,5 +35,12 @@
 </div>
 
 <div class="text-center mt-4">
-    <a asp-controller="Collection" asp-action="Add" class="btn btn-primary btn-lg">Create Your Own Big Three</a>
+    @if (User.Identity?.IsAuthenticated == true && ViewBag.UserHasCollection == false)
+    {
+        <a asp-controller="Collection" asp-action="Add" class="btn btn-primary btn-lg">Create Your Own Big Three</a>
+    }
+    else if (User.Identity?.IsAuthenticated == false)
+    {
+        <p>Login to create your own "Big Three"!</p>
+    }
 </div>

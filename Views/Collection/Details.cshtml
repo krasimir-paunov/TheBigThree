@@ -1,0 +1,33 @@
+﻿@model CollectionDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">@Model.Title</h1>
+        <p class="lead">Curated by <strong>@Model.Publisher</strong> | ⭐ @Model.TotalStars Stars</p>
+        <hr />
+    </div>
+
+    <div class="row">
+        @foreach (var game in Model.Games)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="@game.ImageUrl" class="card-img-top" style="height: 250px; object-fit: contain;" alt="@game.Title">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">@game.Title</h4>
+                        <span class="badge bg-secondary mb-3">@game.Genre</span>
+                        <p class="card-text">@game.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-5">
+        <a asp-action="All" class="btn btn-outline-secondary btn-lg">Back to All Collections</a>
+    </div>
+</div>

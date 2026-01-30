@@ -12,5 +12,6 @@ namespace TheBigThree.Contracts
         Task AddCollectionAsync(CollectionFormViewModel model, string userId);
 
         Task<CollectionDetailsViewModel?> GetCollectionDetailsByIdAsync(int id);
+        Task<bool> UserHasCollectionAsync(string userId);
     }
 }

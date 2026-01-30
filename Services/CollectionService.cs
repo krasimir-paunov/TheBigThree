@@ -33,7 +33,7 @@ public class CollectionService : ICollectionService
         {
             Id = c.Id,
             Title = c.Title,
-            Publisher = c.UserName!.Split('@')[0], 
+            Publisher = c.UserName!.Split('@')[0],
             TotalStars = c.TotalStars,
             GameImages = c.GameImages
         });
@@ -95,7 +95,7 @@ public class CollectionService : ICollectionService
                 Description = gameModel.Description,
                 ImageUrl = gameModel.ImageUrl,
                 GenreId = gameModel.GenreId,
-                Collection = collection 
+                Collection = collection
             };
 
             await dbContext.Games.AddAsync(game);
@@ -107,22 +107,44 @@ public class CollectionService : ICollectionService
 
     public async Task<CollectionDetailsViewModel?> GetCollectionDetailsByIdAsync(int id)
     {
-        return await dbContext.Collections
+        var data = await dbContext.Collections
             .Where(c => c.Id == id)
-            .Select(c => new CollectionDetailsViewModel
+            .Select(c => new
             {
-                Id = c.Id,
-                Title = c.Title,
-                Publisher = c.User.UserName!,
-                TotalStars = c.TotalStars,
-                Games = c.Games.Select(g => new GameDetailsViewModel
+                c.Id,
+                c.Title,
+                c.User.UserName,
+                c.TotalStars,
+                Games = c.Games.Select(g => new
                 {
-                    Title = g.Title,
-                    Description = g.Description,
-                    ImageUrl = g.ImageUrl,
-                    Genre = g.Genre.Name
+                    g.Title,
+                    g.Description,
+                    g.ImageUrl,
+                    GenreName = g.Genre.Name
                 }).ToList()
             })
             .FirstOrDefaultAsync();
+
+        if (data == null) return null;
+
+        return new CollectionDetailsViewModel
+        {
+            Id = data.Id,
+            Title = data.Title,
+            Publisher = data.UserName?.Split('@')[0] ?? "Unknown",
+            TotalStars = data.TotalStars,
+            Games = data.Games.Select(g => new GameDetailsViewModel
+            {
+                Title = g.Title,
+                Description = g.Description,
+                ImageUrl = g.ImageUrl,
+                Genre = g.GenreName
+            }).ToList()
+        };
+    }
+    public async Task<bool> UserHasCollectionAsync(string userId)
+    {
+
+        return await dbContext.Collections.AnyAsync(c => c.UserId == userId);
     }
 }

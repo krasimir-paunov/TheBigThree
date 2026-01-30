@@ -21,6 +21,17 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> All()
         {
             var model = await collectionService.GetAllCollectionsAsync();
+
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+                ViewBag.UserHasCollection = await collectionService.UserHasCollectionAsync(userId);
+            }
+            else
+            {
+                ViewBag.UserHasCollection = false;
+            }
+
             return View(model);
         }
 
@@ -36,6 +47,13 @@ namespace TheBigThree.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+            if (await collectionService.UserHasCollectionAsync(userId))
+            {
+                return RedirectToAction(nameof(Mine));
+            }
+
             var model = await collectionService.GetNewAddFormModelAsync();
 
             return View(model);
