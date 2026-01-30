@@ -56,5 +56,19 @@ namespace TheBigThree.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await collectionService.GetCollectionDetailsByIdAsync(id);
+
+            if (model == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            return View(model);
+        }
     }
 }
