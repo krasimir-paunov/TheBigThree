@@ -17,13 +17,12 @@ namespace TheBigThree.Models
         public int TotalStars { get; set; }
 
         [Required]
-        [ForeignKey(nameof(User))]
         public string UserId { get; set; } = null!;
 
         [Required]
+        [ForeignKey(nameof(UserId))]
         public virtual IdentityUser User { get; set; } = null!;
 
-        [Required]
-        public virtual ICollection<Game> Games { get; set; } = null!;
+        public virtual ICollection<Game> Games { get; set; } = new HashSet<Game>();
     }
 }
