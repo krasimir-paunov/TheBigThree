@@ -16,6 +16,8 @@ namespace TheBigThree.Controllers
             this.collectionService = collectionService;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var model = await collectionService.GetAllCollectionsAsync();

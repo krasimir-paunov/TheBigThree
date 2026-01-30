@@ -17,33 +17,50 @@ public class CollectionService : ICollectionService
 
     public async Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync()
     {
-        return await dbContext.Collections
-            .AsNoTracking()
-            .Select(c => new CollectionAllViewModel
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Publisher = c.User.UserName!,
-                TotalStars = c.TotalStars,
-                GameImages = c.Games.Select(g => g.ImageUrl).ToList()
-            })
-            .ToListAsync();
+        var collections = await dbContext.Collections
+                .AsNoTracking()
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Title,
+                    c.User.UserName,
+                    c.TotalStars,
+                    GameImages = c.Games.Select(g => g.ImageUrl).ToList()
+                })
+                .ToListAsync();
+
+        return collections.Select(c => new CollectionAllViewModel
+        {
+            Id = c.Id,
+            Title = c.Title,
+            Publisher = c.UserName!.Split('@')[0], 
+            TotalStars = c.TotalStars,
+            GameImages = c.GameImages
+        });
     }
 
     public async Task<IEnumerable<CollectionAllViewModel>> GetMineCollectionsAsync(string userId)
     {
-        return await dbContext.Collections
-            .AsNoTracking()
-            .Where(c => c.UserId == userId)
-            .Select(c => new CollectionAllViewModel
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Publisher = c.User.UserName!,
-                TotalStars = c.TotalStars,
-                GameImages = c.Games.Select(g => g.ImageUrl).ToList()
-            })
-            .ToListAsync();
+        var collections = await dbContext.Collections
+                .AsNoTracking()
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Title,
+                    c.User.UserName,
+                    c.TotalStars,
+                    GameImages = c.Games.Select(g => g.ImageUrl).ToList()
+                })
+                .ToListAsync();
+
+        return collections.Select(c => new CollectionAllViewModel
+        {
+            Id = c.Id,
+            Title = c.Title,
+            Publisher = c.UserName!.Split('@')[0],
+            TotalStars = c.TotalStars,
+            GameImages = c.GameImages
+        });
     }
 
     public async Task<CollectionFormViewModel> GetNewAddFormModelAsync()
