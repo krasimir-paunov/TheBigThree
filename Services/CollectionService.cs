@@ -64,7 +64,28 @@ public class CollectionService : ICollectionService
 
     public async Task AddCollectionAsync(CollectionFormViewModel model, string userId)
     {
-        await Task.CompletedTask;
+        var collection = new Collection()
+        {
+            Title = model.Title,
+            UserId = userId,
+        };
+
+        foreach (var gameModel in model.Games)
+        {
+            var game = new Game()
+            {
+                Title = gameModel.Title,
+                Description = gameModel.Description,
+                ImageUrl = gameModel.ImageUrl,
+                GenreId = gameModel.GenreId,
+                Collection = collection 
+            };
+
+            await dbContext.Games.AddAsync(game);
+        }
+
+        await dbContext.Collections.AddAsync(collection);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task<CollectionDetailsViewModel?> GetCollectionDetailsByIdAsync(int id)

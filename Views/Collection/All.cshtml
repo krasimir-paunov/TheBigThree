@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CollectionAllViewModel>
+
+@{
+    ViewBag.Title = "The Big Three - All Collections";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @if (!Model.Any())
+    {
+        <h3 class="text-center">No collections found. Be the first to create one!</h3>
+    }
+
+    @foreach (var collection in Model)
+    {
+        <div class="card col-md-4 mb-4" style="width: 20rem; margin-right: 20px;">
+            <div class="card-body">
+                <h5 class="card-title text-center">@collection.Title</h5>
+                <p class="card-text"><strong>Publisher:</strong> @collection.Publisher</p>
+                <p class="card-text"><strong>Total Stars:</strong> ⭐ @collection.TotalStars</p>
+
+                <div class="d-flex justify-content-between mb-3">
+                    @foreach (var imgUrl in collection.GameImages)
+                    {
+                        <img src="@imgUrl" class="img-thumbnail" style="width: 30%; height: 60px; object-fit: cover;" alt="Game Image">
+                    }
+                </div>
+
+                <a asp-controller="Collection" asp-action="Details" asp-route-id="@collection.Id" class="btn btn-info">Details</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center mt-4">
+    <a asp-controller="Collection" asp-action="Add" class="btn btn-primary btn-lg">Create Your Own Big Three</a>
+</div>
