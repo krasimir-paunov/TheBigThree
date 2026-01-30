@@ -22,7 +22,7 @@ namespace TheBigThree.ViewModels
         [Display(Name = "Why is this in your Big Three?")]
         public string Description { get; set; } = null!;
 
-        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid genre.")]
+        [Range(IdMinRange, int.MaxValue, ErrorMessage = "Please select a valid genre.")]
         [Display(Name = "Genre")]
         public int GenreId { get; set; }
 
