@@ -142,5 +142,15 @@ namespace TheBigThree.Controllers
 
             return RedirectToAction(nameof(Mine));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Star(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+            await collectionService.StarCollectionAsync(id, userId);
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
     }
 }

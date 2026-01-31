@@ -219,4 +219,36 @@ public class CollectionService : ICollectionService
             await dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task<bool> StarCollectionAsync(int collectionId, string userId)
+    {
+        var collection = await dbContext.Collections
+            .FirstOrDefaultAsync(c => c.Id == collectionId);
+
+        if (collection == null || collection.UserId == userId)
+        {
+            return false;
+        }
+
+        bool alreadyStarred = await dbContext.Likes
+            .AnyAsync(l => l.UserId == userId && l.CollectionId == collectionId);
+
+        if (alreadyStarred)
+        {
+            return false;
+        }
+
+        var newLike = new Like
+        {
+            UserId = userId,
+            CollectionId = collectionId
+        };
+
+        await dbContext.Likes.AddAsync(newLike);
+
+        collection.TotalStars++;
+
+        await dbContext.SaveChangesAsync();
+        return true;
+    }
 }

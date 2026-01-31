@@ -19,5 +19,7 @@ namespace TheBigThree.Contracts
 
         Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId);
         Task DeleteCollectionAsync(int id, string userId);
+
+        Task<bool> StarCollectionAsync(int collectionId, string userId);
     }
 }
