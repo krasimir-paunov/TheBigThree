@@ -121,5 +121,26 @@ namespace TheBigThree.Controllers
 
             return RedirectToAction(nameof(Mine));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            var model = await collectionService.GetCollectionForDeleteAsync(id, userId);
+
+            if (model == null) return RedirectToAction(nameof(Mine));
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            await collectionService.DeleteCollectionAsync(id, userId);
+
+            return RedirectToAction(nameof(Mine));
+        }
     }
 }

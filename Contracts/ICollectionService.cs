@@ -16,5 +16,8 @@ namespace TheBigThree.Contracts
 
         Task<CollectionFormViewModel?> GetCollectionForEditAsync(int id, string userId);
         Task EditCollectionAsync(CollectionFormViewModel model, int id);
+
+        Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId);
+        Task DeleteCollectionAsync(int id, string userId);
     }
 }
