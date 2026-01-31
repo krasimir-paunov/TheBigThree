@@ -1,0 +1,18 @@
+﻿@model CollectionDetailsViewModel
+
+<div class="container mt-5">
+    <div class="card border-danger shadow">
+        <div class="card-header bg-danger text-white">
+            <h2 class="text-center mb-0">Confirm Deletion</h2>
+        </div>
+        <div class="card-body text-center">
+            <p class="lead">Are you sure you want to delete your collection: <strong>"@Model.Title"</strong>?</p>
+            <p class="text-muted">This will remove all 3 games and your total star count. This action cannot be undone.</p>
+
+            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="mt-4">
+                <button type="submit" class="btn btn-danger btn-lg px-5">Yes, Delete Everything</button>
+                <a asp-action="Mine" class="btn btn-secondary btn-lg px-5">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
