@@ -301,4 +301,12 @@ public class CollectionService : ICollectionService
             GameImages = c.GameImages
         }).ToList();
     }
+
+    public async Task<int> GetUserTotalStarsAsync(string userId)
+    {
+        return await dbContext.Collections
+            .Where(c => c.UserId == userId)
+            .Select(c => c.TotalStars)
+            .FirstOrDefaultAsync();
+    }
 }

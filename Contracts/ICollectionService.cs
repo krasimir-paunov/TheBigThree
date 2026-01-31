@@ -27,5 +27,7 @@ namespace TheBigThree.Contracts
         Task<bool> RemoveStarAsync(int collectionId, string userId);
 
         Task<IEnumerable<CollectionAllViewModel>> GetStarredCollectionsAsync(string userId);
+
+        Task<int> GetUserTotalStarsAsync(string userId);
     }
 }
