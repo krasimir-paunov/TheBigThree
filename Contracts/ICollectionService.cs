@@ -25,5 +25,7 @@ namespace TheBigThree.Contracts
         Task<bool> IsStarredByUserAsync(int collectionId, string userId);
 
         Task<bool> RemoveStarAsync(int collectionId, string userId);
+
+        Task<IEnumerable<CollectionAllViewModel>> GetStarredCollectionsAsync(string userId);
     }
 }

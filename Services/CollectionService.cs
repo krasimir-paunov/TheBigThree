@@ -276,4 +276,29 @@ public class CollectionService : ICollectionService
 
         return true;
     }
+
+    public async Task<IEnumerable<CollectionAllViewModel>> GetStarredCollectionsAsync(string userId)
+    {
+        var starredData = await dbContext.Likes
+            .Where(l => l.UserId == userId)
+            .Select(l => l.Collection)
+            .Select(c => new
+            {
+                c.Id,
+                c.Title,
+                PublisherEmail = c.User.UserName,
+                c.TotalStars,
+                GameImages = c.Games.Select(g => g.ImageUrl).ToList()
+            })
+            .ToListAsync();
+
+        return starredData.Select(c => new CollectionAllViewModel
+        {
+            Id = c.Id,
+            Title = c.Title,
+            Publisher = c.PublisherEmail?.Split('@')[0] ?? "Unknown",
+            TotalStars = c.TotalStars,
+            GameImages = c.GameImages
+        }).ToList();
+    }
 }
