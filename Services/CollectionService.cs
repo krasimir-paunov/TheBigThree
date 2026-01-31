@@ -17,23 +17,34 @@ public class CollectionService : ICollectionService
 
     public async Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync()
     {
-        var collections = await dbContext.Collections
+        var data = await dbContext.Collections
                 .AsNoTracking()
                 .Select(c => new
                 {
                     c.Id,
                     c.Title,
-                    c.User.UserName,
+                    PublisherName = c.User.UserName,
                     c.TotalStars,
                     GameImages = c.Games.Select(g => g.ImageUrl).ToList()
                 })
                 .ToListAsync();
 
-        return collections.Select(c => new CollectionAllViewModel
+        return data.Select(c => new CollectionAllViewModel
         {
             Id = c.Id,
             Title = c.Title,
-            Publisher = c.UserName!.Split('@')[0],
+            Publisher = c.PublisherName?.Split('@')[0] ?? "Unknown",
+
+            PublisherRank = c.TotalStars switch
+            {
+                >= 100 => "Legendary Collector",
+                >= 30 => "Superstar Collector",
+                >= 10 => "Popular Collector",
+                >= 5 => "Rising Star",
+                > 0 => "Novice Collector",
+                _ => "Newcomer"
+            },
+
             TotalStars = c.TotalStars,
             GameImages = c.GameImages
         });
