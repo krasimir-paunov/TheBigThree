@@ -251,4 +251,29 @@ public class CollectionService : ICollectionService
         await dbContext.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> IsStarredByUserAsync(int collectionId, string userId)
+    {
+        return await dbContext.Likes
+            .AnyAsync(l => l.UserId == userId && l.CollectionId == collectionId);
+    }
+
+    public async Task<bool> RemoveStarAsync(int collectionId, string userId)
+    {
+        var like = await dbContext.Likes
+            .FirstOrDefaultAsync(l => l.UserId == userId && l.CollectionId == collectionId);
+
+        if (like == null) return false;
+
+        var collection = await dbContext.Collections.FindAsync(collectionId);
+        if (collection != null && collection.TotalStars > 0)
+        {
+            collection.TotalStars--;
+        }
+
+        dbContext.Likes.Remove(like);
+        await dbContext.SaveChangesAsync();
+
+        return true;
+    }
 }

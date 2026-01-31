@@ -13,11 +13,22 @@
 
         @if (User.Identity?.IsAuthenticated == true && User.Identity.Name?.Split('@')[0] != Model.Publisher)
         {
-            <form asp-controller="Collection" asp-action="Star" asp-route-id="@Model.Id" method="post" class="mt-3">
-                <button type="submit" class="btn btn-warning btn-lg shadow-sm">
-                    <i class="bi bi-star-fill"></i> Give a Star
-                </button>
-            </form>
+            @if (ViewBag.IsStarred == true)
+            {
+                <form asp-controller="Collection" asp-action="RemoveStar" asp-route-id="@Model.Id" method="post" class="mt-3">
+                    <button type="submit" class="btn btn-outline-danger btn-lg shadow-sm">
+                        <i class="bi bi-star"></i> Remove Star
+                    </button>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="Collection" asp-action="Star" asp-route-id="@Model.Id" method="post" class="mt-3">
+                    <button type="submit" class="btn btn-warning btn-lg shadow-sm">
+                        <i class="bi bi-star-fill"></i> Give a Star
+                    </button>
+                </form>
+            }
         }
         else if (User.Identity?.IsAuthenticated == true && User.Identity.Name?.Split('@')[0] == Model.Publisher)
         {

@@ -87,11 +87,11 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var model = await collectionService.GetCollectionDetailsByIdAsync(id);
+            if (model == null) return RedirectToAction(nameof(All));
 
-            if (model == null)
-            {
-                return RedirectToAction(nameof(All));
-            }
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+            ViewBag.IsStarred = await collectionService.IsStarredByUserAsync(id, userId);
 
             return View(model);
         }
@@ -149,6 +149,16 @@ namespace TheBigThree.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
             await collectionService.StarCollectionAsync(id, userId);
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveStar(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+            await collectionService.RemoveStarAsync(id, userId);
 
             return RedirectToAction(nameof(Details), new { id = id });
         }

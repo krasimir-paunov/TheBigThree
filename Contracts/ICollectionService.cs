@@ -21,5 +21,9 @@ namespace TheBigThree.Contracts
         Task DeleteCollectionAsync(int id, string userId);
 
         Task<bool> StarCollectionAsync(int collectionId, string userId);
+
+        Task<bool> IsStarredByUserAsync(int collectionId, string userId);
+
+        Task<bool> RemoveStarAsync(int collectionId, string userId);
     }
 }
