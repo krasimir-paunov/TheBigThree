@@ -38,10 +38,14 @@ namespace TheBigThree.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             var model = await collectionService.GetMineCollectionsAsync(userId);
-
             return View(model);
         }
 

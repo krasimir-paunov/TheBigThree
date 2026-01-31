@@ -1,5 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<CollectionAllViewModel>
+
 @{
+    ViewBag.Title = "My Big Three Collections";
 }
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row justify-content-center">
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <h3 class="mt-4">You haven't created a "Big Three" yet!</h3>
+            <a asp-action="Add" class="btn btn-primary mt-3">Start Your Collection</a>
+        </div>
+    }
+    else
+    {
+        @foreach (var collection in Model)
+        {
+            <div class="card col-md-4 mb-4 shadow-sm" style="width: 22rem; margin: 10px;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@collection.Title</h5>
+                    <p class="card-text text-muted">⭐ @collection.TotalStars Stars</p>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        @foreach (var img in collection.GameImages)
+                        {
+                            <img src="@img" class="img-thumbnail" style="width: 30%; height: 60px; object-fit: contain; background-color: #eee;">
+                        }
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a asp-action="Details" asp-route-id="@collection.Id" class="btn btn-outline-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@collection.Id" class="btn btn-warning text-white">Edit Collection</a>
+                        <a asp-action="Delete" asp-route-id="@collection.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
