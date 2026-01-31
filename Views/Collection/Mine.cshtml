@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CollectionAllViewModel>
 
 @{
-    ViewBag.Title = "My Big Three Collections";
+    ViewBag.Title = "My Big Three Collection";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="d-grid gap-2">
-                        <a asp-action="Details" asp-route-id="@collection.Id" class="btn btn-outline-info">Details</a>
+                        <a asp-action="Details" asp-route-id="@collection.Id" class="btn btn-outline-info">View Collection</a>
                         <a asp-action="Edit" asp-route-id="@collection.Id" class="btn btn-warning text-white">Edit Collection</a>
                         <a asp-action="Delete" asp-route-id="@collection.Id" class="btn btn-danger">Delete</a>
                     </div>

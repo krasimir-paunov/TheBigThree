@@ -199,4 +199,24 @@ public class CollectionService : ICollectionService
             await dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId)
+    {
+        return await GetCollectionDetailsByIdAsync(id);
+    }
+
+    public async Task DeleteCollectionAsync(int id, string userId)
+    {
+        var collection = await dbContext.Collections
+            .Include(c => c.Games)
+            .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
+
+        if (collection != null)
+        {
+            dbContext.Games.RemoveRange(collection.Games);
+            dbContext.Collections.Remove(collection);
+
+            await dbContext.SaveChangesAsync();
+        }
+    }
 }
