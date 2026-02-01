@@ -1,8 +1,76 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="container mt-5">
+    <div class="p-5 mb-4 bg-dark text-white rounded-3 shadow-lg position-relative overflow-hidden"
+         style="background: linear-gradient(135deg, #1a1a1a 0%, #0d6efd 100%);">
+
+        <div class="container-fluid py-5 position-relative" style="z-index: 2;">
+            <h1 class="display-4 fw-bold text-warning mb-3">
+                <i class="bi bi-controller"></i> Showcase Your Big Three
+            </h1>
+            <p class="col-md-10 fs-4 mb-4">
+                Every gamer has those three legendary titles that defined their life.
+                Create your ultimate collection, share your passion, and earn stars from the community.
+            </p>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <a asp-controller="Collection" asp-action="All" class="btn btn-warning btn-lg px-4 me-md-2 fw-bold">
+                    Explore Hub
+                </a>
+                @if (User.Identity?.IsAuthenticated == false)
+                {
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-light btn-lg px-4">
+                        Join the Hall of Fame
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Profile" asp-action="Index" class="btn btn-outline-light btn-lg px-4">
+                        View My Stats
+                    </a>
+                }
+            </div>
+        </div>
+
+        <i class="bi bi-star-fill position-absolute text-white opacity-10"
+           style="font-size: 15rem; bottom: -50px; right: -30px; transform: rotate(15deg);"></i>
+    </div>
+
+    <div class="row g-4 py-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="card-body">
+                    <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-4 mb-3 rounded-3" style="width: 3rem; height: 3rem;">
+                        <i class="bi bi-collection"></i>
+                    </div>
+                    <h4 class="fw-semibold">Curate</h4>
+                    <p class="text-muted">Pick your top 3 games and explain why they earned their spot in your personal hall of fame.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="card-body">
+                    <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-warning bg-gradient text-dark fs-4 mb-3 rounded-3" style="width: 3rem; height: 3rem;">
+                        <i class="bi bi-star"></i>
+                    </div>
+                    <h4 class="fw-semibold">Earn Stars</h4>
+                    <p class="text-muted">Get recognized by the community. Collect stars to increase your Rank from Newcomer to Legend.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="card-body">
+                    <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-info bg-gradient text-white fs-4 mb-3 rounded-3" style="width: 3rem; height: 3rem;">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h4 class="fw-semibold">Discover</h4>
+                    <p class="text-muted">Browse legendary collections from other gamers and find your next favorite title.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
