@@ -181,3 +181,32 @@ footer a, .footer a {
         transform: translateX(5px);
     }
 
+.glass-form-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    color: white;
+}
+
+.glass-input {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease;
+}
+
+    .glass-input:focus {
+        background: rgba(0, 0, 0, 0.5) !important;
+        border-color: var(--primary-cyan) !important;
+        box-shadow: 0 0 10px rgba(13, 202, 240, 0.2) !important;
+    }
+
+.game-edit-slot {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+}

@@ -4,59 +4,84 @@
     ViewBag.Title = Model.Title;
 }
 
-<div class="container mt-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4">@Model.Title</h1>
-        <p class="lead">
-            Curated by <strong>@Model.Publisher</strong> | ⭐ @Model.TotalStars Stars
-        </p>
+<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-4">
 
-        @if (User.Identity?.IsAuthenticated == true && User.Identity.Name?.Split('@')[0] != Model.Publisher)
-        {
-            @if (ViewBag.IsStarred == true)
-            {
-                <form asp-controller="Collection" asp-action="RemoveStar" asp-route-id="@Model.Id" method="post" class="mt-3">
-                    <button type="submit" class="btn btn-outline-danger btn-lg shadow-sm">
-                        <i class="bi bi-star"></i> Remove Star
-                    </button>
-                </form>
-            }
-            else
-            {
-                <form asp-controller="Collection" asp-action="Star" asp-route-id="@Model.Id" method="post" class="mt-3">
-                    <button type="submit" class="btn btn-warning btn-lg shadow-sm">
-                        <i class="bi bi-star-fill"></i> Give a Star
-                    </button>
-                </form>
-            }
-        }
-        else if (User.Identity?.IsAuthenticated == true && User.Identity.Name?.Split('@')[0] == Model.Publisher)
-        {
-            <p class="text-muted small italic">This is your collection!</p>
-        }
+        <div class="profile-card mb-4 py-3 px-4 shadow-sm border-secondary border-opacity-25">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
 
-        <hr />
-    </div>
+                <div class="d-flex align-items-center gap-4">
+                    <h2 class="mb-0 fw-bold text-white">@Model.Title</h2>
+                    <div class="vr bg-secondary opacity-50 d-none d-md-block" style="height: 30px;"></div>
+                    <div class="small">
+                        <span class="text-muted d-block" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Curated by</span>
+                        <span class="text-info fw-bold">@Model.Publisher</span>
+                    </div>
+                </div>
 
-    <div class="row">
-        @foreach (var game in Model.Games)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="@game.ImageUrl" class="card-img-top p-3" style="height: 300px; object-fit: contain;" alt="@game.Title">
-                    <div class="card-body">
-                        <h4 class="card-title text-primary">@game.Title</h4>
-                        <span class="badge bg-secondary mb-3">@game.Genre</span>
-                        <p class="card-text text-justify" style="font-size: 0.95rem; line-height: 1.6;">
-                            @game.Description
-                        </p>
+                <div class="d-flex align-items-center gap-4 mt-3 mt-md-0">
+                    <div class="text-center px-3 border-end border-secondary border-opacity-25">
+                        <span class="h4 text-warning fw-bold mb-0">⭐ @Model.TotalStars</span>
+                        <div class="text-muted" style="font-size: 0.6rem; text-transform: uppercase;">Total Stars</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        @if (User.Identity?.IsAuthenticated == true && User.Identity.Name?.Split('@')[0] != Model.Publisher)
+                        {
+                            @if (ViewBag.IsStarred == true)
+                            {
+                                <form asp-controller="Collection" asp-action="RemoveStar" asp-route-id="@Model.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-4 fw-bold">
+                                        <i class="bi bi-star"></i> Unstar
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-controller="Collection" asp-action="Star" asp-route-id="@Model.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-warning rounded-pill px-4 fw-bold">
+                                        <i class="bi bi-star-fill"></i> Give Star
+                                    </button>
+                                </form>
+                            }
+                        }
+                        else if (User.Identity?.IsAuthenticated == true && User.Identity.Name?.Split('@')[0] == Model.Publisher)
+                        {
+                            <span class="badge bg-secondary opacity-75 py-2 px-3 rounded-pill" style="font-size: 0.7rem;">
+                                <i class="bi bi-person-check-fill me-1"></i> My Collection
+                            </span>
+                        }
                     </div>
                 </div>
             </div>
-        }
-    </div>
+        </div>
 
-    <div class="text-center mt-5 mb-5">
-        <a asp-action="All" class="btn btn-outline-secondary btn-lg px-5">Back to All Collections</a>
+        <div class="row g-4 justify-content-center align-items-start">
+            @foreach (var game in Model.Games)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card collection-card shadow-lg">
+                        <div class="p-4 text-center">
+                            <div class="game-thumb-container rounded p-3 mb-3" style="height: 250px; background: rgba(0,0,0,0.2);">
+                                <img src="@game.ImageUrl" class="img-fluid h-100 w-100" style="object-fit: contain;" alt="@game.Title">
+                            </div>
+
+                            <h4 class="card-title-gold fw-bold mb-1">@game.Title</h4>
+                            <span class="badge rounded-pill bg-info text-dark mb-3 px-3" style="font-size: 0.7rem;">@game.Genre</span>
+
+                            <p class="text-light opacity-75 px-1" style="font-size: 0.85rem; line-height: 1.5; text-align: justify; white-space: pre-line;">
+                                @game.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5 pb-5">
+            <a asp-action="All" class="btn btn-sm btn-outline-light rounded-pill px-4 opacity-50">
+                <i class="bi bi-arrow-left me-2"></i> Back to Hub
+            </a>
+        </div>
     </div>
 </div>

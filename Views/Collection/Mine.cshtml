@@ -1,43 +1,72 @@
 ﻿@model IEnumerable<CollectionAllViewModel>
 
 @{
-    ViewBag.Title = "My Big Three Collection";
+    ViewBag.Title = "MY BIG THREE COLLECTION";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
 
-<div class="row justify-content-center">
-    @if (!Model.Any())
-    {
-        <div class="text-center">
-            <h3 class="mt-4">You haven't created a "Big Three" yet!</h3>
-            <a asp-action="Add" class="btn btn-primary mt-3">Start Your Collection</a>
+        <div class="text-center mb-5">
+            <h2 class="hub-title mb-0">@ViewBag.Title</h2>
+            <div class="badge bg-warning text-dark shadow-sm">Your Personal Hall of Fame</div>
         </div>
-    }
-    else
-    {
-        @foreach (var collection in Model)
-        {
-            <div class="card col-md-4 mb-4 shadow-sm" style="width: 22rem; margin: 10px;">
-                <div class="card-body text-center">
-                    <h5 class="card-title">@collection.Title</h5>
-                    <p class="card-text text-muted">⭐ @collection.TotalStars Stars</p>
 
-                    <div class="d-flex justify-content-between mb-3">
-                        @foreach (var img in collection.GameImages)
-                        {
-                            <img src="@img" class="img-thumbnail" style="width: 30%; height: 60px; object-fit: contain; background-color: #eee;">
-                        }
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <a asp-action="Details" asp-route-id="@collection.Id" class="btn btn-outline-info">View Collection</a>
-                        <a asp-action="Edit" asp-route-id="@collection.Id" class="btn btn-warning text-white">Edit Collection</a>
-                        <a asp-action="Delete" asp-route-id="@collection.Id" class="btn btn-danger">Delete Collection</a>
-                    </div>
+        <div class="row justify-content-center">
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center py-5">
+                    <h3 class="text-light opacity-50">You haven't created a "Big Three" yet!</h3>
+                    <a asp-action="Add" class="btn btn-info btn-lg px-5 rounded-pill fw-bold mt-3 shadow">
+                        <i class="bi bi-plus-circle me-2"></i>Start Your Collection
+                    </a>
                 </div>
-            </div>
-        }
-    }
+            }
+            else
+            {
+                @foreach (var collection in Model)
+                {
+                    <div class="col-lg-4 col-md-6 d-flex justify-content-center mb-4">
+                        <div class="card collection-card shadow-lg" style="width: 23rem;">
+                            <div class="card-body p-4 text-center">
+                                <h5 class="card-title-gold fw-bold mb-2">@collection.Title</h5>
+                                <p class="text-warning fw-bold mb-4">⭐ @collection.TotalStars Stars</p>
+
+                                <div class="d-flex justify-content-between mb-4">
+                                    @foreach (var img in collection.GameImages)
+                                    {
+                                        <div class="game-thumb-container rounded p-1" style="width: 30%; height: 70px;">
+                                            <img src="@img" class="img-fluid h-100 w-100" style="object-fit: contain;" alt="Game">
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <a asp-action="Details" asp-route-id="@collection.Id"
+                                       class="btn btn-outline-info rounded-pill fw-bold">
+                                        <i class="bi bi-eye-fill me-2"></i>View Collection
+                                    </a>
+
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <a asp-action="Edit" asp-route-id="@collection.Id"
+                                               class="btn btn-warning w-100 rounded-pill fw-bold text-dark">
+                                                <i class="bi bi-pencil-square me-1"></i>Edit
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a asp-action="Delete" asp-route-id="@collection.Id"
+                                               class="btn btn-danger w-100 rounded-pill fw-bold">
+                                                <i class="bi bi-trash3-fill me-1"></i>Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
