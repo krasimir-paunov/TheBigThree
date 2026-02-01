@@ -1,77 +1,81 @@
 ﻿@model IEnumerable<CollectionAllViewModel>
 
 @{
-    ViewBag.Title = "The Big Three - All Collections";
+    ViewBag.Title = "Community Hub";
 }
 
-<h2 class="text-center mt-4">@ViewBag.Title</h2>
-<hr />
+<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container">
 
-<div class="row justify-content-center">
-    @if (!Model.Any())
-    {
-        <div class="col-12 text-center">
-            <h3 class="text-muted">No collections found. Be the first to create one!</h3>
-        </div>
-    }
+        <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap px-3">
+            <div class="text-center text-md-start">
+                <h2 class="hub-title mb-0">@ViewBag.Title</h2>
+                <div class="badge bg-info text-dark shadow-sm">Explore the Big Three</div>
+            </div>
 
-    @foreach (var collection in Model)
-    {
-        <div class="col-md-4 d-flex justify-content-center">
-            <div class="card mb-4 shadow-sm hover-effect border-0" style="width: 22rem;">
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold mb-3">@collection.Title</h5>
-
-                    <p class="card-text mb-2">
-                        <strong>Publisher:</strong> @collection.Publisher
-                        <span class="badge rounded-pill bg-info text-dark ms-1" style="font-size: 0.75rem;">
-                            @collection.PublisherRank
-                        </span>
-                    </p>
-
-                    <p class="card-text mb-3">
-                        <strong>Total Stars:</strong> <span class="text-warning fw-bold">⭐ @collection.TotalStars</span>
-                    </p>
-
-                    <div class="d-flex justify-content-between mb-4 px-2">
-                        @foreach (var imgUrl in collection.GameImages)
-                        {
-                            <div class="bg-light rounded p-1" style="width: 30%; height: 65px;">
-                                <img src="@imgUrl" class="img-fluid h-100 w-100" style="object-fit: contain;" alt="Game Image">
-                            </div>
-                        }
-                    </div>
-
-                    <div class="d-grid">
-                        <a asp-controller="Collection" asp-action="Details" asp-route-id="@collection.Id" class="btn btn-info text-white shadow-sm">
-                            <i class="bi bi-info-circle"></i> View Details
-                        </a>
-                    </div>
-                </div>
+            <div class="mt-3 mt-md-0">
+                @if (User.Identity?.IsAuthenticated == true && ViewBag.UserHasCollection == false)
+                {
+                    <a asp-controller="Collection" asp-action="Add" class="btn btn-warning px-4 rounded-pill shadow fw-bold">
+                        <i class="bi bi-plus-lg"></i> Create Your Own
+                    </a>
+                }
+                else if (User.Identity?.IsAuthenticated == false)
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-info px-4 rounded-pill fw-bold">
+                        <i class="bi bi-box-arrow-in-right"></i> Login to Create
+                    </a>
+                }
             </div>
         </div>
-    }
-</div>
 
-<div class="text-center mt-5 mb-5">
-    @if (User.Identity?.IsAuthenticated == true && ViewBag.UserHasCollection == false)
-    {
-        <a asp-controller="Collection" asp-action="Add" class="btn btn-primary btn-lg shadow">
-            <i class="bi bi-plus-circle"></i> Create Your Own Big Three
-        </a>
-    }
-    else if (User.Identity?.IsAuthenticated == false)
-    {
-        <div class="alert alert-secondary d-inline-block px-5">
-            <p class="mb-0">Login to create your own "Big Three"!</p>
+        <div class="row justify-content-center">
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center py-5">
+                    <h3 class="text-light opacity-50">No collections found. Be the first to create one!</h3>
+                </div>
+            }
+
+            @foreach (var collection in Model)
+            {
+                <div class="col-lg-4 col-md-6 d-flex justify-content-center mb-5">
+                    <div class="card collection-card shadow-lg" style="width: 23rem;">
+                        <div class="card-body p-4">
+                            <h5 class="card-title-gold fw-bold text-center mb-3">@collection.Title</h5>
+
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <span class="text-light opacity-75 small me-2">Curated by</span>
+                                <span class="fw-bold text-white">@collection.Publisher</span>
+                                <span class="badge rounded-pill bg-info text-dark ms-2 shadow-sm" style="font-size: 0.65rem;">
+                                    @collection.PublisherRank
+                                </span>
+                            </div>
+
+                            <div class="text-center mb-4">
+                                <span class="h4 text-warning fw-bold">⭐ @collection.TotalStars</span>
+                                <div class="text-muted small text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Total Stars</div>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-4">
+                                @foreach (var imgUrl in collection.GameImages)
+                                {
+                                    <div class="game-thumb-container rounded p-1" style="width: 30%; height: 75px;">
+                                        <img src="@imgUrl" class="img-fluid h-100 w-100" style="object-fit: contain;" alt="Game Image">
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="d-grid mt-2">
+                                <a asp-controller="Collection" asp-action="Details" asp-route-id="@collection.Id"
+                                   class="btn btn-outline-info btn-lg rounded-pill fw-bold py-2 shadow-sm">
+                                    <i class="bi bi-eye-fill"></i> View Collection
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
-
-    <style>
-        .hover-effect:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-        }
-    </style>

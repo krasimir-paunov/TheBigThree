@@ -1,72 +1,57 @@
+:root {
+    --primary-cyan: #0dcaf0;
+    --accent-yellow: #ffc107;
+    --dark-bg: #000;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --transition-speed: 0.3s ease;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-body {
-    overflow-x: hidden;
-    background-color: #000;
-}
-
-.hero-btn {
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-    .hero-btn:hover {
-        transform: scale(1.05);
-        background-color: #0dcaf0;
-        box-shadow: 0 0 20px rgba(13, 202, 240, 0.4);
+    html {
+        font-size: 16px;
     }
+}
 
-.hero-btn-outline:hover {
-    background-color: rgba(255,255,255,0.1);
-    transform: scale(1.05);
+body {
+    margin-bottom: 60px;
+    overflow-x: hidden;
+    background-color: var(--dark-bg);
+    color: white;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus,
+.form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 footer a, .footer a {
-    color: #adb5bd !important; 
+    color: #adb5bd !important;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color var(--transition-speed);
 }
 
     footer a:hover {
-        color: #ffc107 !important; 
+        color: var(--accent-yellow) !important;
         text-decoration: underline;
     }
 
-/* Navigation Hover Effect */
 .navbar-nav .nav-link {
     position: relative;
-    transition: color 0.3s ease;
+    transition: color var(--transition-speed);
 }
 
     .navbar-nav .nav-link:hover {
-        color: #ffc107 !important; /* Warning yellow on hover */
+        color: var(--accent-yellow) !important;
     }
 
-    /* Selected/Active Link Indicator */
     .navbar-nav .nav-link.active-link {
-        color: #ffc107 !important;
+        color: var(--accent-yellow) !important;
         font-weight: bold;
     }
 
@@ -77,6 +62,82 @@ footer a, .footer a {
             left: 15%;
             width: 70%;
             height: 2px;
-            background-color: #ffc107;
+            background-color: var(--accent-yellow);
             border-radius: 2px;
         }
+
+.hero-btn {
+    transition: all var(--transition-speed);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .hero-btn:hover {
+        transform: scale(1.05);
+        background-color: var(--primary-cyan);
+        box-shadow: 0 0 20px rgba(13, 202, 240, 0.4);
+    }
+
+.hero-btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.hub-background {
+    background: radial-gradient(circle at top, #1c1c1e 0%, #0a0a0a 100%);
+    min-height: 100vh;
+    padding: 3rem 0 5rem 0;
+}
+
+.hub-title {
+    color: #f8f9fa;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.collection-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    color: white;
+    transition: all var(--transition-speed);
+}
+
+    .collection-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--primary-cyan);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(13, 202, 240, 0.2);
+    }
+
+.card-title-gold {
+    color: var(--accent-yellow);
+    font-size: 1.4rem;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+.game-thumb-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+    .game-thumb-container:hover {
+        transform: scale(1.05);
+        border-color: white;
+    }
+
+.btn-warning.rounded-pill {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+    .btn-warning.rounded-pill:hover {
+        background-color: transparent !important;
+        color: var(--accent-yellow) !important;
+        border-color: var(--accent-yellow);
+        transform: translateY(-2px);
+    }

@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="~/TheBigThree.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom border-secondary box-shadow mb-3 py-3">
             <div class="container-fluid">
@@ -25,22 +29,27 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white fw-semibold px-3 @(currentController == "Home" && currentAction == "Index" ? "active-link" : "")"
+                               asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Collection" asp-action="All">Hub</a>
+                            <a class="nav-link text-white fw-semibold px-3 @(currentController == "Collection" && currentAction == "All" ? "active-link" : "")"
+                               asp-area="" asp-controller="Collection" asp-action="All">Hub</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold px-3" asp-controller="Profile" asp-action="Index">My Profile</a>
+                                <a class="nav-link text-white fw-semibold px-3 @(currentController == "Profile" ? "active-link" : "")"
+                                   asp-controller="Profile" asp-action="Index">My Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold px-3" asp-controller="Collection" asp-action="Mine">My Collection</a>
+                                <a class="nav-link text-white fw-semibold px-3 @(currentController == "Collection" && currentAction == "Mine" ? "active-link" : "")"
+                                   asp-controller="Collection" asp-action="Mine">My Collection</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-white fw-semibold px-3 @(currentController == "Home" && currentAction == "Privacy" ? "active-link" : "")"
+                               asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
 
