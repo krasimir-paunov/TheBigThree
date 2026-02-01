@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheBigThree.Contracts;
+using TheBigThree.ViewModels; 
 
 namespace TheBigThree.Controllers
 {
@@ -19,6 +20,9 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Index()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
+            string username = User.Identity?.Name?.Split('@')[0] ?? "Gamer";
+
             var totalStarsEarned = await collectionService.GetUserTotalStarsAsync(userId);
             var starredCollections = await collectionService.GetStarredCollectionsAsync(userId);
 
@@ -32,11 +36,16 @@ namespace TheBigThree.Controllers
                 _ => "Newcomer"
             };
 
-            ViewBag.Username = User.Identity?.Name?.Split('@')[0] ?? "Gamer";
-            ViewBag.TotalStars = totalStarsEarned;
-            ViewBag.Rank = rank;
+            var viewModel = new ProfileViewModel
+            {
+                Username = username,
+                Email = email,
+                Rank = rank,
+                TotalStarsEarned = totalStarsEarned,
+                FavoriteCollections = starredCollections
+            };
 
-            return View(starredCollections);
+            return View(viewModel);
         }
     }
 }

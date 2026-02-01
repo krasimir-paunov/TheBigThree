@@ -1,108 +1,103 @@
-﻿@model IEnumerable<CollectionAllViewModel>
+﻿@model TheBigThree.ViewModels.ProfileViewModel
 
 @{
-    ViewBag.Title = "My Profile";
+    ViewBag.Title = "PLAYER PROFILE";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card shadow border-0 text-center p-4">
-                <div class="card-body">
-                    <img src="https://ui-avatars.com/api/?name=@ViewBag.Username&background=0D6EFD&color=fff&size=128"
-                         class="rounded-circle mx-auto mb-3 shadow-sm"
-                         alt="Profile Avatar">
+<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h2 class="hub-title mb-0">@ViewBag.Title</h2>
+            <div class="badge bg-info text-dark shadow-sm">User Dashboard</div>
+        </div>
 
-                    <h2 class="fw-bold">@ViewBag.Username</h2>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="profile-card text-center shadow-lg h-100">
+                    <div class="profile-avatar-circle fw-bold shadow">
+                        @Model.Username.Substring(0, Math.Min(2, Model.Username.Length)).ToUpper()
+                    </div>
 
-                    <p class="mb-3">
-                        <span class="badge rounded-pill bg-info text-dark px-3 py-2">
-                            <i class="bi bi-trophy-fill me-1"></i> @ViewBag.Rank
+                    <h3 class="text-white fw-bold mb-1">@Model.Username</h3>
+                    <p class="text-muted small mb-3">@Model.Email</p>
+
+                    <div class="mb-4">
+                        <span class="badge rounded-pill bg-info text-dark px-3 py-2 fw-bold shadow-sm">
+                            <i class="bi bi-trophy-fill me-1"></i> @Model.Rank
                         </span>
-                    </p>
+                    </div>
 
-                    <hr class="my-4" />
+                    <hr class="border-secondary opacity-25">
 
-                    <div class="row justify-content-center">
-                        <div class="col-6 border-end">
-                            <h4 class="text-warning fw-bold mb-0">⭐ @ViewBag.TotalStars</h4>
-                            <small class="text-muted text-uppercase" style="font-size: 0.7rem;">Stars Earned</small>
+                    <div class="row mt-4">
+                        <div class="col-6 border-end border-secondary border-opacity-25">
+                            <h4 class="text-warning fw-bold mb-0">@Model.TotalStarsEarned</h4>
+                            <div class="text-muted small text-uppercase" style="font-size: 0.65rem;">Stars Earned</div>
                         </div>
                         <div class="col-6">
-                            <h4 class="text-primary fw-bold mb-0">@Model.Count()</h4>
-                            <small class="text-muted text-uppercase" style="font-size: 0.7rem;">Starred by Me</small>
+                            <h4 class="text-info fw-bold mb-0">@Model.FavoriteCollections.Count()</h4>
+                            <div class="text-muted small text-uppercase" style="font-size: 0.65rem;">Starred</div>
                         </div>
                     </div>
 
-                    <div class="mt-4 d-grid gap-2">
-                        <a asp-controller="Collection" asp-action="Mine" class="btn btn-primary">
-                            <i class="bi bi-pencil-square"></i> Manage My Collection
+                    <div class="d-grid mt-5 pt-3">
+                        <a asp-controller="Collection" asp-action="Mine" class="btn btn-outline-info rounded-pill fw-bold shadow-sm py-2">
+                            <i class="bi bi-pencil-square me-2"></i> Manage Collection
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-8">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold mb-0">My Favorites</h2>
-                <span class="text-muted">Collections you've starred</span>
-            </div>
-
-            @if (!Model.Any())
-            {
-                <div class="card border-dashed bg-light text-center p-5">
-                    <div class="card-body">
-                        <i class="bi bi-star-half display-1 text-muted mb-3"></i>
-                        <h4>Your favorites list is empty</h4>
-                        <p class="text-muted">Explore the community and star your favorite Big Three collections!</p>
-                        <a asp-controller="Collection" asp-action="All" class="btn btn-outline-primary mt-2">Explore Collections</a>
+            <div class="col-lg-8">
+                <div class="profile-card shadow-lg h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="text-white fw-bold mb-0">My Favorites</h4>
+                        <span class="text-muted small fst-italic">Collections you've starred</span>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="row row-cols-1 g-3">
-                    @foreach (var item in Model)
+
+                    @if (!Model.FavoriteCollections.Any())
                     {
-                        <div class="col">
-                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@item.Id"
-                               class="card h-100 shadow-sm text-decoration-none text-dark hover-effect border-0">
-                                <div class="card-body d-flex align-items-center p-3">
-                                    <div class="me-3 bg-light rounded p-2" style="width: 80px; height: 80px;">
-                                        <img src="@item.GameImages.FirstOrDefault()"
-                                             class="img-fluid h-100 w-100"
-                                             style="object-fit: contain;"
-                                             alt="Collection Thumb">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h5 class="mb-1 fw-bold">@item.Title</h5>
-                                        <p class="mb-0 text-muted small">
-                                            <i class="bi bi-person-circle"></i> Curated by @item.Publisher
-                                        </p>
+                        <div class="text-center py-5">
+                            <div class="opacity-25 mb-3">
+                                <i class="bi bi-star" style="font-size: 4rem;"></i>
+                            </div>
+                            <p class="text-muted">You haven't starred any collections yet.</p>
+                            <a asp-controller="Collection" asp-action="All" class="btn btn-sm btn-outline-warning rounded-pill px-4 mt-2 fw-bold">Explore Hub</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="favorites-scroll-area">
+                            @foreach (var fav in Model.FavoriteCollections)
+                            {
+                                <div class="favorite-item p-3 mb-3 d-flex align-items-center justify-content-between shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3 bg-dark rounded p-1" style="width: 70px; height: 45px;">
+                                            <img src="@fav.GameImages.FirstOrDefault()"
+                                                 class="img-fluid h-100 w-100 rounded"
+                                                 style="object-fit: contain;"
+                                                 alt="Game Preview" />
+                                        </div>
+                                        <div>
+                                            <h6 class="text-white fw-bold mb-0">@fav.Title</h6>
+                                            <small class="text-muted">by @fav.Publisher</small>
+                                        </div>
                                     </div>
                                     <div class="text-end">
-                                        <span class="h5 text-warning fw-bold mb-0">⭐ @item.TotalStars</span>
-                                        <div class="text-muted small">Stars</div>
+                                        <span class="text-warning fw-bold">⭐ @fav.TotalStars</span>
+                                        <div class="mt-1">
+                                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@fav.Id"
+                                               class="btn btn-sm btn-link text-info p-0 text-decoration-none fw-bold">
+                                                View <i class="bi bi-chevron-right small"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </a>
+                            }
                         </div>
                     }
                 </div>
-            }
+            </div>
         </div>
     </div>
 </div>
-
-<style>
-    .hover-effect:hover {
-        background-color: #f8f9fa;
-        transform: translateY(-2px);
-        transition: all 0.2s ease-in-out;
-    }
-
-    .border-dashed {
-        border: 2px dashed #dee2e6;
-    }
-</style>
