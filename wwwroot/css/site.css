@@ -225,3 +225,164 @@ footer a, .footer a {
     text-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
 }
 
+
+.row.justify-content-center + div,
+section form#account {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    color: white;
+}
+
+
+section h2, section h3, section h4, .form-label {
+    color: white !important;
+}
+
+
+.form-floating input.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 10px !important;
+}
+
+.form-floating label {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+
+#login-submit {
+    background: var(--primary-cyan);
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    padding: 12px;
+    transition: transform 0.2s ease;
+}
+
+    #login-submit:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(13, 202, 240, 0.4);
+    }
+
+
+section hr {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+section a {
+    color: var(--primary-cyan) !important;
+    text-decoration: none;
+}
+
+    section a:hover {
+        text-decoration: underline;
+    }
+
+
+body:has(#registerSubmit) {
+    background: radial-gradient(circle at center, #1a1d20 0%, #0b0c0d 100%) !important;
+    min-height: 100vh;
+}
+
+
+    body:has(#registerSubmit) .row {
+        justify-content: center !important;
+        margin-top: 5rem;
+    }
+
+    body:has(#registerSubmit) section form#register {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+
+#registerSubmit {
+    background: var(--primary-cyan) !important;
+    color: #000 !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px !important;
+    border: none !important;
+    padding: 12px !important;
+    margin-top: 1rem;
+    transition: all 0.3s ease !important;
+}
+
+    #registerSubmit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(13, 202, 240, 0.4);
+        filter: brightness(1.1);
+    }
+
+
+body:has(#registerSubmit) h3,
+body:has(#registerSubmit) h2 {
+    color: white !important;
+    font-weight: 700;
+}
+
+body:has(#registerSubmit) .text-danger {
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+
+.nav-pills .nav-link {
+    border-radius: 12px !important;
+    color: white !important;
+    transition: all 0.3s ease;
+    margin-bottom: 5px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+    .nav-pills .nav-link.active,
+    .nav-pills .show > .nav-link {
+        background-color: var(--primary-cyan) !important;
+        color: #000 !important;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(13, 202, 240, 0.3);
+    }
+
+    .nav-pills .nav-link:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+
+.manage-account-card,
+div:has(> #profile-form) {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+}
+
+
+#update-profile-button,
+#change-password-button,
+#set-password-button,
+#download-data {
+    background: var(--primary-cyan) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    padding: 10px 30px !important;
+    margin-top: 1rem;
+    transition: transform 0.2s ease;
+}
+
+    #update-profile-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13, 202, 240, 0.4);
+    }

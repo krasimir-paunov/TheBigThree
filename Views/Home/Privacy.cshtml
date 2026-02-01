@@ -1,6 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@* *@
+@{
+    ViewData["Title"] = "PRIVACY POLICY";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+        
+        <div class="text-center mb-5">
+            <h1 class="hub-title mb-0">@ViewData["Title"]</h1>
+            <div class="badge bg-info text-dark shadow-sm">Your Data Security</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="collection-card p-5 shadow-lg">
+                    <section class="mb-5">
+                        <h4 class="text-info fw-bold mb-3"><i class="bi bi-shield-lock me-2"></i> Our Commitment</h4>
+                        <p class="text-light opacity-75" style="line-height: 1.8;">
+                            At <strong>The Big Three</strong>, we value your curation as much as you do. This policy outlines how we handle the information you provide when creating and sharing your ultimate game collections.
+                        </p>
+                    </section>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="game-edit-slot h-100">
+                                <h5 class="text-warning fw-bold mb-3"><i class="bi bi-person-badge me-2"></i> What We Collect</h5>
+                                <ul class="text-light opacity-75 small list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check2 text-info me-2"></i> Account credentials (email/username)</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-info me-2"></i> Your curated game titles & descriptions</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-info me-2"></i> Community interactions (stars given/received)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="game-edit-slot h-100">
+                                <h5 class="text-warning fw-bold mb-3"><i class="bi bi-eye-slash me-2"></i> How We Use It</h5>
+                                <ul class="text-light opacity-75 small list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check2 text-info me-2"></i> To display your collection in the Community Hub</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-info me-2"></i> To calculate your Collector Rank</li>
+                                    <li class="mb-2"><i class="bi bi-check2 text-info me-2"></i> To personalize your player dashboard</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="mb-4">
+                        <h4 class="text-info fw-bold mb-3"><i class="bi bi-hdd-network me-2"></i> Data Retention</h4>
+                        <p class="text-light opacity-75" style="line-height: 1.8;">
+                            Your collection data remains on our secure servers as long as your account is active. 
+                            If you choose to use the <strong>Delete</strong> functionality, your collection and its associated stars are purged from our database immediately.
+                        </p>
+                    </section>
+
+                    <div class="text-center mt-5 pt-4 border-top border-secondary border-opacity-25">
+                        <p class="text-muted small">Last Updated: February 2026</p>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-info rounded-pill px-4 fw-bold mt-2">
+                            Return to HQ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

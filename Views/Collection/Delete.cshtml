@@ -1,18 +1,47 @@
 ﻿@model CollectionDetailsViewModel
 
-<div class="container mt-5">
-    <div class="card border-danger shadow">
-        <div class="card-header bg-danger text-white">
-            <h2 class="text-center mb-0">Confirm Deletion</h2>
-        </div>
-        <div class="card-body text-center">
-            <p class="lead">Are you sure you want to delete your collection: <strong>"@Model.Title"</strong>?</p>
-            <p class="text-muted">This will remove all 3 games and your total star count. This action cannot be undone.</p>
+@{
+    ViewBag.Title = "CONFIRM DELETION";
+}
 
-            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="mt-4">
-                <button type="submit" class="btn btn-danger btn-lg px-5">Yes, Delete Everything</button>
-                <a asp-action="Mine" class="btn btn-secondary btn-lg px-5">Cancel</a>
-            </form>
+<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="glass-danger-card shadow-lg text-center">
+
+                    <div class="mb-4">
+                        <i class="bi bi-exclamation-triangle-fill text-danger-glow" style="font-size: 4rem;"></i>
+                    </div>
+
+                    <h2 class="hub-title text-danger-glow mb-4">@ViewBag.Title</h2>
+
+                    <div class="mb-5">
+                        <p class="lead text-white">
+                            Are you sure you want to delete your collection: <br />
+                            <strong class="text-warning">"@Model.Title"</strong>?
+                        </p>
+                        <p class="text-muted small px-lg-5">
+                            This will remove all 3 games and your total star count.
+                            <span class="text-danger fw-bold">This action cannot be undone.</span>
+                        </p>
+                    </div>
+
+                    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <button type="submit" class="btn btn-danger btn-lg px-5 rounded-pill fw-bold shadow">
+                                <i class="bi bi-trash3-fill me-2"></i> Yes, Delete Everything
+                            </button>
+
+                            <a asp-action="Mine" class="btn btn-outline-light btn-lg px-5 rounded-pill fw-bold opacity-75">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
