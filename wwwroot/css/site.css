@@ -20,3 +20,36 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+body {
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+.hero-btn {
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .hero-btn:hover {
+        transform: scale(1.05);
+        background-color: #0dcaf0;
+        box-shadow: 0 0 20px rgba(13, 202, 240, 0.4);
+    }
+
+.hero-btn-outline:hover {
+    background-color: rgba(255,255,255,0.1);
+    transform: scale(1.05);
+}
+
+footer a, .footer a {
+    color: #adb5bd !important; 
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    footer a:hover {
+        color: #ffc107 !important; 
+        text-decoration: underline;
+    }
