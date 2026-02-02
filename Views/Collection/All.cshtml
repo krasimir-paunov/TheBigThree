@@ -39,6 +39,25 @@
                 </div>
             }
 
+            <div class="container mb-4">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-white-50 small fw-bold text-uppercase me-2" style="letter-spacing: 1.5px; font-size: 0.7rem;">Sort by:</span>
+
+                    <a asp-action="All" asp-route-sorting="Newest"
+                       class="btn btn-sm @(ViewBag.CurrentSort == "Newest" || string.IsNullOrEmpty(ViewBag.CurrentSort) ? "btn-info" : "btn-outline-info") rounded-pill px-3 py-1"
+                       style="font-size: 0.7rem; font-weight: 700;">
+                        <i class="bi bi-clock-history me-1"></i> NEWEST
+                    </a>
+
+                    <a asp-action="All" asp-route-sorting="Stars"
+                       class="btn btn-sm @(ViewBag.CurrentSort == "Stars" ? "btn-info" : "btn-outline-info") rounded-pill px-3 py-1"
+                       style="font-size: 0.7rem; font-weight: 700;">
+                        <i class="bi bi-star-fill me-1"></i> STARS
+                    </a>
+                </div>
+                <hr class="border-secondary opacity-25 mt-3" />
+            </div>
+
             @foreach (var collection in Model)
             {
                 <div class="col-lg-4 col-md-6 d-flex justify-content-center mb-5">
