@@ -18,9 +18,12 @@ namespace TheBigThree.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string sorting)
         {
-            var model = await collectionService.GetAllCollectionsAsync();
+            var model = await collectionService.GetAllCollectionsAsync(sorting);
+
+
+            ViewBag.CurrentSort = sorting;
 
             if (User.Identity?.IsAuthenticated == true)
             {

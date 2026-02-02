@@ -4,7 +4,7 @@ namespace TheBigThree.Contracts
 {
     public interface ICollectionService
     {
-        Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync();
+        Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync(string? sorting = null);
         Task<IEnumerable<CollectionAllViewModel>> GetMineCollectionsAsync(string userId);
 
         Task<CollectionFormViewModel> GetNewAddFormModelAsync();

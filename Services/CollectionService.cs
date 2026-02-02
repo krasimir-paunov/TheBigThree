@@ -15,9 +15,18 @@ public class CollectionService : ICollectionService
         this.dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync()
+    public async Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync(string? sorting = null)
     {
-        var data = await dbContext.Collections
+        var collectionsQuery = dbContext.Collections.AsQueryable();
+
+        collectionsQuery = sorting switch
+        {
+            "Stars" => collectionsQuery.OrderByDescending(c => c.TotalStars),
+            "Newest" => collectionsQuery.OrderByDescending(c => c.CreatedOn),
+            _ => collectionsQuery.OrderByDescending(c => c.CreatedOn)
+        };
+
+        var data = await collectionsQuery
                 .AsNoTracking()
                 .Select(c => new
                 {
@@ -41,7 +50,7 @@ public class CollectionService : ICollectionService
                 >= 30 => "Superstar Collector",
                 >= 10 => "Popular Collector",
                 >= 5 => "Rising Star",
-                > 0 => "Novice Collector",
+                >= 1 => "Novice Collector",
                 _ => "Newcomer"
             },
 
