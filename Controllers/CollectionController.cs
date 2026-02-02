@@ -79,7 +79,7 @@ namespace TheBigThree.Controllers
 
             await collectionService.AddCollectionAsync(model, userId);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Mine));
         }
 
         [HttpGet]
