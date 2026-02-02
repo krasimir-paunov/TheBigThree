@@ -224,7 +224,17 @@ public class CollectionService : ICollectionService
 
         if (collection != null)
         {
+            var associatedLikes = await dbContext.Likes
+                .Where(l => l.CollectionId == id)
+                .ToListAsync();
+
+            if (associatedLikes.Any())
+            {
+                dbContext.Likes.RemoveRange(associatedLikes);
+            }
+
             dbContext.Games.RemoveRange(collection.Games);
+
             dbContext.Collections.Remove(collection);
 
             await dbContext.SaveChangesAsync();
