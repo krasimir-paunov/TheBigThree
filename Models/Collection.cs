@@ -16,6 +16,8 @@ namespace TheBigThree.Models
 
         public int TotalStars { get; set; }
 
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
         [Required]
         public string UserId { get; set; } = null!;
 
