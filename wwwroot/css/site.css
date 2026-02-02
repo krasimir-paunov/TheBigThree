@@ -4,6 +4,10 @@
     --dark-bg: #000;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --transition-speed: 0.3s ease;
+
+    /* Fonts */
+    --heading-font: "Segoe UI Black", "Arial Black", Gadget, sans-serif;
+    --body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 html {
@@ -19,12 +23,30 @@ html {
 }
 
 body {
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin-bottom: 60px;
     overflow-x: hidden;
     background-color: var(--dark-bg);
     color: white;
 }
 
+/* --- Headings --- */
+h1, h2, h3, h4, h5, h6, .hub-title, .card-title-gold {
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hub-title {
+    color: #f8f9fa;
+    font-weight: 800;
+    letter-spacing: 2px;
+    opacity: 0.9;
+}
+
+/* --- Global Elements --- */
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus,
 .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -41,9 +63,11 @@ footer a, .footer a {
         text-decoration: underline;
     }
 
+/* --- Navbar --- */
 .navbar-nav .nav-link {
     position: relative;
     transition: color var(--transition-speed);
+    font-weight: 500;
 }
 
     .navbar-nav .nav-link:hover {
@@ -66,10 +90,17 @@ footer a, .footer a {
             border-radius: 2px;
         }
 
+/* --- Hero & Hub Elements --- */
+.hero-section {
+    background-color: #000;
+    image-rendering: -webkit-optimize-contrast;
+}
+
 .hero-btn {
     transition: all var(--transition-speed);
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-family: var(--heading-font);
 }
 
     .hero-btn:hover {
@@ -87,14 +118,6 @@ footer a, .footer a {
     background: radial-gradient(circle at top, #1c1c1e 0%, #0a0a0a 100%);
     min-height: 100vh;
     padding: 3rem 0 5rem 0;
-}
-
-.hub-title {
-    color: #f8f9fa;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0.9;
 }
 
 .collection-card {
@@ -130,18 +153,7 @@ footer a, .footer a {
         border-color: white;
     }
 
-.btn-warning.rounded-pill {
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-    .btn-warning.rounded-pill:hover {
-        background-color: transparent !important;
-        color: var(--accent-yellow) !important;
-        border-color: var(--accent-yellow);
-        transform: translateY(-2px);
-    }
-
+/* --- Profile & Lists --- */
 .profile-card {
     background: var(--glass-bg);
     backdrop-filter: blur(15px);
@@ -160,6 +172,7 @@ footer a, .footer a {
     height: 120px;
     background: linear-gradient(135deg, #0dcaf0 0%, #007bff 100%);
     color: white;
+    font-family: var(--heading-font);
     font-size: 3rem;
     display: flex;
     align-items: center;
@@ -181,6 +194,7 @@ footer a, .footer a {
         transform: translateX(5px);
     }
 
+/* --- Forms & Containers --- */
 .glass-form-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
@@ -191,6 +205,7 @@ footer a, .footer a {
 }
 
 .glass-input {
+    font-family: var(--body-font);
     background: rgba(0, 0, 0, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: white !important;
@@ -217,157 +232,38 @@ footer a, .footer a {
     border: 1px solid rgba(220, 53, 69, 0.3);
     border-radius: 20px;
     padding: 3rem;
-    color: white;
 }
 
 .text-danger-glow {
     color: #ff4d4d;
     text-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+    font-family: var(--heading-font);
 }
 
-
+/* --- Identity (Login/Register) --- */
+section form#account,
+section form#register,
 .row.justify-content-center + div,
-section form#account {
-    background: rgba(255, 255, 255, 0.05);
+.manage-account-card,
+div:has(> #profile-form) {
+    background: rgba(255, 255, 255, 0.05) !important;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 2.5rem;
-    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 2.5rem !important;
 }
-
-
-section h2, section h3, section h4, .form-label {
-    color: white !important;
-}
-
 
 .form-floating input.form-control {
     background: rgba(0, 0, 0, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: white !important;
     border-radius: 10px !important;
+    font-family: var(--body-font);
 }
 
-.form-floating label {
-    color: rgba(255, 255, 255, 0.6) !important;
-}
-
-
-#login-submit {
-    background: var(--primary-cyan);
-    border: none;
-    border-radius: 50px;
-    font-weight: bold;
-    padding: 12px;
-    transition: transform 0.2s ease;
-}
-
-    #login-submit:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 15px rgba(13, 202, 240, 0.4);
-    }
-
-
-section hr {
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-section a {
-    color: var(--primary-cyan) !important;
-    text-decoration: none;
-}
-
-    section a:hover {
-        text-decoration: underline;
-    }
-
-
-body:has(#registerSubmit) {
-    background: radial-gradient(circle at center, #1a1d20 0%, #0b0c0d 100%) !important;
-    min-height: 100vh;
-}
-
-
-    body:has(#registerSubmit) .row {
-        justify-content: center !important;
-        margin-top: 5rem;
-    }
-
-    body:has(#registerSubmit) section form#register {
-        background: rgba(255, 255, 255, 0.05) !important;
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 3rem;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-
-
-#registerSubmit {
-    background: var(--primary-cyan) !important;
-    color: #000 !important;
-    font-weight: 900 !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 50px !important;
-    border: none !important;
-    padding: 12px !important;
-    margin-top: 1rem;
-    transition: all 0.3s ease !important;
-}
-
-    #registerSubmit:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(13, 202, 240, 0.4);
-        filter: brightness(1.1);
-    }
-
-
-body:has(#registerSubmit) h3,
-body:has(#registerSubmit) h2 {
-    color: white !important;
-    font-weight: 700;
-}
-
-body:has(#registerSubmit) .text-danger {
-    font-weight: bold;
-    font-size: 0.8rem;
-}
-
-
-.nav-pills .nav-link {
-    border-radius: 12px !important;
-    color: white !important;
-    transition: all 0.3s ease;
-    margin-bottom: 5px;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-    .nav-pills .nav-link.active,
-    .nav-pills .show > .nav-link {
-        background-color: var(--primary-cyan) !important;
-        color: #000 !important;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(13, 202, 240, 0.3);
-    }
-
-    .nav-pills .nav-link:hover:not(.active) {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-
-.manage-account-card,
-div:has(> #profile-form) {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 2rem;
-    color: white;
-}
-
-
+/* Buttons in Identity */
+#login-submit,
+#registerSubmit,
 #update-profile-button,
 #change-password-button,
 #set-password-button,
@@ -376,13 +272,42 @@ div:has(> #profile-form) {
     border: none !important;
     border-radius: 50px !important;
     color: #000 !important;
-    font-weight: bold !important;
-    padding: 10px 30px !important;
-    margin-top: 1rem;
-    transition: transform 0.2s ease;
+    font-family: var(--heading-font);
+    font-weight: 900 !important;
+    padding: 12px 30px !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase;
 }
 
-    #update-profile-button:hover {
+    #login-submit:hover, #registerSubmit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(13, 202, 240, 0.4);
+        box-shadow: 0 0 15px rgba(13, 202, 240, 0.4);
     }
+
+.nav-pills .nav-link {
+    border-radius: 12px !important;
+    color: white !important;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: var(--body-font);
+}
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-cyan) !important;
+        color: #000 !important;
+    }
+
+
+/* Removes the default gap between Nav and Content */
+main.pb-3 {
+    padding-top: 0 !important;
+}
+
+/* Ensures the background wrappers start exactly at the top */
+.hub-background, .mine-background {
+    margin-top: 0 !important;
+}
+
+/* Fixes default Bootstrap navbar margin if it exists */
+.navbar {
+    margin-bottom: 0 !important;
+}

@@ -4,6 +4,24 @@
     ViewBag.Title = "COMMUNITY HUB";
 }
 
+@section Styles {
+    <style>
+        .hub-background {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/images/backgrounds/mine-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .collection-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+}
+
 <div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
     <div class="container">
 
