@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBigThree.Data;
 
@@ -11,9 +12,11 @@ using TheBigThree.Data;
 namespace TheBigThree.Migrations
 {
     [DbContext(typeof(TheBigThreeDbContext))]
-    partial class TheBigThreeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260203072625_FinalLongSeed")]
+    partial class FinalLongSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,6 +140,40 @@ namespace TheBigThree.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "48668352-3932-411a-966a-123456789012",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bafcfe9e-b0a2-47a7-b17e-2217c96f649c",
+                            Email = "geralt@kaermorhen.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "GERALT@KAERMORHEN.COM",
+                            NormalizedUserName = "GERALTOFRIVIA",
+                            PasswordHash = "AQAAAAIAAYagAAAAECI3DvNrudh1T0lLAEw+gRfhXAcBVgNG+hTt6da5j5NyuHoEU2uGqnbK7CWITEY6Cw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4c176def-4b52-4c10-b605-f59e54bdc282",
+                            TwoFactorEnabled = false,
+                            UserName = "GeraltOfRivia"
+                        },
+                        new
+                        {
+                            Id = "7c13958c-362c-4493-979d-098765432109",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c118dcc4-9b3f-4493-96c7-c08b2f804047",
+                            Email = "shepard@normandy.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SHEPARD@NORMANDY.COM",
+                            NormalizedUserName = "COMMANDERSHEPARD",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGUyZwakLfIC7wZqfAbIIMB8eTNpuH2um+YnKor9nrg73PVLLwp78qq8e42KuGDAcA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f4a82053-59c8-4e82-ac8a-b04b34737dde",
+                            TwoFactorEnabled = false,
+                            UserName = "CommanderShepard"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -252,6 +289,24 @@ namespace TheBigThree.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Collections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2026, 1, 29, 7, 26, 25, 319, DateTimeKind.Utc).AddTicks(9855),
+                            Title = "Masterpieces of Atmosphere",
+                            TotalStars = 5,
+                            UserId = "48668352-3932-411a-966a-123456789012"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2026, 2, 1, 7, 26, 25, 319, DateTimeKind.Utc).AddTicks(9860),
+                            Title = "Sci-Fi and Soul",
+                            TotalStars = 1,
+                            UserId = "7c13958c-362c-4493-979d-098765432109"
+                        });
                 });
 
             modelBuilder.Entity("TheBigThree.Models.Game", b =>
@@ -290,6 +345,62 @@ namespace TheBigThree.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CollectionId = 1,
+                            Description = "The Witcher 3: Wild Hunt is a genre-defining open-world RPG that sets a monumental standard for narrative depth and world-building. Following the journey of Geralt of Rivia, the game weaves a complex tapestry of political intrigue, personal loss, and mythical horror. Every side quest feels like a handcrafted story, often presenting morally grey choices that ripple throughout the Continent, ensuring that no two playthroughs ever feel exactly the same.",
+                            GenreId = 3,
+                            ImageUrl = "/images/seed/witcher3.jpg",
+                            Title = "The Witcher 3"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CollectionId = 1,
+                            Description = "Elden Ring is a masterclass in environmental storytelling and player agency, born from the legendary collaboration between FromSoftware and George R.R. Martin. The Lands Between offers an unparalleled sense of discovery, where every horizon hides a secret, a challenge, or a piece of haunting lore. Its combat system is deep and rewarding, allowing for endless build variety while maintaining the signature 'tough but fair' difficulty that defines the Soulslike genre.",
+                            GenreId = 19,
+                            ImageUrl = "/images/seed/eldenring.jpg",
+                            Title = "Elden Ring"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CollectionId = 1,
+                            Description = "Silent Hill 2 remains the gold standard for psychological horror, utilizing atmosphere and symbolism to explore the darkest corners of the human psyche. The journey of James Sunderland is not merely a survival horror experience but a deeply personal exploration of guilt, punishment, and redemption. Supported by Akira Yamaoka's legendary score and an oppressive fog that conceals grotesque manifestations of trauma, it is a game that haunts the player long after the credits roll.",
+                            GenreId = 8,
+                            ImageUrl = "/images/seed/silenthill2.jpg",
+                            Title = "Silent Hill 2"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CollectionId = 2,
+                            Description = "The original Dark Souls is a landmark achievement in level design, featuring a world that is intricately interconnected in ways that still baffle and delight players today. It revitalized the concept of discovery through trial and error, punishing recklessness while rewarding patience and observation. From the heights of Anor Londo to the depths of Blighttown, its somber atmosphere and cryptic lore created a legacy that spawned an entire sub-genre of modern action-RPGs.",
+                            GenreId = 19,
+                            ImageUrl = "/images/seed/darksouls.jpg",
+                            Title = "Dark Souls"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CollectionId = 2,
+                            Description = "Mass Effect 2 represents the pinnacle of squad-based storytelling, focusing on the assembly of a diverse team of specialists for a high-stakes suicide mission against the Collectors. The game expertly balances fast-paced tactical combat with profound character interactions, where loyalty missions provide deep insight into your companions' pasts. The choices made by Commander Shepard carry immense weight, culminating in a finale that remains one of the most intense and emotional sequences in gaming history.",
+                            GenreId = 3,
+                            ImageUrl = "/images/seed/masseffect2.jpg",
+                            Title = "Mass Effect 2"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CollectionId = 2,
+                            Description = "Cyberpunk 2077 offers a breathtakingly dense vision of a dystopian future within the neon-soaked sprawl of Night City. Playing as V, players navigate a dangerous world of corporate warfare, cybernetic enhancement, and mercenary survival. The narrative is a deeply personal one, exploring themes of identity and legacy alongside the digital ghost of Johnny Silverhand. With its vastly improved systems and immersive first-person perspective, it delivers a uniquely visceral and stylish RPG experience.",
+                            GenreId = 3,
+                            ImageUrl = "/images/seed/cyberpunk2077.jpg",
+                            Title = "Cyberpunk 2077"
+                        });
                 });
 
             modelBuilder.Entity("TheBigThree.Models.Genre", b =>
@@ -384,6 +495,26 @@ namespace TheBigThree.Migrations
                         {
                             Id = 15,
                             Name = "Survival"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Action/Adventure"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Roguelike"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Metroidvania"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Soulslike"
                         });
                 });
 

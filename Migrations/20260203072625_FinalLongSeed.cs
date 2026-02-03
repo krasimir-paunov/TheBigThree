@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace TheBigThree.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDbSchemaWithSeed : Migration
+    public partial class FinalLongSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -178,6 +179,7 @@ namespace TheBigThree.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     TotalStars = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -245,6 +247,15 @@ namespace TheBigThree.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "48668352-3932-411a-966a-123456789012", 0, "bafcfe9e-b0a2-47a7-b17e-2217c96f649c", "geralt@kaermorhen.com", false, false, null, "GERALT@KAERMORHEN.COM", "GERALTOFRIVIA", "AQAAAAIAAYagAAAAECI3DvNrudh1T0lLAEw+gRfhXAcBVgNG+hTt6da5j5NyuHoEU2uGqnbK7CWITEY6Cw==", null, false, "4c176def-4b52-4c10-b605-f59e54bdc282", false, "GeraltOfRivia" },
+                    { "7c13958c-362c-4493-979d-098765432109", 0, "c118dcc4-9b3f-4493-96c7-c08b2f804047", "shepard@normandy.com", false, false, null, "SHEPARD@NORMANDY.COM", "COMMANDERSHEPARD", "AQAAAAIAAYagAAAAEGUyZwakLfIC7wZqfAbIIMB8eTNpuH2um+YnKor9nrg73PVLLwp78qq8e42KuGDAcA==", null, false, "f4a82053-59c8-4e82-ac8a-b04b34737dde", false, "CommanderShepard" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Genres",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -263,7 +274,33 @@ namespace TheBigThree.Migrations
                     { 12, "Puzzle" },
                     { 13, "MMORPG" },
                     { 14, "Stealth" },
-                    { 15, "Survival" }
+                    { 15, "Survival" },
+                    { 16, "Action/Adventure" },
+                    { 17, "Roguelike" },
+                    { 18, "Metroidvania" },
+                    { 19, "Soulslike" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Collections",
+                columns: new[] { "Id", "CreatedOn", "Title", "TotalStars", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 1, 29, 7, 26, 25, 319, DateTimeKind.Utc).AddTicks(9855), "Masterpieces of Atmosphere", 5, "48668352-3932-411a-966a-123456789012" },
+                    { 2, new DateTime(2026, 2, 1, 7, 26, 25, 319, DateTimeKind.Utc).AddTicks(9860), "Sci-Fi and Soul", 1, "7c13958c-362c-4493-979d-098765432109" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Games",
+                columns: new[] { "Id", "CollectionId", "Description", "GenreId", "ImageUrl", "Title" },
+                values: new object[,]
+                {
+                    { 1, 1, "The Witcher 3: Wild Hunt is a genre-defining open-world RPG that sets a monumental standard for narrative depth and world-building. Following the journey of Geralt of Rivia, the game weaves a complex tapestry of political intrigue, personal loss, and mythical horror. Every side quest feels like a handcrafted story, often presenting morally grey choices that ripple throughout the Continent, ensuring that no two playthroughs ever feel exactly the same.", 3, "/images/seed/witcher3.jpg", "The Witcher 3" },
+                    { 2, 1, "Elden Ring is a masterclass in environmental storytelling and player agency, born from the legendary collaboration between FromSoftware and George R.R. Martin. The Lands Between offers an unparalleled sense of discovery, where every horizon hides a secret, a challenge, or a piece of haunting lore. Its combat system is deep and rewarding, allowing for endless build variety while maintaining the signature 'tough but fair' difficulty that defines the Soulslike genre.", 19, "/images/seed/eldenring.jpg", "Elden Ring" },
+                    { 3, 1, "Silent Hill 2 remains the gold standard for psychological horror, utilizing atmosphere and symbolism to explore the darkest corners of the human psyche. The journey of James Sunderland is not merely a survival horror experience but a deeply personal exploration of guilt, punishment, and redemption. Supported by Akira Yamaoka's legendary score and an oppressive fog that conceals grotesque manifestations of trauma, it is a game that haunts the player long after the credits roll.", 8, "/images/seed/silenthill2.jpg", "Silent Hill 2" },
+                    { 4, 2, "The original Dark Souls is a landmark achievement in level design, featuring a world that is intricately interconnected in ways that still baffle and delight players today. It revitalized the concept of discovery through trial and error, punishing recklessness while rewarding patience and observation. From the heights of Anor Londo to the depths of Blighttown, its somber atmosphere and cryptic lore created a legacy that spawned an entire sub-genre of modern action-RPGs.", 19, "/images/seed/darksouls.jpg", "Dark Souls" },
+                    { 5, 2, "Mass Effect 2 represents the pinnacle of squad-based storytelling, focusing on the assembly of a diverse team of specialists for a high-stakes suicide mission against the Collectors. The game expertly balances fast-paced tactical combat with profound character interactions, where loyalty missions provide deep insight into your companions' pasts. The choices made by Commander Shepard carry immense weight, culminating in a finale that remains one of the most intense and emotional sequences in gaming history.", 3, "/images/seed/masseffect2.jpg", "Mass Effect 2" },
+                    { 6, 2, "Cyberpunk 2077 offers a breathtakingly dense vision of a dystopian future within the neon-soaked sprawl of Night City. Playing as V, players navigate a dangerous world of corporate warfare, cybernetic enhancement, and mercenary survival. The narrative is a deeply personal one, exploring themes of identity and legacy alongside the digital ghost of Johnny Silverhand. With its vastly improved systems and immersive first-person perspective, it delivers a uniquely visceral and stylish RPG experience.", 3, "/images/seed/cyberpunk2077.jpg", "Cyberpunk 2077" }
                 });
 
             migrationBuilder.CreateIndex(
