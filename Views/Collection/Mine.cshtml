@@ -42,7 +42,7 @@
             }
             else
             {
-                @foreach (var collection in Model)
+                @foreach (CollectionAllViewModel collection in Model)
                 {
                     <div class="col-lg-4 col-md-6 d-flex justify-content-center mb-4">
                         <div class="card collection-card shadow-lg" style="width: 23rem;">
@@ -51,7 +51,7 @@
                                 <p class="text-warning fw-bold mb-4">⭐ @collection.TotalStars Stars</p>
 
                                 <div class="d-flex justify-content-between mb-4">
-                                    @foreach (var img in collection.GameImages)
+                                    @foreach (string img in collection.GameImages)
                                     {
                                         <div class="game-thumb-container rounded p-1" style="width: 30%; height: 70px;">
                                             <img src="@img" class="img-fluid h-100 w-100" style="object-fit: contain;" alt="Game">

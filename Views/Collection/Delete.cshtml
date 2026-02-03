@@ -17,6 +17,13 @@
 
                     <h2 class="hub-title text-danger-glow mb-4">@ViewBag.Title</h2>
 
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger shadow-sm mb-4">
+                            @TempData["Error"]
+                        </div>
+                    }
+
                     <div class="mb-5">
                         <p class="lead text-white">
                             Are you sure you want to delete your collection: <br />

@@ -16,6 +16,8 @@
             <div class="col-lg-11">
                 <form asp-action="Edit" asp-route-id="@Context.Request.RouteValues["id"]" method="post" class="glass-form-card shadow-lg p-4">
 
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger shadow-sm mb-4" style="font-size: 0.85rem;"></div>
+
                     <div class="mb-4">
                         <label asp-for="Title" class="form-label text-info fw-bold small text-uppercase" style="letter-spacing: 1px;">Collection Title</label>
                         <input asp-for="Title" class="form-control glass-input" placeholder="e.g., My Favorite RPGs" />

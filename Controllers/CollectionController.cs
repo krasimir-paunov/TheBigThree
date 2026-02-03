@@ -20,9 +20,7 @@ namespace TheBigThree.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All(string sorting)
         {
-            var model = await collectionService.GetAllCollectionsAsync(sorting);
-
-
+            IEnumerable<CollectionAllViewModel> hubCollections = await collectionService.GetAllCollectionsAsync(sorting);
             ViewBag.CurrentSort = sorting;
 
             if (User.Identity?.IsAuthenticated == true)
@@ -35,21 +33,33 @@ namespace TheBigThree.Controllers
                 ViewBag.UserHasCollection = false;
             }
 
-            return View(model);
+            return View(hubCollections);
         }
 
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            var model = await collectionService.GetMineCollectionsAsync(userId);
-            return View(model);
+            IEnumerable<CollectionAllViewModel> personalCollections = await collectionService.GetMineCollectionsAsync(userId);
+            return View(personalCollections);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            CollectionDetailsViewModel? collectionDetails = await collectionService.GetCollectionDetailsByIdAsync(id);
+            if (collectionDetails == null) return RedirectToAction(nameof(All));
+
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.IsStarred = userId != null && await collectionService.IsStarredByUserAsync(id, userId);
+
+            return View(collectionDetails);
         }
 
         [HttpGet]
@@ -62,78 +72,82 @@ namespace TheBigThree.Controllers
                 return RedirectToAction(nameof(Mine));
             }
 
-            var model = await collectionService.GetNewAddFormModelAsync();
-
-            return View(model);
+            CollectionFormViewModel newCollectionForm = await collectionService.GetNewAddFormModelAsync();
+            return View(newCollectionForm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CollectionFormViewModel model)
+        public async Task<IActionResult> Add(CollectionFormViewModel collectionInput)
         {
             if (!ModelState.IsValid)
             {
-                var refreshModel = await collectionService.GetNewAddFormModelAsync();
-                model.Games.ForEach(g => g.Genres = refreshModel.Games[0].Genres);
-
-                return View(model);
+                await RefreshGenreData(collectionInput);
+                return View(collectionInput);
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-            await collectionService.AddCollectionAsync(model, userId);
+            if (await collectionService.UserHasCollectionAsync(userId))
+            {
+                TempData["Error"] = "You already have a 'Big Three' collection!";
+                return RedirectToAction(nameof(Mine));
+            }
 
-            return RedirectToAction(nameof(Mine));
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
-        {
-            var model = await collectionService.GetCollectionDetailsByIdAsync(id);
-            if (model == null) return RedirectToAction(nameof(All));
-
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-
-            ViewBag.IsStarred = await collectionService.IsStarredByUserAsync(id, userId);
-
-            return View(model);
+            try
+            {
+                await collectionService.AddCollectionAsync(collectionInput, userId);
+                return RedirectToAction(nameof(Mine));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "An unexpected error occurred while saving. Please try again.");
+                await RefreshGenreData(collectionInput);
+                return View(collectionInput);
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            var model = await collectionService.GetCollectionForEditAsync(id, userId);
+            CollectionFormViewModel? existingCollection = await collectionService.GetCollectionForEditAsync(id, userId);
 
-            if (model == null) return RedirectToAction(nameof(Mine));
+            if (existingCollection == null) return RedirectToAction(nameof(Mine));
 
-            return View(model);
+            return View(existingCollection);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CollectionFormViewModel model)
+        public async Task<IActionResult> Edit(int id, CollectionFormViewModel updatedInput)
         {
             if (!ModelState.IsValid)
             {
-                var freshModel = await collectionService.GetNewAddFormModelAsync();
-                model.Games.ForEach(g => g.Genres = freshModel.Games[0].Genres);
-                return View(model);
+                await RefreshGenreData(updatedInput);
+                return View(updatedInput);
             }
 
-            await collectionService.EditCollectionAsync(model, id);
-
-            return RedirectToAction(nameof(Mine));
+            try
+            {
+                await collectionService.EditCollectionAsync(updatedInput, id);
+                return RedirectToAction(nameof(Mine));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to save changes. The database might be temporarily unavailable.");
+                await RefreshGenreData(updatedInput);
+                return View(updatedInput);
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            var model = await collectionService.GetCollectionForDeleteAsync(id, userId);
+            CollectionDetailsViewModel? collectionToDelete = await collectionService.GetCollectionForDeleteAsync(id, userId);
 
-            if (model == null) return RedirectToAction(nameof(Mine));
+            if (collectionToDelete == null) return RedirectToAction(nameof(Mine));
 
-            return View(model);
+            return View(collectionToDelete);
         }
 
         [HttpPost]
@@ -141,17 +155,37 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            await collectionService.DeleteCollectionAsync(id, userId);
 
-            return RedirectToAction(nameof(Mine));
+            try
+            {
+                await collectionService.DeleteCollectionAsync(id, userId);
+                return RedirectToAction(nameof(Mine));
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "An error occurred while trying to delete your collection.";
+                return RedirectToAction(nameof(Mine));
+            }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Star(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-            await collectionService.StarCollectionAsync(id, userId);
+            try
+            {
+                await collectionService.StarCollectionAsync(id, userId);
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Unexpected error during the Star operation.";
+            }
 
             return RedirectToAction(nameof(Details), new { id = id });
         }
@@ -161,9 +195,25 @@ namespace TheBigThree.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-            await collectionService.RemoveStarAsync(id, userId);
+            try
+            {
+                await collectionService.RemoveStarAsync(id, userId);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "An error occurred while removing your star.";
+            }
 
             return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        private async Task RefreshGenreData(CollectionFormViewModel formToRefresh)
+        {
+            CollectionFormViewModel freshData = await collectionService.GetNewAddFormModelAsync();
+            foreach (GameFormViewModel game in formToRefresh.Games)
+            {
+                game.Genres = freshData.Games[0].Genres;
+            }
         }
     }
 }

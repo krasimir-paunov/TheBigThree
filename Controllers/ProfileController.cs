@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheBigThree.Contracts;
-using TheBigThree.ViewModels; 
+using TheBigThree.ViewModels;
 
 namespace TheBigThree.Controllers
 {
@@ -19,33 +19,49 @@ namespace TheBigThree.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
-            string username = User.Identity?.Name?.Split('@')[0] ?? "Gamer";
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var totalStarsEarned = await collectionService.GetUserTotalStarsAsync(userId);
-            var starredCollections = await collectionService.GetStarredCollectionsAsync(userId);
-
-            string rank = totalStarsEarned switch
+            if (userId == null)
             {
-                >= 100 => "Legendary Collector",
-                >= 30 => "Superstar Collector",
-                >= 10 => "Popular Collector",
-                >= 5 => "Rising Star",
-                > 0 => "Novice Collector",
-                _ => "Newcomer"
-            };
+                return RedirectToAction("Login", "Account");
+            }
 
-            var viewModel = new ProfileViewModel
+            try
             {
-                Username = username,
-                Email = email,
-                Rank = rank,
-                TotalStarsEarned = totalStarsEarned,
-                FavoriteCollections = starredCollections
-            };
+                string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
+                string username = User.Identity?.Name?.Split('@')[0] ?? "Gamer";
 
-            return View(viewModel);
+                int totalStarsEarned = await collectionService.GetUserTotalStarsAsync(userId);
+                IEnumerable<CollectionAllViewModel> starredCollections = await collectionService.GetStarredCollectionsAsync(userId);
+
+                string rank = GetRankName(totalStarsEarned);
+
+                ProfileViewModel viewModel = new ProfileViewModel
+                {
+                    Username = username,
+                    Email = email,
+                    Rank = rank,
+                    TotalStarsEarned = totalStarsEarned,
+                    FavoriteCollections = starredCollections
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "We encountered a problem loading your profile. Please try again later.";
+                return RedirectToAction("Index", "Home");
+            }
         }
+
+        private string GetRankName(int stars) => stars switch
+        {
+            >= 100 => "Legendary Collector",
+            >= 30 => "Superstar Collector",
+            >= 10 => "Popular Collector",
+            >= 5 => "Rising Star",
+            >= 1 => "Novice Collector",
+            _ => "Newcomer"
+        };
     }
 }
