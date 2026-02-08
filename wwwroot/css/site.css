@@ -297,17 +297,15 @@ div:has(> #profile-form) {
     }
 
 
-/* Removes the default gap between Nav and Content */
+/* Remove the gap between Nav and Content */
 main.pb-3 {
     padding-top: 0 !important;
 }
 
-/* Ensures the background wrappers start exactly at the top */
 .hub-background, .mine-background {
     margin-top: 0 !important;
 }
 
-/* Fixes default Bootstrap navbar margin if it exists */
 .navbar {
     margin-bottom: 0 !important;
 }

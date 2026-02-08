@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheBigThree.Contracts;
-using TheBigThree.ViewModels;
+using TheBigThree.Web.ViewModels;
 
 namespace TheBigThree.Controllers
 {
