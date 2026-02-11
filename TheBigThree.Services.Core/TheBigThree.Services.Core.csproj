@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
+    <ProjectReference Include="..\TheBigThree.Data\TheBigThree.Data.csproj" />
+    <ProjectReference Include="..\TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

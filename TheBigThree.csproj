@@ -8,6 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TheBigThree.Data.Models\**" />
+    <Compile Remove="TheBigThree.Data\**" />
+    <Compile Remove="TheBigThree.GCommon\**" />
+    <Compile Remove="TheBigThree.Services.Core\**" />
+    <Compile Remove="TheBigThree.Web.ViewModels\**" />
+    <Content Remove="TheBigThree.Data.Models\**" />
+    <Content Remove="TheBigThree.Data\**" />
+    <Content Remove="TheBigThree.GCommon\**" />
+    <Content Remove="TheBigThree.Services.Core\**" />
+    <Content Remove="TheBigThree.Web.ViewModels\**" />
+    <EmbeddedResource Remove="TheBigThree.Data.Models\**" />
+    <EmbeddedResource Remove="TheBigThree.Data\**" />
+    <EmbeddedResource Remove="TheBigThree.GCommon\**" />
+    <EmbeddedResource Remove="TheBigThree.Services.Core\**" />
+    <EmbeddedResource Remove="TheBigThree.Web.ViewModels\**" />
+    <None Remove="TheBigThree.Data.Models\**" />
+    <None Remove="TheBigThree.Data\**" />
+    <None Remove="TheBigThree.GCommon\**" />
+    <None Remove="TheBigThree.Services.Core\**" />
+    <None Remove="TheBigThree.Web.ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.22" />
@@ -16,10 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheBigThree.Data\TheBigThree.Data.csproj" />
-    <ProjectReference Include="..\TheBigThree.GCommon\TheBigThree.GCommon.csproj" />
-    <ProjectReference Include="..\TheBigThree.Services.Core\TheBigThree.Services.Core.csproj" />
-    <ProjectReference Include="..\TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
+    <ProjectReference Include="TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
+    <ProjectReference Include="TheBigThree.Data\TheBigThree.Data.csproj" />
+    <ProjectReference Include="TheBigThree.GCommon\TheBigThree.GCommon.csproj" />
+    <ProjectReference Include="TheBigThree.Services.Core\TheBigThree.Services.Core.csproj" />
+    <ProjectReference Include="TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
