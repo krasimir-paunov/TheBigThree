@@ -27,8 +27,14 @@ namespace TheBigThree
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.AllowedForNewUsers = true;
+
             })
             .AddEntityFrameworkStores<TheBigThreeDbContext>();
+
+            builder.Services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
 
             builder.Services.AddControllersWithViews();
 
