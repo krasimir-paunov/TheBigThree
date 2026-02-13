@@ -112,6 +112,7 @@ footer a, .footer a {
 .hero-btn-outline:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: scale(1.05);
+    color: lightblue;
 }
 
 .hub-background {
@@ -144,12 +145,10 @@ footer a, .footer a {
 
 .game-thumb-container {
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.2s;
 }
 
     .game-thumb-container:hover {
-        transform: scale(1.05);
         border-color: white;
     }
 
@@ -295,17 +294,3 @@ div:has(> #profile-form) {
         background-color: var(--primary-cyan) !important;
         color: #000 !important;
     }
-
-
-/* Remove the gap between Nav and Content */
-main.pb-3 {
-    padding-top: 0 !important;
-}
-
-.hub-background, .mine-background {
-    margin-top: 0 !important;
-}
-
-.navbar {
-    margin-bottom: 0 !important;
-}
