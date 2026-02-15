@@ -69,20 +69,44 @@ User status is determined dynamically based on the **total number of stars** the
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Technologies Used
 
-The application uses:
-
-* ASP.NET Core MVC
-* Entity Framework Core
-* ASP.NET Identity (authentication & authorization)
-* MS SQL Server
-* Razor Views
-* Bootstrap
-* CSS
+| Category | Technology | Description |
+|----------|------------|-------------|
+| Backend | ASP.NET Core MVC (.NET 8) | Main web framework |
+| Database | Entity Framework Core | ORM, Code-First approach |
+| Security | ASP.NET Identity | Authentication & authorization |
+| Database | MS SQL Server / LocalDB | Relational database engine |
+| UI | Razor Views | Server-side rendering |
+| Frontend | Bootstrap 5 | Responsive design framework |
+| Styling | HTML & CSS | Custom UI styling |
 
 ---
+## ✅ Prerequisites
 
+Before running the project, make sure you have:
+
+- .NET SDK 8.0+
+- Visual Studio 2022 (recommended)
+- SQL Server / LocalDB
+- Git (optional, for cloning)
+---
+## 📁 Project Structure
+
+```text
+TheBigThree/
+  TheBigThree.Data/           # EF Core DbContext, migrations, seed data
+  TheBigThree.Models/         # Domain models and DTOs
+  TheBigThree.Services.Core/  # Business logic and service interfaces
+  TheBigThree.Web/            # ASP.NET Core MVC Web layer
+    Controllers/              # Request handling
+    Views/                    # UI Templates
+    ViewModels/               # View-specific models
+    wwwroot/                  # Static files
+    Program.cs                # Entry point
+  
+README.md                     # Project documentation
+```
 ## 🌱 Seeded Example Data
 
 To ensure the application is **not empty on first run**, the database includes:
@@ -192,5 +216,3 @@ This will:
 This project is created for **educational purposes**.
 
 ---
-
-🎮 *Built by a gamer, for gamers.*
