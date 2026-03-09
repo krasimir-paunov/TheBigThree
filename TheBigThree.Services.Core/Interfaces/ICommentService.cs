@@ -1,12 +1,12 @@
-﻿using TheBigThree.Data.Models;
+﻿using TheBigThree.Web.ViewModels;
 
 namespace TheBigThree.Services.Core.Interfaces
 {
     public interface ICommentService
     {
-        Task<Comment> GetCommentsByCollectionIdAsync(int collectionId);
+        Task<IEnumerable<CommentViewModel>> GetCommentsByCollectionIdAsync(int collectionId);
 
-        Task AddCommentAsync(string content, int collectionId, string userId);
+        Task AddCommentAsync(AddCommentViewModel content, int collectionId, string userId);
 
         Task DeleteCommentAsync(int commentId, string userId);
 

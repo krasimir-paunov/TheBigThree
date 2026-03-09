@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheBigThree.Services\TheBigThree.Services.csproj" />
     <ProjectReference Include="TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
     <ProjectReference Include="TheBigThree.Data\TheBigThree.Data.csproj" />
     <ProjectReference Include="TheBigThree.GCommon\TheBigThree.GCommon.csproj" />
