@@ -5,29 +5,30 @@ using static TheBigThree.GCommon.EntityValidation;
 
 namespace TheBigThree.Data.Models
 {
-    public class Collection
+    public class Comment
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(CollectionTitleMaxLength)]
-        public string Title { get; set; } = null!;
-
-        public int TotalStars { get; set; }
-
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        [MaxLength(CommentContentMaxLength)]
+        public string Content { get; set; } = null!;
 
         [Required]
+        public DateTime CreatedOn { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; } = null!;
 
         [Required]
-        [ForeignKey(nameof(UserId))]
         public virtual IdentityUser User { get; set; } = null!;
 
-        public virtual ICollection<Game> Games { get; set; } = new HashSet<Game>();
+        [Required]
+        [ForeignKey(nameof(Collection))]
+        public int CollectionId { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
-
+        [Required]
+        public virtual Collection Collection { get; set; } = null!;
     }
 }

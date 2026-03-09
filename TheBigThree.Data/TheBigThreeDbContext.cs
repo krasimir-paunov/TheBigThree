@@ -16,6 +16,7 @@ namespace TheBigThree.Data
         public virtual DbSet<Genre> Genres { get; set; } = null!;
         public virtual DbSet<Collection> Collections { get; set; } = null!;
         public virtual DbSet<Like> Likes { get; set; } = null!;
+        public virtual DbSet<Comment> Comments { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,6 +29,12 @@ namespace TheBigThree.Data
                 .HasOne(l => l.Collection)
                 .WithMany()
                 .HasForeignKey(l => l.CollectionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Comment>()
+                .HasOne(c => c.Collection)
+                .WithMany(c => c.Comments)
+                .HasForeignKey(c => c.CollectionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Genre>().HasData(

@@ -20,5 +20,9 @@
 
         // General
         public const int IdMinRange = 1;
+
+        //Comment
+        public const int CommentContentMinLength = 20;
+        public const int CommentContentMaxLength = 1000;
     }
 }
