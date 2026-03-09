@@ -216,6 +216,11 @@ public class CollectionService : ICollectionService
 
     public async Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId)
     {
+        Collection? collectionToDelete = await dbContext.Collections
+            .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
+
+        if (collectionToDelete == null) return null;
+        
         CollectionDetailsViewModel? deletionPreview = await GetCollectionDetailsByIdAsync(id);
         return deletionPreview;
     }
