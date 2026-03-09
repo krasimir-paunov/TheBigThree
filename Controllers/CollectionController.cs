@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TheBigThree.Contracts;
+using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Web.ViewModels;
 
 namespace TheBigThree.Controllers

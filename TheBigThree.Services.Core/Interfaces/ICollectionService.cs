@@ -1,6 +1,6 @@
 ﻿using TheBigThree.Web.ViewModels;
 
-namespace TheBigThree.Contracts
+namespace TheBigThree.Services.Core.Interfaces
 {
     public interface ICollectionService
     {

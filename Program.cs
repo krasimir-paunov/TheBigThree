@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TheBigThree.Contracts;
+using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Data;
 using TheBigThree.Services;
+using TheBigThree.Services.Core.Repositories;
+using TheBigThree.Services.Repositories;
 
 namespace TheBigThree
 {
@@ -39,6 +41,8 @@ namespace TheBigThree
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<ICollectionService, CollectionService>();
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             var app = builder.Build();
 
