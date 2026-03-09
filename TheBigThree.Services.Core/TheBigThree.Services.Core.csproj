@@ -12,8 +12,4 @@
     <ProjectReference Include="..\TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
