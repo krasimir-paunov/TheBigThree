@@ -4,6 +4,7 @@ namespace TheBigThree.Services.Core.Interfaces
 {
     public interface ICommentService
     {
+
         Task<IEnumerable<CommentViewModel>> GetCommentsByCollectionIdAsync(int collectionId);
 
         Task AddCommentAsync(AddCommentViewModel content, int collectionId, string userId);

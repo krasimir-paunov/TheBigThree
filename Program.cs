@@ -41,6 +41,7 @@ namespace TheBigThree
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<ICollectionService, CollectionService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
