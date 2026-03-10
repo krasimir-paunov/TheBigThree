@@ -11,5 +11,9 @@
         public int TotalStars { get; set; }
 
         public List<GameDetailsViewModel> Games { get; set; } = new List<GameDetailsViewModel>();
+
+        public List<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
+
+        public AddCommentViewModel AddComment { get; set; } = new AddCommentViewModel();
     }
 }

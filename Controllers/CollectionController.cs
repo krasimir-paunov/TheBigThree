@@ -10,10 +10,12 @@ namespace TheBigThree.Controllers
     public class CollectionController : Controller
     {
         private readonly ICollectionService collectionService;
+        private readonly ICommentService commentService;
 
-        public CollectionController(ICollectionService collectionService)
+        public CollectionController(ICollectionService collectionService, ICommentService commentService)
         {
             this.collectionService = collectionService;
+            this.commentService = commentService;
         }
 
         [HttpGet]
@@ -54,7 +56,12 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Details(int id)
         {
             CollectionDetailsViewModel? collectionDetails = await collectionService.GetCollectionDetailsByIdAsync(id);
+
             if (collectionDetails == null) return RedirectToAction(nameof(All));
+
+            IEnumerable<CommentViewModel> comments = await commentService.GetCommentsByCollectionIdAsync(id);
+
+            collectionDetails.Comments = comments.ToList();
 
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.IsStarred = userId != null && await collectionService.IsStarredByUserAsync(id, userId);
