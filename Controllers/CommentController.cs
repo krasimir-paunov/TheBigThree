@@ -21,7 +21,8 @@ namespace TheBigThree.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Details", "Collection", new { id = collectionId });
+                TempData["CommentError"] = "Comment must be at least 20 characters long.";
+                return Redirect($"/collection/details/{collectionId}#comments");
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
@@ -35,7 +36,7 @@ namespace TheBigThree.Controllers
                 TempData["Error"] = "An error occurred while adding your comment.";
             }
 
-            return RedirectToAction("Details", "Collection", new { id = collectionId });
+            return Redirect($"/collection/details/{collectionId}#comments");
         }
 
         [HttpPost]
@@ -59,7 +60,7 @@ namespace TheBigThree.Controllers
             {
                 TempData["Error"] = "An error occurred while deleting the comment.";
             }
-            return RedirectToAction("Details", "Collection", new { id = collectionId });
+            return Redirect($"/collection/details/{collectionId}#comments");
         }
 
     }
