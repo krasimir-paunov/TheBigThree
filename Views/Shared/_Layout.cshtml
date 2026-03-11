@@ -91,5 +91,28 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <button id="backToTop"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            title="Back to top"
+            class="btn btn-info rounded-circle shadow-lg"
+            style="position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; opacity: 0; pointer-events: none; z-index: 999; transition: opacity 0.4s ease, transform 0.2s, box-shadow 0.2s;"
+            onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 15px rgba(13,202,240,0.7)';"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='';">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            var btn = document.getElementById('backToTop');
+            if (window.scrollY > 150) {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+            } else {
+                btn.style.opacity = '0';
+                btn.style.pointerEvents = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

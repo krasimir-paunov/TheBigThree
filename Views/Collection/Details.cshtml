@@ -189,16 +189,6 @@
 	</div>
 </div>
 
-<button id="backToTop"
-		onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-		title="Back to top"
-		class="btn btn-info rounded-circle shadow-lg"
-		style="position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; display: none; z-index: 999; transition: transform 0.2s, box-shadow 0.2s;"
-		onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 15px rgba(13,202,240,0.7)';"
-		onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='';">
-	<i class="bi bi-arrow-up"></i>
-</button>
-
 @section Scripts {
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
@@ -206,15 +196,6 @@
 			modalElements.forEach(function (modalEl) {
 				document.body.appendChild(modalEl);
 			});
-		});
-
-		window.addEventListener('scroll', function () {
-			var btn = document.getElementById('backToTop');
-			if (window.scrollY > 300) {
-				btn.style.display = 'block';
-			} else {
-				btn.style.display = 'none';
-			}
 		});
 	</script>
 }
