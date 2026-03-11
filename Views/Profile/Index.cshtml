@@ -14,12 +14,12 @@
 
         <div class="row g-4">
             <div class="col-lg-4">
-                <div class="profile-card text-center shadow-lg h-100">
+                <div class="profile-card text-center shadow-lg">
                     <div class="profile-avatar-circle fw-bold shadow">
                         @Model.Username.Substring(0, Math.Min(2, Model.Username.Length)).ToUpper()
                     </div>
 
-                    <h3 class="text-white fw-bold mb-1">@Model.Username</h3>
+                    <p class="text-white fw-bold fs-3 mb-1">@Model.Username</p>
                     <p class="text-muted small mb-3">@Model.Email</p>
 
                     <div class="mb-4">
