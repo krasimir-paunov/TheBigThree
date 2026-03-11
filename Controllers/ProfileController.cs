@@ -29,7 +29,7 @@ namespace TheBigThree.Controllers
             try
             {
                 string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
-                string username = User.Identity?.Name?.Split('@')[0] ?? "Gamer";
+                string username = User.Identity?.Name ?? "Gamer";
 
                 int totalStarsEarned = await collectionService.GetUserTotalStarsAsync(userId);
                 IEnumerable<CollectionAllViewModel> starredCollections = await collectionService.GetStarredCollectionsAsync(userId);
