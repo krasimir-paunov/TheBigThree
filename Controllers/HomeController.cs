@@ -25,14 +25,16 @@ namespace TheBigThree.Controllers
             return View();
         }
 
-        [HttpGet]
+        [Route("Home/Error/{statusCode?}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode)
         {
-            var requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-            _logger.LogError($"An error occurred. Request ID: {requestId}");
+            if (statusCode == 404)
+            {
+                return View("Error404");
+            }
 
-            return View(new ErrorViewModel { RequestId = requestId });
+            return View("Error500");
         }
     }
 }
