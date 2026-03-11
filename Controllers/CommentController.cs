@@ -17,6 +17,7 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AddCommentViewModel model, int collectionId)
         {
             if (!ModelState.IsValid)
@@ -40,6 +41,7 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int commentId, int collectionId)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
