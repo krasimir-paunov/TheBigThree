@@ -4,7 +4,7 @@ namespace TheBigThree.Services.Core.Interfaces
 {
     public interface ICollectionService
     {
-        Task<IEnumerable<CollectionAllViewModel>> GetAllCollectionsAsync(string? sorting = null);
+        Task<CollectionQueryModel> GetAllCollectionsAsync(CollectionQueryModel query);
 
         Task<IEnumerable<CollectionAllViewModel>> GetMineCollectionsAsync(string userId);
 

@@ -20,10 +20,9 @@ namespace TheBigThree.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All(string sorting)
+        public async Task<IActionResult> All(CollectionQueryModel query)
         {
-            IEnumerable<CollectionAllViewModel> hubCollections = await collectionService.GetAllCollectionsAsync(sorting);
-            ViewBag.CurrentSort = sorting;
+            CollectionQueryModel result = await collectionService.GetAllCollectionsAsync(query);
 
             if (User.Identity?.IsAuthenticated == true)
             {
@@ -35,7 +34,7 @@ namespace TheBigThree.Controllers
                 ViewBag.UserHasCollection = false;
             }
 
-            return View(hubCollections);
+            return View(result);
         }
 
         [HttpGet]

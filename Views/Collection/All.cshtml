@@ -1,5 +1,5 @@
 ﻿@using TheBigThree.Web.ViewModels
-@model IEnumerable<CollectionAllViewModel>
+@model CollectionQueryModel
 
 @{
     ViewBag.Title = "Community Hub";
@@ -50,34 +50,84 @@
             </div>
         </div>
 
+        <div class="container mb-4">
+
+            <form method="get" asp-action="All" class="mb-3">
+                <div class="row g-2 align-items-center">
+
+                    <div class="col-md-5">
+                        <input type="text"
+                               name="SearchTerm"
+                               value="@Model.SearchTerm"
+                               class="form-control bg-dark text-light border-secondary"
+                               placeholder="Search collections..." />
+                    </div>
+
+                    <div class="col-md-3">
+                        <select name="GenreFilter" class="form-select bg-dark text-light border-secondary">
+                            <option value="">All Genres</option>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                @if (Model.GenreFilter == genre)
+                                {
+                                    <option value="@genre" selected>@genre</option>
+                                }
+                                else
+                                {
+                                    <option value="@genre">@genre</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="hidden" name="Sorting" value="@Model.Sorting" />
+                        <button type="submit" class="btn btn-info rounded-pill px-4 fw-bold w-100">
+                            <i class="bi bi-search me-1"></i> Search
+                        </button>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a asp-action="All" class="btn btn-outline-secondary rounded-pill px-4 w-100">
+                            Clear
+                        </a>
+                    </div>
+                </div>
+            </form>
+
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-white-50 small fw-bold text-uppercase me-2" style="letter-spacing: 1.5px; font-size: 0.7rem;">Sort by:</span>
+
+                <a asp-action="All"
+                   asp-route-Sorting="Newest"
+                   asp-route-SearchTerm="@Model.SearchTerm"
+                   asp-route-GenreFilter="@Model.GenreFilter"
+                   class="btn btn-sm @(Model.Sorting == "Newest" || string.IsNullOrEmpty(Model.Sorting) ? "btn-info" : "btn-outline-info") rounded-pill px-3 py-1"
+                   style="font-size: 0.7rem; font-weight: 700;">
+                    <i class="bi bi-clock-history me-1"></i> NEWEST
+                </a>
+
+                <a asp-action="All"
+                   asp-route-Sorting="Stars"
+                   asp-route-SearchTerm="@Model.SearchTerm"
+                   asp-route-GenreFilter="@Model.GenreFilter"
+                   class="btn btn-sm @(Model.Sorting == "Stars" ? "btn-info" : "btn-outline-info") rounded-pill px-3 py-1"
+                   style="font-size: 0.7rem; font-weight: 700;">
+                    <i class="bi bi-star-fill me-1"></i> STARS
+                </a>
+            </div>
+            <hr class="border-secondary opacity-25 mt-3" />
+        </div>
+
         <div class="row justify-content-center">
-            @if (!Model.Any())
+            @if (!Model.Collections.Any())
             {
                 <div class="col-12 text-center py-5">
-                    <h3 class="text-light opacity-50">No collections found. Be the first to create one!</h3>
+                    <h3 class="text-light opacity-50">No collections found.</h3>
                 </div>
             }
 
-            <div class="container mb-4">
-                <div class="d-flex align-items-center gap-2">
-                    <span class="text-white-50 small fw-bold text-uppercase me-2" style="letter-spacing: 1.5px; font-size: 0.7rem;">Sort by:</span>
-
-                    <a asp-action="All" asp-route-sorting="Newest"
-                       class="btn btn-sm @(ViewBag.CurrentSort == "Newest" || string.IsNullOrEmpty(ViewBag.CurrentSort) ? "btn-info" : "btn-outline-info") rounded-pill px-3 py-1"
-                       style="font-size: 0.7rem; font-weight: 700;">
-                        <i class="bi bi-clock-history me-1"></i> NEWEST
-                    </a>
-
-                    <a asp-action="All" asp-route-sorting="Stars"
-                       class="btn btn-sm @(ViewBag.CurrentSort == "Stars" ? "btn-info" : "btn-outline-info") rounded-pill px-3 py-1"
-                       style="font-size: 0.7rem; font-weight: 700;">
-                        <i class="bi bi-star-fill me-1"></i> STARS
-                    </a>
-                </div>
-                <hr class="border-secondary opacity-25 mt-3" />
-            </div>
-
-            @foreach (CollectionAllViewModel collection in Model)
+            @foreach (CollectionAllViewModel collection in Model.Collections)
             {
                 <div class="col-lg-4 col-md-6 d-flex justify-content-center mb-5">
                     <div class="card collection-card shadow-lg" style="width: 23rem;">
@@ -117,5 +167,43 @@
                 </div>
             }
         </div>
+
+        @{
+            int totalPages = (int)Math.Ceiling((double)Model.TotalCollections / Model.CollectionsPerPage);
+        }
+
+        @if (totalPages > 1)
+        {
+            <div class="d-flex justify-content-center align-items-center gap-2 pb-5">
+
+                @if (Model.CurrentPage > 1)
+                {
+                    <a asp-action="All"
+                       asp-route-CurrentPage="@(Model.CurrentPage - 1)"
+                       asp-route-Sorting="@Model.Sorting"
+                       asp-route-SearchTerm="@Model.SearchTerm"
+                       asp-route-GenreFilter="@Model.GenreFilter"
+                       class="btn btn-outline-info rounded-pill px-4">
+                        <i class="bi bi-arrow-left"></i> Prev
+                    </a>
+                }
+
+                <span class="text-white-50 small px-3">Page @Model.CurrentPage of @totalPages</span>
+
+                @if (Model.CurrentPage < totalPages)
+                {
+                    <a asp-action="All"
+                       asp-route-CurrentPage="@(Model.CurrentPage + 1)"
+                       asp-route-Sorting="@Model.Sorting"
+                       asp-route-SearchTerm="@Model.SearchTerm"
+                       asp-route-GenreFilter="@Model.GenreFilter"
+                       class="btn btn-outline-info rounded-pill px-4">
+                        Next <i class="bi bi-arrow-right"></i>
+                    </a>
+                }
+
+            </div>
+        }
+
     </div>
 </div>
