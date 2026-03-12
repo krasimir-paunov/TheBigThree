@@ -12,7 +12,7 @@ namespace TheBigThree.Web.ViewModels
 
         [Required(ErrorMessage = "Image URL is required.")]
         [MaxLength(GameImageUrlMaxLength)]
-        [RegularExpression(@"^https?:\/\/.*", ErrorMessage = "Please enter a valid URL starting with http:// or https://")]
+        [RegularExpression(@"^https?:\/\/.+\..+", ErrorMessage = "Please enter a valid URL starting with http:// or https://")]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = null!;
 
