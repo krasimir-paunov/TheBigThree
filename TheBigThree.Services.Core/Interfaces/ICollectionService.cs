@@ -23,15 +23,5 @@ namespace TheBigThree.Services.Core.Interfaces
         Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId);
 
         Task DeleteCollectionAsync(int id, string userId);
-
-        Task StarCollectionAsync(int collectionId, string userId);
-
-        Task RemoveStarAsync(int collectionId, string userId);
-
-        Task<bool> IsStarredByUserAsync(int collectionId, string userId);
-
-        Task<IEnumerable<CollectionAllViewModel>> GetStarredCollectionsAsync(string userId);
-
-        Task<int> GetUserTotalStarsAsync(string userId);
     }
 }

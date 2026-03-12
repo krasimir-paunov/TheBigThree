@@ -11,12 +11,14 @@ namespace TheBigThree.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        private readonly ICollectionService collectionService;
+        private readonly ILikeService likeService;
+        private readonly IProfileService profileService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ProfileController(ICollectionService collectionService, UserManager<ApplicationUser> userManager)
+        public ProfileController(ILikeService likeService, IProfileService profileService, UserManager<ApplicationUser> userManager)
         {
-            this.collectionService = collectionService;
+            this.likeService = likeService;
+            this.profileService = profileService;
             this.userManager = userManager;
         }
 
@@ -24,7 +26,6 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Index()
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             if (userId == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -35,10 +36,8 @@ namespace TheBigThree.Controllers
                 string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
                 string username = User.Identity?.Name ?? "Gamer";
                 ApplicationUser? appUser = await userManager.FindByIdAsync(userId);
-
-                int totalStarsEarned = await collectionService.GetUserTotalStarsAsync(userId);
-                IEnumerable<CollectionAllViewModel> starredCollections = await collectionService.GetStarredCollectionsAsync(userId);
-
+                int totalStarsEarned = await profileService.GetUserTotalStarsAsync(userId);
+                IEnumerable<CollectionAllViewModel> starredCollections = await likeService.GetStarredCollectionsAsync(userId);
                 string rank = GetRankName(totalStarsEarned);
 
                 ProfileViewModel viewModel = new ProfileViewModel
@@ -65,15 +64,12 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> UpdateAvatar(string? avatarUrl)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             if (userId == null) return RedirectToAction(nameof(Index));
 
             ApplicationUser? appUser = await userManager.FindByIdAsync(userId);
-
             if (appUser == null) return RedirectToAction(nameof(Index));
 
             appUser.AvatarUrl = string.IsNullOrWhiteSpace(avatarUrl) ? null : avatarUrl;
-
             await userManager.UpdateAsync(appUser);
 
             return RedirectToAction(nameof(Index));

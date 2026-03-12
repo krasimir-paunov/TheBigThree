@@ -11,11 +11,13 @@ namespace TheBigThree.Controllers
     {
         private readonly ICollectionService collectionService;
         private readonly ICommentService commentService;
+        private readonly ILikeService likeService;
 
-        public CollectionController(ICollectionService collectionService, ICommentService commentService)
+        public CollectionController(ICollectionService collectionService, ICommentService commentService, ILikeService likeService)
         {
             this.collectionService = collectionService;
             this.commentService = commentService;
+            this.likeService = likeService;
         }
 
         [HttpGet]
@@ -63,7 +65,7 @@ namespace TheBigThree.Controllers
             collectionDetails.Comments = comments.ToList();
 
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewBag.IsStarred = userId != null && await collectionService.IsStarredByUserAsync(id, userId);
+            ViewBag.IsStarred = userId != null && await likeService.IsStarredByUserAsync(id, userId);
 
             return View(collectionDetails);
         }
@@ -177,7 +179,6 @@ namespace TheBigThree.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Star(int id)
@@ -186,7 +187,7 @@ namespace TheBigThree.Controllers
 
             try
             {
-                await collectionService.StarCollectionAsync(id, userId);
+                await likeService.StarCollectionAsync(id, userId);
             }
             catch (InvalidOperationException ex)
             {
@@ -208,7 +209,7 @@ namespace TheBigThree.Controllers
 
             try
             {
-                await collectionService.RemoveStarAsync(id, userId);
+                await likeService.RemoveStarAsync(id, userId);
             }
             catch (Exception)
             {
