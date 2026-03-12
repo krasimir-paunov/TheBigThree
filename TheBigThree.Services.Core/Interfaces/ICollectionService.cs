@@ -23,5 +23,6 @@ namespace TheBigThree.Services.Core.Interfaces
         Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId);
 
         Task DeleteCollectionAsync(int id, string userId);
+        Task<CollectionMineViewModel?> GetMineCollectionAsync(string userId);
     }
 }

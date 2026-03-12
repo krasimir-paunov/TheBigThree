@@ -50,9 +50,9 @@ namespace TheBigThree.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            IEnumerable<CollectionAllViewModel> personalCollections = await collectionService.GetMineCollectionsAsync(userId);
+            CollectionMineViewModel? collection = await collectionService.GetMineCollectionAsync(userId);
 
-            return View(personalCollections);
+            return View(collection);
         }
 
         [HttpGet]
