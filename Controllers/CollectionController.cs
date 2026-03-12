@@ -90,7 +90,6 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(CollectionFormViewModel collectionInput)
         {
             if (!ModelState.IsValid)
@@ -138,7 +137,6 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CollectionFormViewModel updatedInput)
         {
             if (!ModelState.IsValid)
@@ -179,7 +177,6 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -200,7 +197,6 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Star(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
@@ -222,7 +218,6 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveStar(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;

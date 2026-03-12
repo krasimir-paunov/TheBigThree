@@ -60,7 +60,6 @@ namespace TheBigThree.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAvatar(string? avatarUrl)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
