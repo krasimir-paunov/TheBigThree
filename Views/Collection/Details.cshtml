@@ -27,9 +27,27 @@
 				<div class="d-flex align-items-center gap-4">
 					<h2 class="mb-0 fw-bold text-white">@Model.Title</h2>
 					<div class="vr bg-secondary opacity-50 d-none d-md-block" style="height: 30px;"></div>
-					<div class="small">
-						<span class="text-muted d-block" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Curated by</span>
-						<span class="text-info fw-bold">@Model.Publisher</span>
+					<div class="small d-flex align-items-center gap-2">
+						<div class="d-flex align-items-center gap-3">
+							@if (!string.IsNullOrEmpty(Model.AvatarUrl))
+							{
+								<img src="@Model.AvatarUrl"
+									 class="rounded-circle shadow"
+									 style="width: 56px; height: 56px; object-fit: cover; border: 2px solid rgba(13,202,240,0.5);"
+									 alt="avatar" />
+							}
+							else
+							{
+								<div class="rounded-circle bg-info d-flex align-items-center justify-content-center shadow"
+									 style="width: 56px; height: 56px; font-size: 1rem; font-weight: 700; color: #000; border: 2px solid rgba(13,202,240,0.5);">
+									@Model.Publisher.Substring(0, Math.Min(2, Model.Publisher.Length)).ToUpper()
+								</div>
+							}
+							<div>
+								<span class="text-muted d-block" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Curated by</span>
+								<span class="text-info fw-bold fs-6">@Model.Publisher</span>
+							</div>
+						</div>
 					</div>
 				</div>
 

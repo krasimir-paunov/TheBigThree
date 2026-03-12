@@ -15,7 +15,7 @@
 
         // Collection
         public const int CollectionTitleMinLength = 3;
-        public const int CollectionTitleMaxLength = 100;
+        public const int CollectionTitleMaxLength = 55;
         public const int GamesPerCollectionCount = 3;
 
         // General

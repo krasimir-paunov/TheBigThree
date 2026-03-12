@@ -9,6 +9,7 @@
         public string Publisher { get; set; } = null!;
 
         public int TotalStars { get; set; }
+        public string? AvatarUrl { get; set; }
 
         public List<GameDetailsViewModel> Games { get; set; } = new List<GameDetailsViewModel>();
 

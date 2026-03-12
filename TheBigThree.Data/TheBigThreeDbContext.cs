@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TheBigThree.Data.Models;
+using static System.Net.WebRequestMethods;
 
 namespace TheBigThree.Data
 {
@@ -76,7 +77,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "GERALTOFRIVIA",
                     Email = "geralt@kaermorhen.com",
                     NormalizedEmail = "GERALT@KAERMORHEN.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Legend123!")
+                    PasswordHash = hasher.HashPassword(null!, "Legend123!"),
+                    AvatarUrl = "https://avatarfiles.alphacoders.com/148/thumb-1920-148846.jpg",
                 },
                 new ApplicationUser
                 {
@@ -85,7 +87,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "COMMANDERSHEPARD",
                     Email = "shepard@normandy.com",
                     NormalizedEmail = "SHEPARD@NORMANDY.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Spectre123!")
+                    PasswordHash = hasher.HashPassword(null!, "Spectre123!"),
+                    AvatarUrl = "https://images3.alphacoders.com/210/thumb-1920-210637.jpg"
                 },
                 new ApplicationUser
                 {
@@ -94,7 +97,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "SOLIDSNAKE",
                     Email = "snake@shadowmoses.com",
                     NormalizedEmail = "SNAKE@SHADOWMOSES.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Tactical123!")
+                    PasswordHash = hasher.HashPassword(null!, "Tactical123!"),
+                    AvatarUrl = "https://images.alphacoders.com/135/thumb-1920-1359067.png"
                 },
                 new ApplicationUser
                 {
@@ -103,7 +107,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "MASTERCHIEF",
                     Email = "chief@unsc.com",
                     NormalizedEmail = "CHIEF@UNSC.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Spartan123!")
+                    PasswordHash = hasher.HashPassword(null!, "Spartan123!"),
+                    AvatarUrl = "https://images2.alphacoders.com/607/thumb-1920-607052.jpg"
                 },
                 new ApplicationUser
                 {
@@ -112,7 +117,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "ARTHURMORGAN",
                     Email = "arthur@dutchgang.com",
                     NormalizedEmail = "ARTHUR@DUTCHGANG.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Outlaw123!")
+                    PasswordHash = hasher.HashPassword(null!, "Outlaw123!"),
+                    AvatarUrl = "https://images4.alphacoders.com/136/thumb-1920-1360121.jpeg"
                 },
                 new ApplicationUser
                 {
@@ -121,7 +127,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "LARACROFT",
                     Email = "lara@croftmanor.com",
                     NormalizedEmail = "LARA@CROFTMANOR.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Tomb123!")
+                    PasswordHash = hasher.HashPassword(null!, "Tomb123!"),
+                    AvatarUrl = "https://images3.alphacoders.com/716/thumb-1920-716660.jpg"
                 },
                 new ApplicationUser
                 {
@@ -130,7 +137,8 @@ namespace TheBigThree.Data
                     NormalizedUserName = "ALOYHORIZON",
                     Email = "aloy@horizon.com",
                     NormalizedEmail = "ALOY@HORIZON.COM",
-                    PasswordHash = hasher.HashPassword(null!, "Nora123!")
+                    PasswordHash = hasher.HashPassword(null!, "Nora123!"),
+                    AvatarUrl = "https://images6.alphacoders.com/883/thumb-1920-883187.jpg"
                 }
             );
 

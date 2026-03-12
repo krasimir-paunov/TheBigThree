@@ -136,6 +136,13 @@
 
                             <div class="d-flex justify-content-center align-items-center mb-3">
                                 <span class="text-light opacity-75 small me-2">Curated by</span>
+                                @if (!string.IsNullOrEmpty(collection.AvatarUrl))
+                                {
+                                    <img src="@collection.AvatarUrl"
+                                         class="rounded-circle me-2"
+                                         style="width: 24px; height: 24px; object-fit: cover; border: 1px solid rgba(13,202,240,0.4);"
+                                         alt="avatar" />
+                                }
                                 <span class="fw-bold text-white">@collection.Publisher</span>
                                 <span class="badge rounded-pill bg-info text-dark ms-2 shadow-sm" style="font-size: 0.65rem;">
                                     @collection.PublisherRank

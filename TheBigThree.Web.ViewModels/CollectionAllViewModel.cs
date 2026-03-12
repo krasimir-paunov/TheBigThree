@@ -12,6 +12,8 @@
 
         public int TotalStars { get; set; }
 
+        public string? AvatarUrl { get; set; }
+
         public List<string> GameImages { get; set; } = new List<string>();
     }
 }
