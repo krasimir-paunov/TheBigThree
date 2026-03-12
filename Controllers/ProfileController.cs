@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using TheBigThree.Data.Models;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Web.ViewModels;
 
@@ -10,10 +12,12 @@ namespace TheBigThree.Controllers
     public class ProfileController : Controller
     {
         private readonly ICollectionService collectionService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ProfileController(ICollectionService collectionService)
+        public ProfileController(ICollectionService collectionService, UserManager<ApplicationUser> userManager)
         {
             this.collectionService = collectionService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -30,6 +34,7 @@ namespace TheBigThree.Controllers
             {
                 string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
                 string username = User.Identity?.Name ?? "Gamer";
+                ApplicationUser? appUser = await userManager.FindByIdAsync(userId);
 
                 int totalStarsEarned = await collectionService.GetUserTotalStarsAsync(userId);
                 IEnumerable<CollectionAllViewModel> starredCollections = await collectionService.GetStarredCollectionsAsync(userId);
@@ -42,7 +47,8 @@ namespace TheBigThree.Controllers
                     Email = email,
                     Rank = rank,
                     TotalStarsEarned = totalStarsEarned,
-                    FavoriteCollections = starredCollections
+                    FavoriteCollections = starredCollections,
+                    AvatarUrl = appUser?.AvatarUrl
                 };
 
                 return View(viewModel);
@@ -52,6 +58,25 @@ namespace TheBigThree.Controllers
                 TempData["Error"] = "We encountered a problem loading your profile. Please try again later.";
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAvatar(string? avatarUrl)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null) return RedirectToAction(nameof(Index));
+
+            ApplicationUser? appUser = await userManager.FindByIdAsync(userId);
+
+            if (appUser == null) return RedirectToAction(nameof(Index));
+
+            appUser.AvatarUrl = string.IsNullOrWhiteSpace(avatarUrl) ? null : avatarUrl;
+
+            await userManager.UpdateAsync(appUser);
+
+            return RedirectToAction(nameof(Index));
         }
 
         private string GetRankName(int stars) => stars switch

@@ -6,6 +6,7 @@
         public string Email { get; set; } = null!;
         public string Rank { get; set; } = null!;
         public int TotalStarsEarned { get; set; }
+        public string? AvatarUrl { get; set; }
 
         public IEnumerable<CollectionAllViewModel> FavoriteCollections { get; set; } = new List<CollectionAllViewModel>();
     }
