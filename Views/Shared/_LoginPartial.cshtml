@@ -7,8 +7,22 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-white fw-semibold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                <i class="bi bi-person-circle me-1 text-info"></i> Hello @User.Identity?.Name!
+            @{
+                var currentUser = await UserManager.GetUserAsync(User);
+            }
+            <a class="nav-link text-white fw-semibold d-flex align-items-center gap-2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                @if (!string.IsNullOrEmpty(currentUser?.AvatarUrl))
+                {
+                    <img src="@currentUser.AvatarUrl"
+                         class="rounded-circle"
+                         style="width: 24px; height: 24px; object-fit: cover; border: 1px solid rgba(13,202,240,0.5);"
+                         alt="avatar" />
+                }
+                else
+                {
+                    <i class="bi bi-person-circle me-1 text-info"></i>
+                }
+                Hello, @User.Identity?.Name !
             </a>
         </li>
         <li class="nav-item">
