@@ -11,7 +11,7 @@ namespace TheBigThree.Data.Models
 
         [Required]
         [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         [Required]
         public int CollectionId { get; set; }

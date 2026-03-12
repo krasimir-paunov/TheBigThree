@@ -5,7 +5,7 @@ using TheBigThree.Data.Models;
 
 namespace TheBigThree.Data
 {
-    public class TheBigThreeDbContext : IdentityDbContext
+    public class TheBigThreeDbContext : IdentityDbContext<ApplicationUser>
     {
         public TheBigThreeDbContext(DbContextOptions<TheBigThreeDbContext> options)
             : base(options)
@@ -66,10 +66,10 @@ namespace TheBigThree.Data
             string user5Id = "a1b2c3d4-1111-2222-3333-aabbccdd0003";
             string user6Id = "a1b2c3d4-1111-2222-3333-aabbccdd0004";
             string user7Id = "a1b2c3d4-1111-2222-3333-aabbccdd0005";
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            builder.Entity<IdentityUser>().HasData(
-                new IdentityUser
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
                 {
                     Id = user1Id,
                     UserName = "GeraltOfRivia",
@@ -78,7 +78,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "GERALT@KAERMORHEN.COM",
                     PasswordHash = hasher.HashPassword(null!, "Legend123!")
                 },
-                new IdentityUser
+                new ApplicationUser
                 {
                     Id = user2Id,
                     UserName = "CommanderShepard",
@@ -87,7 +87,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "SHEPARD@NORMANDY.COM",
                     PasswordHash = hasher.HashPassword(null!, "Spectre123!")
                 },
-                new IdentityUser
+                new ApplicationUser
                 {
                     Id = user3Id,
                     UserName = "SolidSnake",
@@ -96,7 +96,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "SNAKE@SHADOWMOSES.COM",
                     PasswordHash = hasher.HashPassword(null!, "Tactical123!")
                 },
-                new IdentityUser
+                new ApplicationUser
                 {
                     Id = user4Id,
                     UserName = "MasterChief",
@@ -105,7 +105,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "CHIEF@UNSC.COM",
                     PasswordHash = hasher.HashPassword(null!, "Spartan123!")
                 },
-                new IdentityUser
+                new ApplicationUser
                 {
                     Id = user5Id,
                     UserName = "ArthurMorgan",
@@ -114,7 +114,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "ARTHUR@DUTCHGANG.COM",
                     PasswordHash = hasher.HashPassword(null!, "Outlaw123!")
                 },
-                new IdentityUser
+                new ApplicationUser
                 {
                     Id = user6Id,
                     UserName = "LaraCroft",
@@ -123,7 +123,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "LARA@CROFTMANOR.COM",
                     PasswordHash = hasher.HashPassword(null!, "Tomb123!")
                 },
-                new IdentityUser
+                new ApplicationUser
                 {
                     Id = user7Id,
                     UserName = "AloyHorizon",

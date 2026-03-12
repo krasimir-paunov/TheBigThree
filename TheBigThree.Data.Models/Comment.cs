@@ -22,7 +22,7 @@ namespace TheBigThree.Data.Models
         public string UserId { get; set; } = null!;
 
         [Required]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Collection))]

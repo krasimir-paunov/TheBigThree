@@ -23,7 +23,7 @@ namespace TheBigThree.Data.Models
 
         [Required]
         [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         public virtual ICollection<Game> Games { get; set; } = new HashSet<Game>();
 

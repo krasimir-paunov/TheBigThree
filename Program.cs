@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Data;
+using TheBigThree.Data.Models;
 using TheBigThree.Services;
+using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Services.Core.Repositories;
 using TheBigThree.Services.Repositories;
 
@@ -22,7 +23,7 @@ namespace TheBigThree
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
 
