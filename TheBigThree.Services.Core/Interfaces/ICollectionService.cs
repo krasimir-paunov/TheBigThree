@@ -18,7 +18,7 @@ namespace TheBigThree.Services.Core.Interfaces
 
         Task<CollectionFormViewModel?> GetCollectionForEditAsync(int id, string userId);
 
-        Task EditCollectionAsync(CollectionFormViewModel model, int id);
+        Task EditCollectionAsync(CollectionFormViewModel model, int id, string userId);
 
         Task<CollectionDetailsViewModel?> GetCollectionForDeleteAsync(int id, string userId);
 
