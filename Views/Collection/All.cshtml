@@ -106,15 +106,6 @@
             font-weight: 500;
         }
 
-        .rank-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 50px;
-            background: rgba(13, 202, 240, 0.1);
-            color: rgba(13, 202, 240, 0.75);
-            border: 1px solid rgba(13, 202, 240, 0.2);
-        }
-
         .card-footer-custom {
             display: flex;
             align-items: center;
@@ -124,7 +115,7 @@
         }
 
         .stars-count {
-            font-size: 12px;
+            font-size: 15px;
             color: #ffc107;
             font-weight: 600;
         }
@@ -271,11 +262,22 @@
                                     </div>
                                 }
                                 <span class="curator-name">@collection.Publisher</span>
-                                <span class="rank-badge">@collection.PublisherRank</span>
+                                @{
+                                    string rankClass = collection.PublisherRank switch
+                                    {
+                                        "Legendary Collector" => "rank-legendary",
+                                        "Superstar Collector" => "rank-superstar",
+                                        "Popular Collector" => "rank-popular",
+                                        "Rising Star" => "rank-rising",
+                                        "Novice Collector" => "rank-novice",
+                                        _ => "rank-newcomer"
+                                    };
+                                }
+                                <span class="rank-badge @rankClass">@collection.PublisherRank</span>
                             </div>
 
                             <div class="card-footer-custom">
-                                <span class="stars-count">⭐ @collection.TotalStars stars</span>
+                                <span class="stars-count">⭐ @collection.TotalStars</span>
                                 <a asp-controller="Collection" asp-action="Details" asp-route-id="@collection.Id"
                                    class="btn-view">
                                     <i class="bi bi-eye-fill me-1"></i>View
