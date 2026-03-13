@@ -56,6 +56,7 @@ namespace TheBigThree
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<IProfileService, ProfileService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
