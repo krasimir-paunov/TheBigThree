@@ -2,65 +2,293 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="hero-wrapper position-relative overflow-hidden" style="margin-top: -1.5rem; width: 100vw; margin-left: calc(-50vw + 50%); background-color: #000;">
+@section Styles {
+    <style>
+        .hero-wrapper {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
 
-    <div class="hero-section d-flex align-items-center justify-content-center text-center text-white"
-         style="min-height: 85vh;
-                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/backgrounds/home-index.jpg');
-                background-size: cover;
-                background-position: center;">
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('/images/backgrounds/home-index.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: rgba(13, 202, 240, 0.85);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-headline {
+            font-family: var(--heading-font);
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.05;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.65);
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @@keyframes scrollBounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
+        }
+
+        .features-section {
+            background: #080808;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 5rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            height: 100%;
+        }
+
+            .feature-card:hover {
+                border-color: rgba(13,202,240,0.25);
+                transform: translateY(-4px);
+            }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .feature-icon-cyan {
+            background: rgba(13,202,240,0.1);
+            color: rgba(13,202,240,0.9);
+            border: 1px solid rgba(13,202,240,0.2);
+        }
+
+        .feature-icon-yellow {
+            background: rgba(255,193,7,0.1);
+            color: rgba(255,193,7,0.9);
+            border: 1px solid rgba(255,193,7,0.2);
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.75rem;
+            font-family: var(--body-font);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .feature-text {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .ranks-section {
+            background: #050505;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 5rem 0;
+        }
+
+        .rank-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cta-section {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('/images/backgrounds/mine-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 6rem 0;
+            text-align: center;
+        }
+    </style>
+}
+
+<div class="hero-wrapper position-relative">
+
+    <div class="hero-section position-relative">
         <div class="container px-4">
-            <h6 class="text-uppercase tracking-widest text-info mb-3 fw-bold" style="letter-spacing: 4px;">#1 Gaming Collection Hub</h6>
-
-            <h1 class="display-1 fw-bold mb-4">
-                Showcase Your <br />
+            <p class="hero-eyebrow">#1 Gaming Collection Hub</p>
+            <h1 class="hero-headline">
+                Showcase Your<br />
                 <span class="text-warning">Legendary</span> Journey
             </h1>
-
-            <p class="lead mb-5 mx-auto opacity-75" style="max-width: 800px; font-size: 1.4rem; line-height: 1.6;">
-                Every gamer has those three titles that defined their life. Create your collection, share your passion, and earn your place among the community legends.
+            <p class="hero-sub">
+                Every gamer has those three titles that defined their life. Create your collection,
+                share your passion, and earn your place among the community legends.
             </p>
-
-            <div class="d-flex justify-content-center gap-3">
-                <a asp-controller="Collection" asp-action="All" class="btn btn-info btn-lg px-5 py-3 fw-bold rounded-pill text-white shadow-lg hero-btn">
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a asp-controller="Collection" asp-action="All"
+                   class="btn btn-info btn-lg px-5 py-3 fw-bold rounded-pill shadow-lg hero-btn">
                     GET STARTED NOW
                 </a>
                 @if (User.Identity?.IsAuthenticated == false)
                 {
-                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold hero-btn-outline">
+                    <a asp-area="Identity" asp-page="/Account/Register"
+                       class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold hero-btn-outline">
                         JOIN THE HUB
                     </a>
                 }
             </div>
         </div>
+
+        <div class="hero-scroll-hint">
+            <span>Scroll</span>
+            <i class="bi bi-chevron-down"></i>
+        </div>
     </div>
 
-    <div class="container-fluid bg-dark py-5 border-top border-secondary shadow-lg">
+    <div class="features-section">
         <div class="container">
-            <div class="row text-center text-white g-4">
+            <div class="text-center mb-5">
+                <p class="text-muted small text-uppercase fw-bold" style="letter-spacing: 3px; font-size: 0.7rem;">What We're About</p>
+                <h2 class="text-white fw-bold" style="font-family: var(--body-font); text-transform: none; letter-spacing: 0; font-size: 1.8rem;">
+                    Your games. Your story. Your legacy.
+                </h2>
+            </div>
+            <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="p-3">
-                        <i class="bi bi-collection-play text-info fs-1 mb-3"></i>
-                        <h4 class="fw-bold">Curate</h4>
-                        <p class="text-muted small">Explain why your top 3 titles earned their spot in your personal hall of fame.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-cyan">
+                            <i class="bi bi-collection-play"></i>
+                        </div>
+                        <h3 class="feature-title">Curate</h3>
+                        <p class="feature-text">Pick the three games that defined your gaming life and explain why they earned their spot in your personal hall of fame.</p>
                     </div>
                 </div>
-                <div class="col-md-4 border-start border-end border-secondary">
-                    <div class="p-3">
-                        <i class="bi bi-star-fill text-warning fs-1 mb-3"></i>
-                        <h4 class="fw-bold">Earn Stars</h4>
-                        <p class="text-muted small">Get recognized by others and increase your rank from Newcomer to Legend.</p>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-yellow">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <h3 class="feature-title">Earn Stars</h3>
+                        <p class="feature-text">Get recognized by the community. Collect stars and climb the ranks from Newcomer all the way to Legendary Collector.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="p-3">
-                        <i class="bi bi-people-fill text-info fs-1 mb-3"></i>
-                        <h4 class="fw-bold">Discover</h4>
-                        <p class="text-muted small">Browse legendary collections and find your next favorite gaming experience.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-cyan">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <h3 class="feature-title">Discover</h3>
+                        <p class="feature-text">Browse the community hub, explore what others are playing, and find your next obsession through shared passion.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="ranks-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="text-muted small text-uppercase fw-bold" style="letter-spacing: 3px; font-size: 0.7rem;">Collector Ranks</p>
+                <h2 class="text-white fw-bold" style="font-family: var(--body-font); text-transform: none; letter-spacing: 0; font-size: 1.8rem;">
+                    How high can you climb?
+                </h2>
+                <p class="text-muted mt-2" style="font-size: 0.88rem;">Earn stars from the community to level up your collector rank.</p>
+            </div>
+            <div class="rank-row">
+                <span class="rank-badge rank-newcomer">Newcomer</span>
+                <i class="bi bi-chevron-right text-secondary" style="font-size: 0.7rem;"></i>
+                <span class="rank-badge rank-novice">Novice Collector</span>
+                <i class="bi bi-chevron-right text-secondary" style="font-size: 0.7rem;"></i>
+                <span class="rank-badge rank-rising">Rising Star</span>
+                <i class="bi bi-chevron-right text-secondary" style="font-size: 0.7rem;"></i>
+                <span class="rank-badge rank-popular">Popular Collector</span>
+                <i class="bi bi-chevron-right text-secondary" style="font-size: 0.7rem;"></i>
+                <span class="rank-badge rank-superstar">Superstar Collector</span>
+                <i class="bi bi-chevron-right text-secondary" style="font-size: 0.7rem;"></i>
+                <span class="rank-badge rank-legendary">Legendary Collector</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="container">
+            <h2 class="text-white fw-bold mb-3" style="font-family: var(--body-font); text-transform: none; letter-spacing: 0; font-size: 2rem;">
+                Ready to build your Big Three?
+            </h2>
+            <p class="text-muted mb-4" style="font-size: 0.95rem;">
+                Join the community. Share what shaped you as a gamer.
+            </p>
+            @if (User.Identity?.IsAuthenticated == false)
+            {
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a asp-area="Identity" asp-page="/Account/Register"
+                       class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow-lg">
+                        Create Your Collection
+                    </a>
+                    <a asp-area="Identity" asp-page="/Account/Login"
+                       class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
+                        Sign In
+                    </a>
+                </div>
+            }
+            else
+            {
+                <a asp-controller="Collection" asp-action="All"
+                   class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow-lg">
+                    Explore the Hub
+                </a>
+            }
+        </div>
+    </div>
+
 </div>
