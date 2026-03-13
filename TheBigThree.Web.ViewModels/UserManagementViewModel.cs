@@ -7,5 +7,6 @@
         public string Email { get; set; } = null!;
         public string Role { get; set; } = null!;
         public bool HasCollection { get; set; }
+        public int? CollectionId { get; set; }
     }
 }
