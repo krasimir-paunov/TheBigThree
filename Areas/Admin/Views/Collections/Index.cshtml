@@ -1,0 +1,199 @@
+﻿@using TheBigThree.Web.ViewModels
+@model IEnumerable<CollectionManagementViewModel>
+
+@{
+    ViewBag.Title = "Collection Management";
+}
+
+@section Styles {
+    <style>
+        .admin-background {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/images/backgrounds/mine-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .admin-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+        }
+
+        .admin-table {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+            .admin-table thead tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            }
+
+            .admin-table thead th {
+                font-size: 0.75rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.6);
+                font-weight: 500;
+                padding: 0.75rem 1rem;
+                border: none;
+            }
+
+            .admin-table tbody tr {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                transition: background 0.15s ease;
+            }
+
+                .admin-table tbody tr:hover {
+                    background: rgba(255, 255, 255, 0.04);
+                }
+
+            .admin-table tbody td {
+                padding: 0.85rem 1rem;
+                vertical-align: middle;
+                border: none;
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.85);
+            }
+
+        .stat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+    </style>
+}
+
+<div class="admin-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h2 class="hub-title mb-0">Collection Management</h2>
+            <div class="badge bg-warning text-dark shadow-sm">Administrator Panel</div>
+        </div>
+
+        <div class="mb-3">
+            <input type="text"
+                   id="collectionSearch"
+                   class="form-control bg-dark text-light border-secondary"
+                   placeholder="Search by title or owner..."
+                   style="max-width: 320px; border-radius: 50px; padding-left: 1rem;" />
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3 px-1">
+            <span style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+                @Model.Count() collections total
+            </span>
+            <a asp-area="Admin" asp-controller="Users" asp-action="Index"
+               class="btn btn-sm btn-outline-info rounded-pill">
+                <i class="bi bi-people-fill me-1"></i>Manage Users
+            </a>
+        </div>
+
+        <div class="admin-card p-0 overflow-hidden">
+            <table class="table admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Owner</th>
+                        <th>Stars</th>
+                        <th>Comments</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CollectionManagementViewModel collection in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold text-white">@collection.Title</td>
+                            <td style="color: rgba(255,255,255,0.75);">@collection.Owner</td>
+                            <td>
+                                <span class="stat-pill" style="background: rgba(255,193,7,0.15); color: #ffc107; border: 1px solid rgba(255,193,7,0.3);">
+                                    <i class="bi bi-star-fill" style="font-size: 0.7rem;"></i> @collection.TotalStars
+                                </span>
+                            </td>
+                            <td>
+                                <span class="stat-pill" style="background: rgba(13,202,240,0.1); color: rgba(13,202,240,0.8); border: 1px solid rgba(13,202,240,0.2);">
+                                    <i class="bi bi-chat-fill" style="font-size: 0.7rem;"></i> @collection.TotalComments
+                                </span>
+                            </td>
+                            <td style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                                @collection.CreatedOn.ToString("MMM dd, yyyy")
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a asp-area="" asp-controller="Collection" asp-action="Details"
+                                       asp-route-id="@collection.Id"
+                                       class="btn btn-sm rounded-pill"
+                                       style="background: rgba(13,202,240,0.1); color: rgba(13,202,240,0.8); border: 1px solid rgba(13,202,240,0.2); font-size: 0.8rem;">
+                                        <i class="bi bi-eye-fill me-1"></i>View
+                                    </a>
+
+                                    <button type="button"
+                                            class="btn btn-sm rounded-pill"
+                                            style="background: rgba(220,53,69,0.15); color: #ff6b7a; border: 1px solid rgba(220,53,69,0.3); font-size: 0.8rem;"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteCollectionModal-@collection.Id">
+                                        <i class="bi bi-trash3-fill me-1"></i>Delete
+                                    </button>
+                                </div>
+
+                                <div class="modal fade" id="deleteCollectionModal-@collection.Id" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content bg-dark border-secondary">
+                                            <div class="modal-header border-secondary">
+                                                <h5 class="modal-title text-white">Delete Collection</h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body text-light">
+                                                Are you sure you want to delete <span class="text-info fw-bold">@collection.Title</span>
+                                                by <span class="text-warning fw-bold">@collection.Owner</span>?
+                                                This action cannot be undone.
+                                            </div>
+                                            <div class="modal-footer border-secondary">
+                                                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                                                <form asp-area="Admin" asp-controller="Collections" asp-action="Delete"
+                                                      asp-route-id="@collection.Id" method="post">
+                                                    <button type="submit" class="btn btn-danger rounded-pill px-4">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalElements = document.querySelectorAll('.modal');
+            modalElements.forEach(function (modalEl) {
+                document.body.appendChild(modalEl);
+            });
+
+            const searchInput = document.getElementById('collectionSearch');
+            searchInput.addEventListener('input', function () {
+                const query = this.value.toLowerCase();
+                const rows = document.querySelectorAll('.admin-table tbody tr');
+                rows.forEach(function (row) {
+                    const title = row.querySelector('td:first-child').textContent.toLowerCase();
+                    const owner = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    row.style.display = (title.includes(query) || owner.includes(query)) ? '' : 'none';
+                });
+            });
+        });
+    </script>
+}

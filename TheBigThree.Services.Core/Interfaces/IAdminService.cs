@@ -6,5 +6,7 @@ namespace TheBigThree.Services.Core.Interfaces
     {
         Task<IEnumerable<UserManagementViewModel>> GetAllUsersAsync();
         Task DeleteUserAsync(string userId);
+        Task<IEnumerable<CollectionManagementViewModel>> GetAllCollectionsAsync();
+        Task DeleteCollectionAsync(int collectionId);
     }
 }
