@@ -86,7 +86,7 @@ footer a, .footer a {
             left: 15%;
             width: 70%;
             height: 2px;
-            background-color: var(--accent-yellow);
+            background-color: var(--primary-cyan);
             border-radius: 2px;
         }
 

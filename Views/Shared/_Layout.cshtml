@@ -16,46 +16,55 @@
         var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
         var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
     }
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom border-secondary box-shadow py-3">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold text-info" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-controller"></i> THE BIG <span class="text-warning">3</span>
+        <nav class="navbar navbar-expand-sm navbar-dark py-0"
+             style="background: linear-gradient(135deg, rgba(5,20,25,0.97) 0%, rgba(8,30,35,0.97) 100%); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(13,202,240,0.15); box-shadow: 0 1px 20px rgba(13,202,240,0.07); min-height: 60px;" ">
+            <div class="container-fluid px-4">
+
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2"
+                   asp-area="" asp-controller="Home" asp-action="Index"
+                   style="font-family: var(--heading-font); letter-spacing: 1px; font-size: 1.1rem;">
+                    <i class="bi bi-controller text-info"></i>
+                    <span class="text-white">THE BIG</span>
+                    <span class="text-warning">3</span>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler border-0" type="button"
+                        data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav mx-auto">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <ul class="navbar-nav gap-1 position-absolute start-50 translate-middle-x">
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold px-3 @(currentController == "Home" && currentAction == "Index" ? "active-link" : "")"
+                            <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Home" && currentAction == "Index" ? "active-link" : "")"
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold px-3 @(currentController == "Collection" && currentAction == "All" ? "active-link" : "")"
+                            <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Collection" && currentAction == "All" ? "active-link" : "")"
                                asp-area="" asp-controller="Collection" asp-action="All">Hub</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold px-3 @(currentController == "Profile" ? "active-link" : "")"
+                                <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Profile" ? "active-link" : "")"
                                    asp-controller="Profile" asp-action="Index">My Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold px-3 @(currentController == "Collection" && currentAction == "Mine" ? "active-link" : "")"
+                                <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Collection" && currentAction == "Mine" ? "active-link" : "")"
                                    asp-controller="Collection" asp-action="Mine">My Collection</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-semibold px-3 @(currentController == "Home" && currentAction == "Privacy" ? "active-link" : "")"
+                            <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Home" && currentAction == "Privacy" ? "active-link" : "")"
                                asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
 
-                    <div class="d-flex align-items-center text-white">
+                    <div class="d-flex align-items-center">
                         <partial name="_LoginPartial" />
                     </div>
                 </div>
@@ -63,11 +72,13 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div>
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger">
-                @TempData["Error"]
+            <div class="container">
+                <div class="alert alert-danger mt-3">
+                    @TempData["Error"]
+                </div>
             </div>
         }
         <main role="main" class="pb-3">
@@ -75,15 +86,42 @@
         </main>
     </div>
 
-    <footer class="footer bg-dark border-top border-secondary py-2 mt-auto">
-        <div class="container d-flex justify-content-between align-items-center">
-            <p class="mb-0 text-white-50 small">
-                &copy; 2026 <span class="text-info fw-bold">THE BIG 3</span>
-            </p>
+    <footer style="background: rgba(0,0,0,0.9); border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="container py-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
 
-            <div class="footer-links">
-                <a class="text-white-50 text-decoration-none small me-3" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                <a class="text-white-50 text-decoration-none small" asp-controller="Collection" asp-action="All">Hub</a>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-controller text-info"></i>
+                    <span style="font-family: var(--heading-font); font-size: 0.95rem; letter-spacing: 1px;">
+                        <span class="text-white">THE BIG</span> <span class="text-warning">3</span>
+                    </span>
+                </div>
+
+                <p class="mb-0 text-center" style="font-size: 0.78rem; color: rgba(255,255,255,0.25);">
+                    &copy; 2026 The Big Three — Built with passion for gamers.
+                </p>
+
+                <div class="d-flex gap-4">
+                    <a asp-controller="Home" asp-action="Privacy"
+                       style="font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;"
+                       onmouseover="this.style.color='rgba(13,202,240,0.8)'"
+                       onmouseout="this.style.color='rgba(255,255,255,0.35)'">
+                        Privacy
+                    </a>
+                    <a asp-controller="Collection" asp-action="All"
+                       style="font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;"
+                       onmouseover="this.style.color='rgba(13,202,240,0.8)'"
+                       onmouseout="this.style.color='rgba(255,255,255,0.35)'">
+                        Hub
+                    </a>
+                    <a asp-controller="Home" asp-action="Index"
+                       style="font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;"
+                       onmouseover="this.style.color='rgba(13,202,240,0.8)'"
+                       onmouseout="this.style.color='rgba(255,255,255,0.35)'">
+                        Home
+                    </a>
+                </div>
+
             </div>
         </div>
     </footer>
