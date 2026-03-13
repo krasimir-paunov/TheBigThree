@@ -26,6 +26,7 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Index()
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (userId == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -34,10 +35,17 @@ namespace TheBigThree.Controllers
             try
             {
                 string email = User.FindFirstValue(ClaimTypes.Email) ?? "N/A";
+
                 string username = User.Identity?.Name ?? "Gamer";
+
                 ApplicationUser? appUser = await userManager.FindByIdAsync(userId);
+
                 int totalStarsEarned = await profileService.GetUserTotalStarsAsync(userId);
+
                 IEnumerable<CollectionAllViewModel> starredCollections = await likeService.GetStarredCollectionsAsync(userId);
+
+                var ownCollection = await profileService.GetOwnCollectionPreviewAsync(userId);
+
                 string rank = GetRankName(totalStarsEarned);
 
                 ProfileViewModel viewModel = new ProfileViewModel
@@ -47,7 +55,10 @@ namespace TheBigThree.Controllers
                     Rank = rank,
                     TotalStarsEarned = totalStarsEarned,
                     FavoriteCollections = starredCollections,
-                    AvatarUrl = appUser?.AvatarUrl
+                    AvatarUrl = appUser?.AvatarUrl,
+                    OwnCollectionTitle = ownCollection.Title,
+                    OwnCollectionId = ownCollection.Id,
+                    OwnCollectionGameImages = ownCollection.GameImages
                 };
 
                 return View(viewModel);

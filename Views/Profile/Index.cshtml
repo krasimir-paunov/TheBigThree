@@ -5,62 +5,389 @@
     ViewBag.Title = "Player Profile";
 }
 
-<div class="hub-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
-    <div class="container py-4">
+@section Styles {
+    <style>
+        .profile-background {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/images/backgrounds/mine-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .profile-hero-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.25rem;
+        }
+
+        .avatar-ring {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(13, 202, 240, 0.5);
+            box-shadow: 0 0 20px rgba(13, 202, 240, 0.2);
+        }
+
+        .avatar-ring-rising {
+            animation: risingPulse 2.5s ease-in-out infinite;
+        }
+
+        .avatar-ring-popular {
+            animation: popularPulse 2.5s ease-in-out infinite;
+        }
+
+        .avatar-ring-legendary {
+            animation: legendaryAvatarPulse 2.5s ease-in-out infinite;
+        }
+
+        @@keyframes risingPulse {
+            0%, 100% {
+                box-shadow: 0 0 8px rgba(13, 202, 240, 0.3);
+                border-color: rgba(13, 202, 240, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(13, 202, 240, 0.7);
+                border-color: rgba(13, 202, 240, 0.9);
+            }
+        }
+
+        @@keyframes popularPulse {
+            0%, 100% {
+                box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+                border-color: rgba(96, 165, 250, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 22px rgba(96, 165, 250, 0.8);
+                border-color: rgba(96, 165, 250, 1);
+            }
+        }
+
+        @@keyframes legendaryAvatarPulse {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+                border-color: rgba(255, 215, 0, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 28px rgba(255, 215, 0, 0.9);
+                border-color: rgba(255, 215, 0, 1);
+            }
+        }
+
+        .avatar-initials {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(13,202,240,0.3), rgba(0,123,255,0.3));
+            border: 3px solid rgba(13, 202, 240, 0.5);
+            box-shadow: 0 0 20px rgba(13, 202, 240, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 4px;
+        }
+
+        .avatar-form-area {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        .fav-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+            .fav-card:hover {
+                border-color: rgba(13, 202, 240, 0.3);
+                transform: translateY(-2px);
+                color: inherit;
+            }
+
+        .fav-covers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            aspect-ratio: 16 / 7;
+            overflow: hidden;
+        }
+
+        .fav-cover-slot {
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+            .fav-cover-slot img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+        .fav-card:hover .fav-cover-slot img {
+            transform: scale(1.05);
+        }
+
+        .fav-card-body {
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .fav-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 160px;
+        }
+
+        .fav-meta {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 0;
+        }
+
+        .fav-stars {
+            font-size: 0.85rem;
+            color: #ffc107;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .own-collection-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+            .own-collection-card:hover {
+                border-color: rgba(255, 193, 7, 0.4);
+                transform: translateY(-2px);
+                color: inherit;
+            }
+
+        .own-covers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            aspect-ratio: 16 / 7;
+            overflow: hidden;
+        }
+
+        .own-cover-slot {
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+            .own-cover-slot img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+        .own-collection-card:hover .own-cover-slot img {
+            transform: scale(1.05);
+        }
+
+        .own-card-body {
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .own-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+    </style>
+}
+
+<div class="profile-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+
         <div class="text-center mb-5">
             <h2 class="hub-title mb-0">@ViewBag.Title</h2>
             <div class="badge bg-info text-dark shadow-sm">User Dashboard</div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-4 align-items-start">
+
             <div class="col-lg-4">
-                <div class="profile-card text-center shadow-lg">
+                <div class="profile-hero-card p-4 text-center shadow-lg">
 
-                    @if (!string.IsNullOrEmpty(Model.AvatarUrl))
-                    {
-                        <img src="@Model.AvatarUrl"
-                             class="rounded-circle shadow mb-3"
-                             style="width: 120px; height: 120px; object-fit: cover; border: 3px solid rgba(13,202,240,0.4);"
-                             alt="Avatar" />
-                    }
-                    else
-                    {
-                        <div class="profile-avatar-circle fw-bold shadow">
-                            @Model.Username.Substring(0, Math.Min(2, Model.Username.Length)).ToUpper()
-                        </div>
+                    @{
+                        string rankClass = Model.Rank switch
+                        {
+                            "Legendary Collector" => "rank-legendary",
+                            "Superstar Collector" => "rank-superstar",
+                            "Popular Collector" => "rank-popular",
+                            "Rising Star" => "rank-rising",
+                            "Novice Collector" => "rank-novice",
+                            _ => "rank-newcomer"
+                        };
+
+                        string avatarAnimClass = Model.Rank switch
+                        {
+                            "Legendary Collector" => "avatar-ring-legendary",
+                            "Superstar Collector" => "avatar-ring-legendary",
+                            "Popular Collector" => "avatar-ring-popular",
+                            "Rising Star" => "avatar-ring-rising",
+                            _ => ""
+                        };
+
+                        string rankTooltip = Model.Rank switch
+                        {
+                            "Legendary Collector" => "100+ stars — you've reached the top!",
+                            "Superstar Collector" => "30+ stars earned. Almost legendary!",
+                            "Popular Collector" => "10+ stars earned. Keep going!",
+                            "Rising Star" => "5+ stars earned. You're on the rise!",
+                            "Novice Collector" => "1+ stars earned. Just getting started!",
+                            _ => "Star a collection to start climbing the ranks!"
+                        };
                     }
 
-                    <p class="text-white fw-bold fs-2 mb-1">@Model.Username</p>
+                    <div class="d-flex justify-content-center mb-3">
+                        @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                        {
+                            <img src="@Model.AvatarUrl" class="avatar-ring @avatarAnimClass" alt="Avatar" />
+                        }
+                        else
+                        {
+                            <div class="avatar-initials @avatarAnimClass">
+                                @Model.Username.Substring(0, Math.Min(2, Model.Username.Length)).ToUpper()
+                            </div>
+                        }
+                    </div>
+
+                    <p class="text-white fw-bold mb-1" style="font-size: 1.6rem;">@Model.Username</p>
                     <p class="text-muted small mb-3">@Model.Email</p>
 
                     <div class="mb-4">
-                        <span class="badge rounded-pill bg-info text-dark px-3 py-2 fw-bold shadow-sm">
-                            <i class="bi bi-trophy-fill me-1"></i> @Model.Rank
+                        <span class="rank-badge @rankClass"
+                              style="font-size: 13px; padding: 5px 14px;"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              title="@rankTooltip">
+                            <i class="bi bi-trophy-fill me-1"></i>@Model.Rank
                         </span>
                     </div>
 
-                    <hr class="border-secondary opacity-25">
-
-                    <div class="row mt-4">
-                        <div class="col-6 border-end border-secondary border-opacity-25">
-                            <h4 class="text-warning fw-bold mb-0">@Model.TotalStarsEarned</h4>
-                            <div class="text-muted small text-uppercase" style="font-size: 0.65rem;">Stars Earned</div>
+                    <div class="d-flex gap-3 mb-4">
+                        <div class="stat-pill">
+                            <div class="stat-number text-warning">@Model.TotalStarsEarned</div>
+                            <div class="stat-label">Stars Earned</div>
                         </div>
-                        <div class="col-6">
-                            <h4 class="text-info fw-bold mb-0">@Model.FavoriteCollections.Count()</h4>
-                            <div class="text-muted small text-uppercase" style="font-size: 0.65rem;">Starred</div>
+                        <div class="stat-pill">
+                            <div class="stat-number text-info">@Model.FavoriteCollections.Count()</div>
+                            <div class="stat-label">Starred</div>
                         </div>
                     </div>
 
-                    <div class="mt-4">
+                    @if (Model.OwnCollectionId.HasValue)
+                    {
+                        <hr class="border-secondary opacity-25" />
+                        <p class="text-muted small text-uppercase mb-2" style="font-size: 0.65rem; letter-spacing: 0.1em;">
+                            <i class="bi bi-collection-fill me-1 text-warning"></i>My Big Three
+                        </p>
+                        <a asp-controller="Collection" asp-action="Details" asp-route-id="@Model.OwnCollectionId"
+                           class="own-collection-card mb-3">
+                            <div class="own-covers">
+                                @foreach (string imgUrl in Model.OwnCollectionGameImages)
+                                {
+                                    <div class="own-cover-slot">
+                                        <img src="@imgUrl" alt="Game Cover" />
+                                    </div>
+                                }
+                            </div>
+                            <div class="own-card-body">
+                                <p class="own-title">@Model.OwnCollectionTitle</p>
+                                <span style="font-size: 0.78rem; color: rgba(255,193,7,0.8);">
+                                    <i class="bi bi-eye-fill me-1 text-info"></i>View
+                                </span>
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <hr class="border-secondary opacity-25" />
+                        <p class="text-muted small fst-italic mb-3" style="font-size: 0.78rem;">
+                            You haven't built your Big Three yet.
+                        </p>
+                        <a asp-controller="Collection" asp-action="Add"
+                           class="btn btn-sm btn-outline-warning rounded-pill px-4 fw-bold mb-3">
+                            <i class="bi bi-plus-circle me-1"></i>Build My Big Three
+                        </a>
+                    }
+
+                    <hr class="border-secondary opacity-25" />
+
+                    <div class="mt-3">
                         <button type="button"
-                                class="btn btn-sm btn-outline-info rounded-pill px-3 fw-bold"
+                                class="btn btn-sm btn-outline-info rounded-pill px-3 fw-bold mb-3"
                                 onclick="document.getElementById('avatarForm').style.display = document.getElementById('avatarForm').style.display === 'none' ? 'block' : 'none'">
                             <i class="bi bi-image me-1"></i>
                             @(string.IsNullOrEmpty(Model.AvatarUrl) ? "Set Custom Avatar" : "Change Avatar")
                         </button>
 
-                        <div id="avatarForm" style="display: none;" class="mt-3">
+                        <div id="avatarForm" style="display: none;" class="avatar-form-area">
                             <form asp-controller="Profile" asp-action="UpdateAvatar" method="post">
                                 <div class="input-group input-group-sm">
                                     <input type="url" name="avatarUrl" value="@Model.AvatarUrl"
@@ -75,8 +402,9 @@
                     </div>
 
                     <div class="d-grid mt-4">
-                        <a asp-controller="Collection" asp-action="Mine" class="btn btn-outline-info rounded-pill fw-bold shadow-sm py-2">
-                            <i class="bi bi-pencil-square me-2"></i> Manage My Collection
+                        <a asp-controller="Collection" asp-action="Mine"
+                           class="btn btn-outline-info rounded-pill fw-bold py-2">
+                            <i class="bi bi-pencil-square me-2"></i>Manage My Collection
                         </a>
                     </div>
 
@@ -84,9 +412,12 @@
             </div>
 
             <div class="col-lg-8">
-                <div class="profile-card shadow-lg">
+                <div class="profile-hero-card p-4 shadow-lg">
+
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="text-white fw-bold mb-0">My Favorites</h4>
+                        <h4 class="text-white fw-bold mb-0">
+                            <i class="bi bi-star-fill text-warning me-2" style="font-size: 1rem;"></i>My Favorites
+                        </h4>
                         <span class="text-muted small fst-italic">Collections you've starred</span>
                     </div>
 
@@ -97,42 +428,53 @@
                                 <i class="bi bi-star" style="font-size: 4rem;"></i>
                             </div>
                             <p class="text-muted">You haven't starred any collections yet.</p>
-                            <a asp-controller="Collection" asp-action="All" class="btn btn-sm btn-outline-warning rounded-pill px-4 mt-2 fw-bold">Explore Hub</a>
+                            <a asp-controller="Collection" asp-action="All"
+                               class="btn btn-sm btn-outline-warning rounded-pill px-4 mt-2 fw-bold">
+                                Explore Hub
+                            </a>
                         </div>
                     }
                     else
                     {
-                        <div class="favorites-scroll-area">
+                        <div class="row g-3">
                             @foreach (var fav in Model.FavoriteCollections)
                             {
-                                <div class="favorite-item p-3 mb-3 d-flex align-items-center justify-content-between shadow-sm">
-                                    <div class="d-flex align-items-center">
-                                        <div class="me-3 bg-dark rounded p-1" style="width: 70px; height: 45px;">
-                                            <img src="@fav.GameImages.FirstOrDefault()"
-                                                 class="img-fluid h-100 w-100 rounded"
-                                                 style="object-fit: contain;"
-                                                 alt="Game Preview" />
+                                <div class="col-md-6">
+                                    <a asp-controller="Collection" asp-action="Details" asp-route-id="@fav.Id"
+                                       class="fav-card">
+                                        <div class="fav-covers">
+                                            @foreach (string imgUrl in fav.GameImages)
+                                            {
+                                                <div class="fav-cover-slot">
+                                                    <img src="@imgUrl" alt="Game Cover" />
+                                                </div>
+                                            }
                                         </div>
-                                        <div>
-                                            <h6 class="text-white fw-bold mb-0">@fav.Title</h6>
-                                            <small class="text-muted">by @fav.Publisher</small>
+                                        <div class="fav-card-body">
+                                            <div style="min-width: 0;">
+                                                <p class="fav-title">@fav.Title</p>
+                                                <p class="fav-meta">by @fav.Publisher</p>
+                                            </div>
+                                            <span class="fav-stars ms-2">⭐ @fav.TotalStars</span>
                                         </div>
-                                    </div>
-                                    <div class="text-end">
-                                        <span class="text-warning fw-bold">⭐ @fav.TotalStars</span>
-                                        <div class="mt-1">
-                                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@fav.Id"
-                                               class="btn btn-sm btn-link text-info p-0 text-decoration-none fw-bold">
-                                                View <i class="bi bi-chevron-right small"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             }
                         </div>
                     }
+
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                .forEach(el => new bootstrap.Tooltip(el));
+        });
+    </script>
+}
