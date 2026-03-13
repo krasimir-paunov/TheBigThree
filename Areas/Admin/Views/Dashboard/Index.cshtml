@@ -1,0 +1,218 @@
+﻿@using TheBigThree.Web.ViewModels
+@model AdminDashboardViewModel
+
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+@section Styles {
+    <style>
+        .admin-background {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/images/backgrounds/mine-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 6px;
+        }
+
+        .spotlight-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .spotlight-title {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 0.75rem;
+        }
+
+        .recent-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.15s ease;
+        }
+
+        .recent-row:last-child {
+            border-bottom: none;
+        }
+
+        .recent-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .nav-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+    </style>
+}
+
+<div class="admin-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h2 class="hub-title mb-0">Admin Dashboard</h2>
+            <div class="badge bg-warning text-dark shadow-sm">Administrator Panel</div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number text-info">@Model.TotalUsers</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number text-warning">@Model.TotalCollections</div>
+                    <div class="stat-label">Collections</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number text-success">@Model.TotalComments</div>
+                    <div class="stat-label">Comments</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number text-danger">@Model.TotalStars</div>
+                    <div class="stat-label">Stars Given</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="spotlight-card h-100">
+                    <div class="spotlight-title">
+                        <i class="bi bi-trophy-fill me-1 text-warning"></i> Top Collection
+                    </div>
+                    <p class="text-white fw-bold fs-5 mb-1">@Model.TopCollectionTitle</p>
+                    <p class="text-info mb-2" style="font-size: 0.85rem;">by @Model.TopCollectionOwner</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+                            ⭐ @Model.TopCollectionStars stars
+                        </span>
+                        @if (Model.TopCollectionId > 0)
+                        {
+                            <a asp-area="" asp-controller="Collection" asp-action="Details"
+                               asp-route-id="@Model.TopCollectionId"
+                               class="btn btn-sm btn-outline-info rounded-pill px-3"
+                               style="font-size: 0.8rem;">
+                                <i class="bi bi-eye-fill me-1"></i>View
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="spotlight-card h-100">
+                    <div class="spotlight-title">
+                        <i class="bi bi-chat-dots-fill me-1 text-info"></i> Most Active User
+                    </div>
+                    <p class="text-white fw-bold fs-5 mb-1">@Model.MostActiveUser</p>
+                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+                        @Model.MostActiveUserComments @(Model.MostActiveUserComments == 1 ? "comment" : "comments") posted
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="spotlight-card mb-4">
+            <div class="spotlight-title mb-3">
+                <i class="bi bi-clock-fill me-1 text-warning"></i> Recently Added Collections
+            </div>
+            @foreach (CollectionManagementViewModel collection in Model.RecentCollections)
+            {
+                <div class="recent-row">
+                    <div>
+                        <p class="text-white fw-semibold mb-0" style="font-size: 0.9rem;">@collection.Title</p>
+                        <p style="font-size: 0.78rem; color: rgba(255,255,255,0.4); margin: 0;">
+                            by @collection.Owner · @collection.CreatedOn.ToString("MMM dd, yyyy")
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <span style="font-size: 0.78rem; color: rgba(255,193,7,0.8);">⭐ @collection.TotalStars</span>
+                        <a asp-area="" asp-controller="Collection" asp-action="Details"
+                           asp-route-id="@collection.Id"
+                           class="btn btn-sm rounded-pill"
+                           style="background: rgba(13,202,240,0.1); color: rgba(13,202,240,0.8); border: 1px solid rgba(13,202,240,0.2); font-size: 0.78rem;">
+                            <i class="bi bi-eye-fill me-1"></i>View
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="nav-card">
+                    <div>
+                        <p class="text-white fw-bold mb-0">User Management</p>
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin: 0;">View, search and delete users</p>
+                    </div>
+                    <i class="bi bi-people-fill text-info fs-4"></i>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a asp-area="Admin" asp-controller="Collections" asp-action="Index" class="nav-card">
+                    <div>
+                        <p class="text-white fw-bold mb-0">Collection Management</p>
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.4); margin: 0;">View, search and delete collections</p>
+                    </div>
+                    <i class="bi bi-collection-fill text-warning fs-4"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
