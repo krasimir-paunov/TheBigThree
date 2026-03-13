@@ -7,12 +7,13 @@ using TheBigThree.Services;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Services.Core.Repositories;
 using TheBigThree.Services.Repositories;
+using TheBigThree.Services.Seeding;
 
 namespace TheBigThree
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ namespace TheBigThree
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.AllowedForNewUsers = true;
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<TheBigThreeDbContext>();
 
             builder.Services.ConfigureApplicationCookie(options =>
@@ -84,6 +86,13 @@ namespace TheBigThree
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapRazorPages();
+
+            using (IServiceScope scope = app.Services.CreateScope())
+            {
+                IServiceProvider services = scope.ServiceProvider;
+
+                await RoleSeeder.SeedRolesAndAdminAsync(services);
+            }
 
             app.Run();
         }
