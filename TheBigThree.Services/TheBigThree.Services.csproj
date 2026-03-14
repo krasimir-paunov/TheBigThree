@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
     <ProjectReference Include="..\TheBigThree.Data\TheBigThree.Data.csproj" />
+    <ProjectReference Include="..\TheBigThree.Services.Core\TheBigThree.Services.Core.csproj" />
     <ProjectReference Include="..\TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
   </ItemGroup>
 </Project>
