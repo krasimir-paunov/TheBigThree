@@ -153,10 +153,6 @@
         transition: transform 0.3s ease;
     }
 
-.fav-card:hover .fav-cover-slot img {
-    transform: scale(1.05);
-}
-
 .fav-card-body {
     padding: 10px 14px;
     display: flex;
