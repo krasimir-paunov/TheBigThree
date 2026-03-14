@@ -1,58 +1,62 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-TheBigThree-64431317-a475-4ad0-a4f4-096b11d9f99a</UserSecretsId>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="TheBigThree.Data\**" />
-    <Compile Remove="TheBigThree.Data.Models\**" />
-    <Compile Remove="TheBigThree.GCommon\**" />
-    <Compile Remove="TheBigThree.Services\**" />
-    <Compile Remove="TheBigThree.Services.Core\**" />
-    <Compile Remove="TheBigThree.Web.ViewModels\**" />
-    <Content Remove="TheBigThree.Data\**" />
-    <Content Remove="TheBigThree.Data.Models\**" />
-    <Content Remove="TheBigThree.GCommon\**" />
-    <Content Remove="TheBigThree.Services\**" />
-    <Content Remove="TheBigThree.Services.Core\**" />
-    <Content Remove="TheBigThree.Web.ViewModels\**" />
-    <EmbeddedResource Remove="TheBigThree.Data\**" />
-    <EmbeddedResource Remove="TheBigThree.Data.Models\**" />
-    <EmbeddedResource Remove="TheBigThree.GCommon\**" />
-    <EmbeddedResource Remove="TheBigThree.Services\**" />
-    <EmbeddedResource Remove="TheBigThree.Services.Core\**" />
-    <EmbeddedResource Remove="TheBigThree.Web.ViewModels\**" />
-    <None Remove="TheBigThree.Data\**" />
-    <None Remove="TheBigThree.Data.Models\**" />
-    <None Remove="TheBigThree.GCommon\**" />
-    <None Remove="TheBigThree.Services\**" />
-    <None Remove="TheBigThree.Services.Core\**" />
-    <None Remove="TheBigThree.Web.ViewModels\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.22" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.23" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.23" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.23" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.23" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.23">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
-    <ProjectReference Include="TheBigThree.Data\TheBigThree.Data.csproj" />
-    <ProjectReference Include="TheBigThree.GCommon\TheBigThree.GCommon.csproj" />
-    <ProjectReference Include="TheBigThree.Services.Core\TheBigThree.Services.Core.csproj" />
-    <ProjectReference Include="TheBigThree.Services\TheBigThree.Services.csproj" />
-    <ProjectReference Include="TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Identity\Data\" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>aspnet-TheBigThree-64431317-a475-4ad0-a4f4-096b11d9f99a</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="TheBigThree.Data\**" />
+		<Compile Remove="TheBigThree.Data.Models\**" />
+		<Compile Remove="TheBigThree.GCommon\**" />
+		<Compile Remove="TheBigThree.Services\**" />
+		<Compile Remove="TheBigThree.Services.Core\**" />
+		<Compile Remove="TheBigThree.Web.ViewModels\**" />
+		<Compile Remove="TheBigThree.Tests\**" />
+		<Content Remove="TheBigThree.Data\**" />
+		<Content Remove="TheBigThree.Data.Models\**" />
+		<Content Remove="TheBigThree.GCommon\**" />
+		<Content Remove="TheBigThree.Services\**" />
+		<Content Remove="TheBigThree.Services.Core\**" />
+		<Content Remove="TheBigThree.Web.ViewModels\**" />
+		<Content Remove="TheBigThree.Tests\**" />
+		<EmbeddedResource Remove="TheBigThree.Data\**" />
+		<EmbeddedResource Remove="TheBigThree.Data.Models\**" />
+		<EmbeddedResource Remove="TheBigThree.GCommon\**" />
+		<EmbeddedResource Remove="TheBigThree.Services\**" />
+		<EmbeddedResource Remove="TheBigThree.Services.Core\**" />
+		<EmbeddedResource Remove="TheBigThree.Web.ViewModels\**" />
+		<EmbeddedResource Remove="TheBigThree.Tests\**" />
+		<None Remove="TheBigThree.Data\**" />
+		<None Remove="TheBigThree.Data.Models\**" />
+		<None Remove="TheBigThree.GCommon\**" />
+		<None Remove="TheBigThree.Services\**" />
+		<None Remove="TheBigThree.Services.Core\**" />
+		<None Remove="TheBigThree.Web.ViewModels\**" />
+		<None Remove="TheBigThree.Tests\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.22" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.23" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.23" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.23" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.23" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.23">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
+		<ProjectReference Include="TheBigThree.Data\TheBigThree.Data.csproj" />
+		<ProjectReference Include="TheBigThree.GCommon\TheBigThree.GCommon.csproj" />
+		<ProjectReference Include="TheBigThree.Services.Core\TheBigThree.Services.Core.csproj" />
+		<ProjectReference Include="TheBigThree.Services\TheBigThree.Services.csproj" />
+		<ProjectReference Include="TheBigThree.Web.ViewModels\TheBigThree.Web.ViewModels.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Areas\Admin\Views\Shared\" />
+		<Folder Include="Areas\Identity\Data\" />
+	</ItemGroup>
 </Project>
