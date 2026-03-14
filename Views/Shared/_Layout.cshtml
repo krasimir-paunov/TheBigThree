@@ -18,8 +18,8 @@
     }
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark py-0"
-             style="background: linear-gradient(135deg, rgba(5,20,25,0.97) 0%, rgba(8,30,35,0.97) 100%); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(13,202,240,0.15); box-shadow: 0 1px 20px rgba(13,202,240,0.07); min-height: 60px;" ">
+        <nav class="navbar navbar-expand-lg navbar-dark py-0"
+             style="background: linear-gradient(135deg, rgba(5,20,25,0.97) 0%, rgba(8,30,35,0.97) 100%); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(13,202,240,0.15); box-shadow: 0 1px 20px rgba(13,202,240,0.07); min-height: 60px;">
             <div class="container-fluid px-4">
 
                 <a class="navbar-brand fw-bold d-flex align-items-center gap-2"
@@ -38,7 +38,8 @@
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                    <ul class="navbar-nav gap-1 position-absolute start-50 translate-middle-x">
+
+                    <ul class="navbar-nav gap-1 d-none d-lg-flex position-absolute start-50 translate-middle-x">
                         <li class="nav-item">
                             <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Home" && currentAction == "Index" ? "active-link" : "")"
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -64,9 +65,31 @@
                         </li>
                     </ul>
 
+                    <ul class="navbar-nav d-lg-none w-100">
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Collection" asp-action="All">Hub</a>
+                        </li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold px-3" asp-controller="Profile" asp-action="Index">My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold px-3" asp-controller="Collection" asp-action="Mine">My Collection</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+
                     <div class="d-flex align-items-center">
                         <partial name="_LoginPartial" />
                     </div>
+
                 </div>
             </div>
         </nav>

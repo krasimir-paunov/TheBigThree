@@ -33,7 +33,7 @@
     animation: legendaryAvatarPulse 2.5s ease-in-out infinite;
 }
 
-@@keyframes risingPulse {
+@keyframes risingPulse {
     0%, 100% {
         box-shadow: 0 0 8px rgba(13, 202, 240, 0.3);
         border-color: rgba(13, 202, 240, 0.5);
@@ -45,7 +45,7 @@
     }
 }
 
-@@keyframes popularPulse {
+@keyframes popularPulse {
     0%, 100% {
         box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
         border-color: rgba(96, 165, 250, 0.5);
@@ -57,7 +57,7 @@
     }
 }
 
-@@keyframes legendaryAvatarPulse {
+@keyframes legendaryAvatarPulse {
     0%, 100% {
         box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         border-color: rgba(255, 215, 0, 0.5);
