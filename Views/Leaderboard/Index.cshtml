@@ -1,0 +1,161 @@
+﻿@model TheBigThree.Web.ViewModels.LeaderboardViewModel
+
+@{
+    ViewBag.Title = "Leaderboard";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/leaderboard.css" asp-append-version="true" />
+}
+
+<div class="leaderboard-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h2 class="leaderboard-title mb-0">Leaderboard</h2>
+            <div class="badge bg-warning text-dark shadow-sm">Who rules the Big Three?</div>
+        </div>
+
+        <div class="row g-5">
+
+            <div class="col-lg-6">
+                <h3 class="section-heading mb-4">
+                    <i class="bi bi-star-fill text-warning me-2"></i>Top Collectors
+                </h3>
+                <div class="leaderboard-table">
+                    @for (int i = 0; i < Model.TopCollectors.Count; i++)
+                    {
+                        var entry = Model.TopCollectors[i];
+                        string rowClass = i switch
+                        {
+                            0 => "leaderboard-row gold",
+                            1 => "leaderboard-row silver",
+                            2 => "leaderboard-row bronze",
+                            _ => "leaderboard-row"
+                        };
+                        string positionIcon = i switch
+                        {
+                            0 => "<i class='bi bi-trophy-fill text-warning'></i>",
+                            1 => "<i class='bi bi-trophy-fill text-secondary'></i>",
+                            2 => "<i class='bi bi-trophy-fill' style='color: #cd7f32;'></i>",
+                            _ => $"<span class='position-number'>#{entry.Position}</span>"
+                        };
+                        string rankClass = entry.Rank switch
+                        {
+                            "Legendary Collector" => "rank-legendary",
+                            "Superstar Collector" => "rank-superstar",
+                            "Popular Collector" => "rank-popular",
+                            "Rising Star" => "rank-rising",
+                            "Novice Collector" => "rank-novice",
+                            _ => "rank-newcomer"
+                        };
+
+                        <div class="@rowClass">
+                            <div class="position-cell">
+                                @Html.Raw(positionIcon)
+                            </div>
+                            <div class="avatar-cell">
+                                @if (!string.IsNullOrEmpty(entry.AvatarUrl))
+                                {
+                                    <img src="@entry.AvatarUrl" class="lb-avatar" alt="avatar" />
+                                }
+                                else
+                                {
+                                    <div class="lb-initials">
+                                        @entry.Username.Substring(0, Math.Min(2, entry.Username.Length)).ToUpper()
+                                    </div>
+                                }
+                            </div>
+                            <div class="info-cell">
+                                <span class="lb-username">@entry.Username</span>
+                                <span class="rank-badge @rankClass">@entry.Rank</span>
+                                @if (!string.IsNullOrEmpty(entry.CollectionTitle))
+                                {
+                                    <div class="lb-collection">
+                                        <a asp-controller="Collection" asp-action="Details"
+                                           asp-route-id="@entry.CollectionId"
+                                           class="lb-collection-link">
+                                            <i class="bi bi-collection me-1"></i>@entry.CollectionTitle
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                            <div class="score-cell">
+                                <span class="lb-score">⭐ @entry.Score</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <h3 class="section-heading mb-4">
+                    <i class="bi bi-chat-dots-fill text-info me-2"></i>Most Active Commenters
+                </h3>
+                <div class="leaderboard-table">
+                    @for (int i = 0; i < Model.TopCommenters.Count; i++)
+                    {
+                        var entry = Model.TopCommenters[i];
+                        string rowClass = i switch
+                        {
+                            0 => "leaderboard-row gold",
+                            1 => "leaderboard-row silver",
+                            2 => "leaderboard-row bronze",
+                            _ => "leaderboard-row"
+                        };
+                        string positionIcon = i switch
+                        {
+                            0 => "<i class='bi bi-trophy-fill text-warning'></i>",
+                            1 => "<i class='bi bi-trophy-fill text-secondary'></i>",
+                            2 => "<i class='bi bi-trophy-fill' style='color: #cd7f32;'></i>",
+                            _ => $"<span class='position-number'>#{entry.Position}</span>"
+                        };
+                        string rankClass = entry.Rank switch
+                        {
+                            "Legendary Collector" => "rank-legendary",
+                            "Superstar Collector" => "rank-superstar",
+                            "Popular Collector" => "rank-popular",
+                            "Rising Star" => "rank-rising",
+                            "Novice Collector" => "rank-novice",
+                            _ => "rank-newcomer"
+                        };
+
+                        <div class="@rowClass">
+                            <div class="position-cell">
+                                @Html.Raw(positionIcon)
+                            </div>
+                            <div class="avatar-cell">
+                                @if (!string.IsNullOrEmpty(entry.AvatarUrl))
+                                {
+                                    <img src="@entry.AvatarUrl" class="lb-avatar" alt="avatar" />
+                                }
+                                else
+                                {
+                                    <div class="lb-initials">
+                                        @entry.Username.Substring(0, Math.Min(2, entry.Username.Length)).ToUpper()
+                                    </div>
+                                }
+                            </div>
+                            <div class="info-cell">
+                                <span class="lb-username">@entry.Username</span>
+                                <span class="rank-badge @rankClass">@entry.Rank</span>
+                            </div>
+                            <div class="score-cell">
+                                <span class="lb-score text-info">💬 @entry.Score</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-controller="Collection" asp-action="All"
+               class="btn btn-sm btn-outline-light rounded-pill px-4 opacity-50">
+                <i class="bi bi-arrow-left me-2"></i>Back to Hub
+            </a>
+        </div>
+
+    </div>
+</div>

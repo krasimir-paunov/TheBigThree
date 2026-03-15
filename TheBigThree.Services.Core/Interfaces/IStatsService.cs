@@ -10,5 +10,6 @@ namespace TheBigThree.Services.Core.Interfaces
     public interface IStatsService
     {
         Task<StatsViewModel> GetStatsAsync();
+        Task<LeaderboardViewModel> GetLeaderboardAsync();
     }
 }

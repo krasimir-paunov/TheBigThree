@@ -18,7 +18,7 @@
     }
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark py-0"
+        <nav class="navbar navbar-expand-xxl navbar-dark py-0"
              style="background: linear-gradient(135deg, rgba(5,20,25,0.97) 0%, rgba(8,30,35,0.97) 100%); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(13,202,240,0.15); box-shadow: 0 1px 20px rgba(13,202,240,0.07); min-height: 60px;">
             <div class="container-fluid px-4">
 
@@ -39,7 +39,7 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
 
-                    <ul class="navbar-nav gap-1 d-none d-lg-flex position-absolute start-50 translate-middle-x">
+                    <ul class="navbar-nav gap-1 d-none d-xxl-flex position-absolute start-50 translate-middle-x">
                         <li class="nav-item">
                             <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Home" && currentAction == "Index" ? "active-link" : "")"
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -62,6 +62,10 @@
                                 <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Stats" && currentAction == "Index" ? "active-link" : "")"
                                    asp-area="" asp-controller="Stats" asp-action="Index">Stats</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Leaderboard" && currentAction == "Index" ? "active-link" : "")"
+                                   asp-area="" asp-controller="Leaderboard" asp-action="Index">Leaderboard</a>
+                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Home" && currentAction == "Privacy" ? "active-link" : "")"
@@ -69,7 +73,7 @@
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav d-lg-none w-100">
+                    <ul class="navbar-nav d-xxl-none w-100">
                         <li class="nav-item">
                             <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -83,6 +87,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Collection" asp-action="Mine">My Collection</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Stats" asp-action="Index">Stats</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Leaderboard" asp-action="Index">Leaderboard</a>
                             </li>
                         }
                         <li class="nav-item">
@@ -129,19 +139,19 @@
                 </p>
 
                 <div class="d-flex gap-4">
-                    <a asp-controller="Home" asp-action="Privacy"
+                    <a asp-area="" asp-controller="Home" asp-action="Privacy"
                        style="font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;"
                        onmouseover="this.style.color='rgba(13,202,240,0.8)'"
                        onmouseout="this.style.color='rgba(255,255,255,0.35)'">
                         Privacy
                     </a>
-                    <a asp-controller="Collection" asp-action="All"
+                    <a asp-area="" asp-controller="Collection" asp-action="All"
                        style="font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;"
                        onmouseover="this.style.color='rgba(13,202,240,0.8)'"
                        onmouseout="this.style.color='rgba(255,255,255,0.35)'">
                         Hub
                     </a>
-                    <a asp-controller="Home" asp-action="Index"
+                    <a asp-area="" asp-controller="Home" asp-action="Index"
                        style="font-size: 0.78rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s;"
                        onmouseover="this.style.color='rgba(13,202,240,0.8)'"
                        onmouseout="this.style.color='rgba(255,255,255,0.35)'">

@@ -128,5 +128,57 @@ namespace TheBigThree.Services
                 NewestCollectionOwner = newest?.Owner ?? "N/A"
             };
         }
+
+        public async Task<LeaderboardViewModel> GetLeaderboardAsync()
+        {
+            List<LeaderboardEntryViewModel> topCollectors = await collectionRepository
+                .All()
+                .AsNoTracking()
+                .Include(c => c.User)
+                .OrderByDescending(c => c.TotalStars)
+                .Take(10)
+                .Select(c => new LeaderboardEntryViewModel
+                {
+                    Username = c.User.UserName ?? "Unknown",
+                    AvatarUrl = c.User.AvatarUrl,
+                    CollectionTitle = c.Title,
+                    CollectionId = c.Id,
+                    Score = c.TotalStars
+                })
+                .ToListAsync();
+
+            for (int i = 0; i < topCollectors.Count; i++)
+            {
+                topCollectors[i].Position = i + 1;
+
+                topCollectors[i].Rank = RankHelper.GetRank(topCollectors[i].Score);
+            }
+
+            List<LeaderboardEntryViewModel> topCommenters = await commentRepository
+                .All()
+                .GroupBy(c => new { c.User.UserName, c.User.AvatarUrl })
+                .Select(g => new LeaderboardEntryViewModel
+                {
+                    Username = g.Key.UserName ?? "Unknown",
+                    AvatarUrl = g.Key.AvatarUrl,
+                    Score = g.Count()
+                })
+                .OrderByDescending(e => e.Score)
+                .Take(10)
+                .ToListAsync();
+
+            for (int i = 0; i < topCommenters.Count; i++)
+            {
+                topCommenters[i].Position = i + 1;
+
+                topCommenters[i].Rank = RankHelper.GetRank(topCommenters[i].Score);
+            }
+
+            return new LeaderboardViewModel
+            {
+                TopCollectors = topCollectors,
+                TopCommenters = topCommenters
+            };
+        }
     }
 }
