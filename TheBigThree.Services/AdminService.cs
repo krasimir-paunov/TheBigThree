@@ -80,7 +80,8 @@ namespace TheBigThree.Services
 
         public async Task DeleteCollectionAsync(int collectionId)
         {
-            Collection? collection = await collectionRepository.All()
+            Collection? collection = await collectionRepository
+                .All()
                 .FirstOrDefaultAsync(c => c.Id == collectionId);
 
             if (collection == null) return;
@@ -93,8 +94,11 @@ namespace TheBigThree.Services
         public async Task<AdminDashboardViewModel> GetDashboardDataAsync()
         {
             int totalUsers = await userManager.Users.CountAsync();
+
             int totalCollections = await collectionRepository.All().CountAsync();
+
             int totalStars = await collectionRepository.All().SumAsync(c => c.TotalStars);
+
             int totalComments = await commentRepository.All().CountAsync();
 
             Collection? topCollection = await collectionRepository
