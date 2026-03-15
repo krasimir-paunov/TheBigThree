@@ -52,11 +52,11 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Profile" ? "active-link" : "")"
-                                   asp-controller="Profile" asp-action="Index">My Profile</a>
+                                   asp-area="" asp-controller="Profile" asp-action="Index">My Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Collection" && currentAction == "Mine" ? "active-link" : "")"
-                                   asp-controller="Collection" asp-action="Mine">My Collection</a>
+                                   asp-area="" asp-controller="Collection" asp-action="Mine">My Collection</a>
                             </li>
                         }
                         <li class="nav-item">
@@ -75,10 +75,10 @@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold px-3" asp-controller="Profile" asp-action="Index">My Profile</a>
+                                <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Profile" asp-action="Index">My Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white fw-semibold px-3" asp-controller="Collection" asp-action="Mine">My Collection</a>
+                                <a class="nav-link text-white fw-semibold px-3" asp-area="" asp-controller="Collection" asp-action="Mine">My Collection</a>
                             </li>
                         }
                         <li class="nav-item">
