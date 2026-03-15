@@ -1,0 +1,187 @@
+﻿@model TheBigThree.Web.ViewModels.StatsViewModel
+
+@{
+    ViewBag.Title = "Community Stats";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/stats.css" asp-append-version="true" />
+}
+
+<div class="stats-background overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h2 class="stats-title mb-0">Community Stats</h2>
+            <div class="badge bg-info text-dark shadow-sm">The Big Three by the numbers</div>
+        </div>
+
+        <div class="row g-4 mb-5 justify-content-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-card text-center">
+                    <div class="stat-icon"><i class="bi bi-collection-fill text-info"></i></div>
+                    <div class="stat-number">@Model.TotalCollections</div>
+                    <div class="stat-label">Collections</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card text-center">
+                    <div class="stat-icon"><i class="bi bi-people-fill text-info"></i></div>
+                    <div class="stat-number">@Model.TotalUsers</div>
+                    <div class="stat-label">Members</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card text-center">
+                    <div class="stat-icon"><i class="bi bi-star-fill text-warning"></i></div>
+                    <div class="stat-number">@Model.TotalStars</div>
+                    <div class="stat-label">Stars Given</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card text-center">
+                    <div class="stat-icon"><i class="bi bi-chat-dots-fill text-info"></i></div>
+                    <div class="stat-number">@Model.TotalComments</div>
+                    <div class="stat-label">Comments</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-center text-white fw-bold mb-4" style="font-family: var(--heading-font); letter-spacing: 1px;">
+            <i class="bi bi-trophy-fill text-warning me-2"></i>Top 3 Collections
+        </h3>
+
+        <div class="row g-4 justify-content-center mb-5">
+            @for (int i = 0; i < Model.TopThreeCollections.Count; i++)
+            {
+                var collection = Model.TopThreeCollections[i];
+                string medalIcon = i switch
+                {
+                    0 => "bi-trophy-fill text-warning",
+                    1 => "bi-award-fill text-secondary",
+                    _ => "bi-award-fill text-warning-emphasis"
+                };
+                string borderColor = i switch
+                {
+                    0 => "rgba(255, 193, 7, 0.4)",
+                    1 => "rgba(108, 117, 125, 0.4)",
+                    _ => "rgba(176, 104, 18, 0.4)"
+                };
+                string rankClass = collection.PublisherRank switch
+                {
+                    "Legendary Collector" => "rank-legendary",
+                    "Superstar Collector" => "rank-superstar",
+                    "Popular Collector" => "rank-popular",
+                    "Rising Star" => "rank-rising",
+                    "Novice Collector" => "rank-novice",
+                    _ => "rank-newcomer"
+                };
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="stat-card podium-card" style="border-color: @borderColor;">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <i class="bi @medalIcon fs-3"></i>
+                            <div>
+                                @if (!string.IsNullOrEmpty(collection.AvatarUrl))
+                                {
+                                    <img src="@collection.AvatarUrl" class="curator-avatar me-1" alt="avatar" />
+                                }
+                                <span class="text-white fw-bold">@collection.Owner</span>
+                                <div>
+                                    <span class="rank-badge @rankClass">@collection.PublisherRank</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-info fw-bold mb-1">@collection.Title</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="text-warning fw-bold">⭐ @collection.TotalStars stars</span>
+                            <a asp-controller="Collection" asp-action="Details" asp-route-id="@collection.Id"
+                               class="btn btn-sm btn-outline-info rounded-pill px-3">
+                                <i class="bi bi-eye-fill me-1"></i>View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row g-4 mb-5">
+
+            <div class="col-md-6">
+                <div class="section-header mb-4">
+                    <i class="bi bi-controller text-info me-2"></i>
+                    <span>Most Popular Genres</span>
+                </div>
+                <div class="stat-card">
+                    @for (int i = 0; i < Model.TopGenres.Count; i++)
+                    {
+                        var genre = Model.TopGenres[i];
+                        int maxCount = Model.TopGenres.Max(g => g.Count);
+                        int barWidth = maxCount > 0 ? (int)((double)genre.Count / maxCount * 100) : 0;
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-white-50 small">@genre.Genre</span>
+                                <span class="text-info small fw-bold">@genre.Count games</span>
+                            </div>
+                            <div class="genre-bar-bg">
+                                <div class="genre-bar-fill" style="width: @(barWidth)%;"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="section-header mb-4">
+                    <i class="bi bi-lightning-fill text-warning me-2"></i>
+                    <span>Highlights</span>
+                </div>
+                <div class="stat-card">
+                    <div class="highlight-row">
+                        <i class="bi bi-chat-square-dots-fill text-info"></i>
+                        <div>
+                            <div class="highlight-label">Most Commented</div>
+                            <a asp-controller="Collection" asp-action="Details"
+                               asp-route-id="@Model.MostCommentedCollectionId"
+                               class="highlight-value text-decoration-none">
+                                @Model.MostCommentedCollectionTitle
+                            </a>
+                            <span class="text-muted small ms-2">@Model.MostCommentedCollectionComments comments</span>
+                        </div>
+                    </div>
+                    <hr class="border-secondary opacity-25" />
+                    <div class="highlight-row">
+                        <i class="bi bi-person-hearts text-info"></i>
+                        <div>
+                            <div class="highlight-label">Most Active Commenter</div>
+                            <span class="highlight-value">@Model.MostActiveCommenter</span>
+                            <span class="text-muted small ms-2">@Model.MostActiveCommenterCount comments</span>
+                        </div>
+                    </div>
+                    <hr class="border-secondary opacity-25" />
+                    <div class="highlight-row">
+                        <i class="bi bi-stars text-warning"></i>
+                        <div>
+                            <div class="highlight-label">Newest Collection</div>
+                            <a asp-controller="Collection" asp-action="Details"
+                               asp-route-id="@Model.NewestCollectionId"
+                               class="highlight-value text-decoration-none">
+                                @Model.NewestCollectionTitle
+                            </a>
+                            <span class="text-muted small ms-2">by @Model.NewestCollectionOwner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Collection" asp-action="All"
+               class="btn btn-sm btn-outline-light rounded-pill px-4 opacity-50">
+                <i class="bi bi-arrow-left me-2"></i>Back to Hub
+            </a>
+        </div>
+
+    </div>
+</div>

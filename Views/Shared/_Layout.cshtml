@@ -58,6 +58,10 @@
                                 <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Collection" && currentAction == "Mine" ? "active-link" : "")"
                                    asp-area="" asp-controller="Collection" asp-action="Mine">My Collection</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Stats" && currentAction == "Index" ? "active-link" : "")"
+                                   asp-area="" asp-controller="Stats" asp-action="Index">Stats</a>
+                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-white fw-semibold px-3 py-4 @(currentController == "Home" && currentAction == "Privacy" ? "active-link" : "")"

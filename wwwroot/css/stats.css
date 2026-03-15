@@ -1,0 +1,118 @@
+﻿.stats-background {
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/images/backgrounds/mine-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.stats-title {
+    font-family: var(--heading-font);
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 20px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+    .stat-card:hover {
+        border-color: rgba(13, 202, 240, 0.3);
+        transform: translateY(-2px);
+    }
+
+.podium-card {
+    border-width: 1px;
+    border-style: solid;
+}
+
+.stat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+}
+
+.section-header {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+}
+
+.genre-bar-bg {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.genre-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(13, 202, 240, 0.6), rgba(13, 202, 240, 1));
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+.highlight-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    font-size: 0.9rem;
+}
+
+    .highlight-row i {
+        font-size: 1.2rem;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+.highlight-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 2px;
+}
+
+.highlight-value {
+    font-weight: 600;
+    color: #fff;
+}
+
+    .highlight-value:hover {
+        color: rgba(13, 202, 240, 0.9);
+    }
+
+.curator-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(13, 202, 240, 0.4);
+}
