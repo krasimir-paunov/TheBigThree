@@ -51,7 +51,11 @@
                         <i class="bi bi-trophy-fill me-1 text-warning"></i> Top Collection
                     </div>
                     <p class="text-white fw-bold fs-5 mb-1">@Model.TopCollectionTitle</p>
-                    <p class="text-info mb-2" style="font-size: 0.85rem;">by @Model.TopCollectionOwner</p>
+                    <p class="mb-2" style="font-size: 0.85rem;">
+                        by <a asp-area="" asp-controller="PublicProfile" asp-action="Index"
+                              asp-route-username="@Model.TopCollectionOwner"
+                              class="text-info text-decoration-none">@Model.TopCollectionOwner</a>
+                    </p>
                     <div class="d-flex align-items-center justify-content-between">
                         <span style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">
                             ⭐ @Model.TopCollectionStars stars
@@ -73,7 +77,9 @@
                     <div class="spotlight-title">
                         <i class="bi bi-chat-dots-fill me-1 text-info"></i> Most Active User
                     </div>
-                    <p class="text-white fw-bold fs-5 mb-1">@Model.MostActiveUser</p>
+                    <a asp-area="" asp-controller="PublicProfile" asp-action="Index"
+                       asp-route-username="@Model.MostActiveUser"
+                       class="text-white fw-bold fs-5 mb-1 text-decoration-none d-block">@Model.MostActiveUser</a>
                     <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">
                         @Model.MostActiveUserComments @(Model.MostActiveUserComments == 1 ? "comment" : "comments") posted
                     </p>

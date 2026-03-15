@@ -26,7 +26,9 @@
 				}
 				<div>
 					<p class="text-muted mb-0" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px;">Curated by</p>
-					<p class="text-info fw-bold fs-5 mb-0">@Model.Publisher</p>
+					<a asp-controller="PublicProfile" asp-action="Index"
+					   asp-route-username="@Model.Publisher"
+					   class="text-info fw-bold fs-5 mb-0 text-decoration-none">@Model.Publisher</a>
 				</div>
 				<div class="vr bg-secondary opacity-25 d-none d-md-block" style="height: 40px;"></div>
 				<div>
@@ -135,7 +137,9 @@
 								</div>
 							}
 							<div>
-								<span class="text-info fw-bold" style="font-size: 0.9rem;">@comment.UserName</span>
+								<a asp-controller="PublicProfile" asp-action="Index"
+								   asp-route-username="@comment.UserName"
+								   class="text-info fw-bold text-decoration-none" style="font-size: 0.9rem;">@comment.UserName</a>
 								<span class="text-muted ms-2" style="font-size: 0.72rem;">
 									@comment.CreatedOn.ToString("MMM dd, yyyy")
 								</span>

@@ -1,4 +1,5 @@
-﻿using MockQueryable.Moq;
+﻿using Microsoft.AspNetCore.Identity;
+using MockQueryable.Moq;
 using Moq;
 using TheBigThree.Data.Models;
 using TheBigThree.Services.Core.Repositories;
@@ -9,6 +10,8 @@ namespace TheBigThree.Tests.Services
     public class ProfileServiceTests
     {
         private Mock<IRepository<Collection>> collectionRepositoryMock;
+        private Mock<IRepository<Comment>> commentRepositoryMock;
+        private Mock<UserManager<ApplicationUser>> userManagerMock;
         private TheBigThree.Services.ProfileService profileService;
 
         [SetUp]
@@ -16,8 +19,17 @@ namespace TheBigThree.Tests.Services
         {
             collectionRepositoryMock = new Mock<IRepository<Collection>>();
 
+            commentRepositoryMock = new Mock<IRepository<Comment>>();
+
+            var store = new Mock<IUserStore<ApplicationUser>>();
+
+            userManagerMock = new Mock<UserManager<ApplicationUser>>(
+                store.Object, null, null, null, null, null, null, null, null);
+
             profileService = new TheBigThree.Services.ProfileService(
-                collectionRepositoryMock.Object);
+                collectionRepositoryMock.Object,
+                commentRepositoryMock.Object,
+                userManagerMock.Object);
         }
 
         [Test]

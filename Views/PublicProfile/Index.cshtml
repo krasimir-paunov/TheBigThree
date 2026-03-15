@@ -1,0 +1,135 @@
+﻿@model TheBigThree.Web.ViewModels.PublicProfileViewModel
+
+@{
+    ViewBag.Title = Model.Username + "'s Profile";
+    string rankClass = Model.Rank switch
+    {
+        "Legendary Collector" => "rank-legendary",
+        "Superstar Collector" => "rank-superstar",
+        "Popular Collector" => "rank-popular",
+        "Rising Star" => "rank-rising",
+        "Novice Collector" => "rank-novice",
+        _ => "rank-newcomer"
+    };
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/public-profile.css" asp-append-version="true" />
+}
+
+<div class="pp-page overflow-hidden" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+    <div class="pp-grid">
+
+        <div class="pp-left">
+            <div class="pp-section-header">
+                <i class="bi bi-collection-fill text-info me-2"></i>Collection
+            </div>
+            @if (Model.CollectionId.HasValue)
+            {
+                <div class="pp-collection-card">
+                    <div class="pp-covers-strip">
+                        @foreach (string imgUrl in Model.CollectionGameImages)
+                        {
+                            <div class="pp-cover-slot">
+                                <img src="@imgUrl" alt="Game Cover" />
+                            </div>
+                        }
+                    </div>
+                    <div class="pp-collection-body">
+                        <p class="pp-collection-title">@Model.CollectionTitle</p>
+                        <a asp-controller="Collection" asp-action="Details"
+                           asp-route-id="@Model.CollectionId"
+                           class="btn btn-info rounded-pill px-4 fw-bold w-100">
+                            <i class="bi bi-eye-fill me-2"></i>View Collection
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="pp-empty-card">
+                    <i class="bi bi-collection text-info opacity-25" style="font-size: 2rem;"></i>
+                    <p class="text-white-50 mt-2 mb-0 small">No collection yet.</p>
+                </div>
+            }
+        </div>
+
+        <div class="pp-center">
+            <div class="pp-avatar-wrap">
+                @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                {
+                    <img src="@Model.AvatarUrl" class="pp-avatar" alt="@Model.Username" />
+                }
+                else
+                {
+                    <div class="pp-avatar-initials">
+                        @Model.Username.Substring(0, Math.Min(2, Model.Username.Length)).ToUpper()
+                    </div>
+                }
+                <div class="pp-avatar-ring"></div>
+                <div class="pp-avatar-ring-outer"></div>
+            </div>
+        </div>
+
+        <div class="pp-right">
+            <div class="pp-section-header">
+                <i class="bi bi-chat-dots-fill text-info me-2"></i>Recent Comments
+            </div>
+            @if (!Model.RecentComments.Any())
+            {
+                <div class="pp-empty-card">
+                    <i class="bi bi-chat-dots text-info opacity-25" style="font-size: 2rem;"></i>
+                    <p class="text-white-50 mt-2 mb-0 small">No comments yet.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var comment in Model.RecentComments)
+                {
+                    <div class="pp-comment-card">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <a asp-controller="Collection" asp-action="Details"
+                               asp-route-id="@comment.CollectionId"
+                               class="pp-comment-collection">
+                                <i class="bi bi-collection me-1"></i>@comment.CollectionTitle
+                            </a>
+                            <span class="pp-comment-date">@comment.CreatedOn.ToString("MMM dd, yyyy")</span>
+                        </div>
+                        <p class="pp-comment-content">@comment.Content</p>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="pp-identity">
+            <h1 class="pp-username" style="font-size: @(Model.Username.Length > 12 ? "2.1rem" : "2.9rem");">
+                @Model.Username
+            </h1>
+            <span class="rank-badge @rankClass">@Model.Rank</span>
+            <p class="pp-since">Member since @Model.MemberSince.ToString("MMMM yyyy")</p>
+        </div>
+
+        <div class="pp-back">
+            <a asp-controller="Collection" asp-action="All"
+               class="btn btn-sm btn-outline-light rounded-pill px-4 opacity-50">
+                <i class="bi bi-arrow-left me-2"></i>Back to Hub
+            </a>
+        </div>
+
+        <div class="pp-stats">
+            <div class="pp-stat">
+                <span class="pp-stat-number">@Model.TotalStars</span>
+                <span class="pp-stat-label">Stars Earned</span>
+            </div>
+            <div class="pp-stat">
+                <span class="pp-stat-number">@Model.TotalComments</span>
+                <span class="pp-stat-label">Comments</span>
+            </div>
+            <div class="pp-stat">
+                <span class="pp-stat-number">@(Model.CollectionId.HasValue ? "1" : "0")</span>
+                <span class="pp-stat-label">Collection</span>
+            </div>
+        </div>
+
+    </div>
+</div>
