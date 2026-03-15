@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBigThree.Data;
 
@@ -11,9 +12,11 @@ using TheBigThree.Data;
 namespace TheBigThree.Migrations
 {
     [DbContext(typeof(TheBigThreeDbContext))]
-    partial class TheBigThreeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260315160715_AddCreatedOnToApplicationUser")]
+    partial class AddCreatedOnToApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,16 +238,16 @@ namespace TheBigThree.Migrations
                             Id = "48668352-3932-411a-966a-123456789012",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://avatarfiles.alphacoders.com/148/thumb-1920-148846.jpg",
-                            ConcurrencyStamp = "78e2f25d-fa43-4f90-9746-58ba286ee425",
-                            CreatedOn = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "ff1e6aa1-9260-482b-819e-c2ccea83b3ec",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "geralt@kaermorhen.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GERALT@KAERMORHEN.COM",
                             NormalizedUserName = "GERALTOFRIVIA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP6K6lUh9KdWZHc3JapOqmWawAhYlnzjh6PRV+zWeOvKNXBmPwGUsUF8uJSRYBNFLA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP0sKmCqH+Lt1hsZ9iEfF691b6798SAN3RoPkdh5zg3jke1gFC3HHOATdu57pPjwJQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aa8c8241-2dc7-4285-b6b9-4e2669d23ed0",
+                            SecurityStamp = "cf86ae75-4bc3-41eb-a6a9-3390142f7e7d",
                             TwoFactorEnabled = false,
                             UserName = "GeraltOfRivia"
                         },
@@ -253,16 +256,16 @@ namespace TheBigThree.Migrations
                             Id = "7c13958c-362c-4493-979d-098765432109",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://images3.alphacoders.com/210/thumb-1920-210637.jpg",
-                            ConcurrencyStamp = "10982f71-9100-4078-8c12-91953ceb906d",
-                            CreatedOn = new DateTime(2024, 2, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "bcacdb4d-b97e-41c4-a5d9-60a57a4adec7",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "shepard@normandy.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SHEPARD@NORMANDY.COM",
                             NormalizedUserName = "COMMANDERSHEPARD",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIfftltGeAkGCZf+hOTjrfx2Mki/inl2MTNXyuo+KOTkIrZlWVxscnfm/rApYXxftQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELWdi/172pWDABLONC/tpOPxR2+oDCii8afV7UsiXs5bp20UKIKekIChbZoNzK1PXg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a593a9d2-f3a9-4079-964d-788852b6a76b",
+                            SecurityStamp = "83c4efb1-d3d5-4532-a96b-d71590122309",
                             TwoFactorEnabled = false,
                             UserName = "CommanderShepard"
                         },
@@ -271,16 +274,16 @@ namespace TheBigThree.Migrations
                             Id = "a1b2c3d4-1111-2222-3333-aabbccdd0001",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://images.alphacoders.com/135/thumb-1920-1359067.png",
-                            ConcurrencyStamp = "e110b288-70c3-4c33-af34-d6756492abf8",
-                            CreatedOn = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "afb4996d-a1ea-4ae4-8325-fa92e985cff6",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "snake@shadowmoses.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SNAKE@SHADOWMOSES.COM",
                             NormalizedUserName = "SOLIDSNAKE",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFBfjD/jOnyt1czEcAkjy6FgZkrRrcO8TmaWNrMo45EoDKkx59Z/lIlOUv/3/NzJbA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGOKGq3G+9mcyzz9GGzcUjJB0pR41DmGwFHi5KKIdmsyDp+M7WAJMM33NeT5zJ1P5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3fe68bf9-de8c-4e85-95f4-9db9819f70ed",
+                            SecurityStamp = "c20fb11b-df9c-4d57-99bd-d73efaf3df5e",
                             TwoFactorEnabled = false,
                             UserName = "SolidSnake"
                         },
@@ -289,16 +292,16 @@ namespace TheBigThree.Migrations
                             Id = "a1b2c3d4-1111-2222-3333-aabbccdd0002",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://images2.alphacoders.com/607/thumb-1920-607052.jpg",
-                            ConcurrencyStamp = "35b8af6c-c450-45c9-bb83-08e87ddda4db",
-                            CreatedOn = new DateTime(2024, 5, 11, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "0bf1c341-be64-4a12-a94d-324e34f26657",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "chief@unsc.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CHIEF@UNSC.COM",
                             NormalizedUserName = "MASTERCHIEF",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF8XIaZg/k7FKT3x2gxoPa2WrL86YAGsQfiXYST0vMxfTs/ZkddzdYGXdYEoe/Osgg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPUiTOKljls/qFvUr6hrMvRSLAEUnU8GHoCZ1iVNqUsjYpfS1T5bJcXFF95/JZ4LgQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a96cab1c-d25a-45b2-b2f8-be41fd20b9ec",
+                            SecurityStamp = "ab514941-284e-4fde-b9ae-fe65d8778d20",
                             TwoFactorEnabled = false,
                             UserName = "MasterChief"
                         },
@@ -307,16 +310,16 @@ namespace TheBigThree.Migrations
                             Id = "a1b2c3d4-1111-2222-3333-aabbccdd0003",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://images4.alphacoders.com/136/thumb-1920-1360121.jpeg",
-                            ConcurrencyStamp = "d5b530bd-8553-4f11-b5d4-51f1fa9dcee8",
-                            CreatedOn = new DateTime(2024, 7, 4, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "6ded001f-26ae-42d4-a11c-343abb6781e5",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "arthur@dutchgang.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ARTHUR@DUTCHGANG.COM",
                             NormalizedUserName = "ARTHURMORGAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDL4ppkqxveLTS2JVm7G/XrSvEmiaFySgrfg6VDZfDwYLKKOoxCN53vtCjhb0hff7A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDPRHYIuNu03WxbJvJYBf8Qgsr57fAez2oxWJlrKUcmtAXF+XwEIH2O/Oajldvb8Mg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b4ec1698-7764-4dd6-9a0b-f08d9a2ca89d",
+                            SecurityStamp = "db6b2a72-e470-4a4b-8c41-ee5c081c6ecf",
                             TwoFactorEnabled = false,
                             UserName = "ArthurMorgan"
                         },
@@ -325,16 +328,16 @@ namespace TheBigThree.Migrations
                             Id = "a1b2c3d4-1111-2222-3333-aabbccdd0004",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://images3.alphacoders.com/716/thumb-1920-716660.jpg",
-                            ConcurrencyStamp = "c30ff68b-9e24-450c-8014-9fa3abbad618",
-                            CreatedOn = new DateTime(2024, 9, 18, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "d745d887-d59c-4393-ba5b-e58ce29550b3",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "lara@croftmanor.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "LARA@CROFTMANOR.COM",
                             NormalizedUserName = "LARACROFT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOic8QexWRUtmTmRvRZDEfnYY0UK1ZrSWqU5/4ikczCWVjg66yNIeO432ZvldkGPhA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK4ZcVq5eLQ50mIBBj2XeJAJA9lq9JmEb9HUxcAt1L4FavvGoJpYFVZQzrPHCgI4IA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0bd0bd11-08dd-471f-887e-77090d9c1d93",
+                            SecurityStamp = "a5de9808-a907-4d88-a7c0-a5521b0aaf8b",
                             TwoFactorEnabled = false,
                             UserName = "LaraCroft"
                         },
@@ -343,16 +346,16 @@ namespace TheBigThree.Migrations
                             Id = "a1b2c3d4-1111-2222-3333-aabbccdd0005",
                             AccessFailedCount = 0,
                             AvatarUrl = "https://images6.alphacoders.com/883/thumb-1920-883187.jpg",
-                            ConcurrencyStamp = "459c5e1d-0453-4290-9c13-ae9c952286d0",
-                            CreatedOn = new DateTime(2024, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ConcurrencyStamp = "32e0c348-128d-40bc-8792-b9a826c430d6",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "aloy@horizon.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ALOY@HORIZON.COM",
                             NormalizedUserName = "ALOYHORIZON",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF4FwXgFRM6AMlCQVDVgpDpa3jPYCsE1PCx1WJhXjdTwG718IlLaZvz2aRfs3hlVyA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ4JNSQ/tQE6sZUBF7LZ14tGy2eoeQpwdJIwSLLU1TdiPmCy2X1jevsdZJvlQVav3A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f7f55587-aef2-4e2c-b28d-77a5b26be07e",
+                            SecurityStamp = "7ae24626-21a9-46f6-897e-b5c99ab81923",
                             TwoFactorEnabled = false,
                             UserName = "AloyHorizon"
                         });
@@ -391,7 +394,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2026, 2, 28, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3645),
+                            CreatedOn = new DateTime(2026, 2, 28, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6090),
                             Title = "Masterpieces of Atmosphere",
                             TotalStars = 5,
                             UserId = "48668352-3932-411a-966a-123456789012"
@@ -399,7 +402,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2026, 3, 3, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3650),
+                            CreatedOn = new DateTime(2026, 3, 3, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6096),
                             Title = "Sci-Fi and Soul",
                             TotalStars = 3,
                             UserId = "7c13958c-362c-4493-979d-098765432109"
@@ -407,7 +410,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2026, 3, 5, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3651),
+                            CreatedOn = new DateTime(2026, 3, 5, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6097),
                             Title = "Stealth Legends",
                             TotalStars = 8,
                             UserId = "a1b2c3d4-1111-2222-3333-aabbccdd0001"
@@ -415,7 +418,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2026, 3, 7, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3653),
+                            CreatedOn = new DateTime(2026, 3, 7, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6098),
                             Title = "Shooters That Defined a Generation",
                             TotalStars = 12,
                             UserId = "a1b2c3d4-1111-2222-3333-aabbccdd0002"
@@ -423,7 +426,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2026, 3, 9, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3654),
+                            CreatedOn = new DateTime(2026, 3, 9, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6099),
                             Title = "Open World Masterpieces",
                             TotalStars = 15,
                             UserId = "a1b2c3d4-1111-2222-3333-aabbccdd0003"
@@ -431,7 +434,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2026, 3, 12, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3655),
+                            CreatedOn = new DateTime(2026, 3, 12, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6100),
                             Title = "Indie Gems Worth Your Time",
                             TotalStars = 3,
                             UserId = "a1b2c3d4-1111-2222-3333-aabbccdd0004"
@@ -439,7 +442,7 @@ namespace TheBigThree.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2026, 3, 14, 16, 10, 50, 68, DateTimeKind.Utc).AddTicks(3656),
+                            CreatedOn = new DateTime(2026, 3, 14, 16, 7, 14, 470, DateTimeKind.Utc).AddTicks(6107),
                             Title = "Horror That Kept Me Up at Night",
                             TotalStars = 7,
                             UserId = "a1b2c3d4-1111-2222-3333-aabbccdd0005"

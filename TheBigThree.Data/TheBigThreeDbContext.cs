@@ -79,6 +79,7 @@ namespace TheBigThree.Data
                     NormalizedEmail = "GERALT@KAERMORHEN.COM",
                     PasswordHash = hasher.HashPassword(null!, "Legend123!"),
                     AvatarUrl = "https://avatarfiles.alphacoders.com/148/thumb-1920-148846.jpg",
+                    CreatedOn = new DateTime(2024, 1, 15, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new ApplicationUser
                 {
@@ -88,7 +89,8 @@ namespace TheBigThree.Data
                     Email = "shepard@normandy.com",
                     NormalizedEmail = "SHEPARD@NORMANDY.COM",
                     PasswordHash = hasher.HashPassword(null!, "Spectre123!"),
-                    AvatarUrl = "https://images3.alphacoders.com/210/thumb-1920-210637.jpg"
+                    AvatarUrl = "https://images3.alphacoders.com/210/thumb-1920-210637.jpg",
+                    CreatedOn = new DateTime(2024, 2, 3, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new ApplicationUser
                 {
@@ -98,7 +100,8 @@ namespace TheBigThree.Data
                     Email = "snake@shadowmoses.com",
                     NormalizedEmail = "SNAKE@SHADOWMOSES.COM",
                     PasswordHash = hasher.HashPassword(null!, "Tactical123!"),
-                    AvatarUrl = "https://images.alphacoders.com/135/thumb-1920-1359067.png"
+                    AvatarUrl = "https://images.alphacoders.com/135/thumb-1920-1359067.png",
+                    CreatedOn = new DateTime(2024, 3, 20, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new ApplicationUser
                 {
@@ -108,7 +111,8 @@ namespace TheBigThree.Data
                     Email = "chief@unsc.com",
                     NormalizedEmail = "CHIEF@UNSC.COM",
                     PasswordHash = hasher.HashPassword(null!, "Spartan123!"),
-                    AvatarUrl = "https://images2.alphacoders.com/607/thumb-1920-607052.jpg"
+                    AvatarUrl = "https://images2.alphacoders.com/607/thumb-1920-607052.jpg",
+                    CreatedOn = new DateTime(2024, 5, 11, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new ApplicationUser
                 {
@@ -118,7 +122,8 @@ namespace TheBigThree.Data
                     Email = "arthur@dutchgang.com",
                     NormalizedEmail = "ARTHUR@DUTCHGANG.COM",
                     PasswordHash = hasher.HashPassword(null!, "Outlaw123!"),
-                    AvatarUrl = "https://images4.alphacoders.com/136/thumb-1920-1360121.jpeg"
+                    AvatarUrl = "https://images4.alphacoders.com/136/thumb-1920-1360121.jpeg",
+                    CreatedOn = new DateTime(2024, 7, 4, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new ApplicationUser
                 {
@@ -128,7 +133,8 @@ namespace TheBigThree.Data
                     Email = "lara@croftmanor.com",
                     NormalizedEmail = "LARA@CROFTMANOR.COM",
                     PasswordHash = hasher.HashPassword(null!, "Tomb123!"),
-                    AvatarUrl = "https://images3.alphacoders.com/716/thumb-1920-716660.jpg"
+                    AvatarUrl = "https://images3.alphacoders.com/716/thumb-1920-716660.jpg",
+                    CreatedOn = new DateTime(2024, 9, 18, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new ApplicationUser
                 {
@@ -138,7 +144,8 @@ namespace TheBigThree.Data
                     Email = "aloy@horizon.com",
                     NormalizedEmail = "ALOY@HORIZON.COM",
                     PasswordHash = hasher.HashPassword(null!, "Nora123!"),
-                    AvatarUrl = "https://images6.alphacoders.com/883/thumb-1920-883187.jpg"
+                    AvatarUrl = "https://images6.alphacoders.com/883/thumb-1920-883187.jpg",
+                    CreatedOn = new DateTime(2024, 11, 30, 0, 0, 0, DateTimeKind.Utc)
                 }
             );
 

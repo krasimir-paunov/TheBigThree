@@ -134,7 +134,10 @@ namespace TheBigThree.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<ApplicationUser>();
+                return new ApplicationUser
+                {
+                    CreatedOn = DateTime.UtcNow
+                };
             }
             catch
             {
