@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheBigThree.Data.Models;
+using TheBigThree.GCommon;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Web.ViewModels;
 
@@ -26,7 +27,6 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Index()
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             if (userId == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -46,13 +46,11 @@ namespace TheBigThree.Controllers
 
                 var ownCollection = await profileService.GetOwnCollectionPreviewAsync(userId);
 
-                string rank = GetRankName(totalStarsEarned);
-
                 ProfileViewModel viewModel = new ProfileViewModel
                 {
                     Username = username,
                     Email = email,
-                    Rank = rank,
+                    Rank = RankHelper.GetRank(totalStarsEarned),
                     TotalStarsEarned = totalStarsEarned,
                     FavoriteCollections = starredCollections,
                     AvatarUrl = appUser?.AvatarUrl,
@@ -66,6 +64,7 @@ namespace TheBigThree.Controllers
             catch (Exception)
             {
                 TempData["Error"] = "We encountered a problem loading your profile. Please try again later.";
+
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -74,25 +73,18 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> UpdateAvatar(string? avatarUrl)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (userId == null) return RedirectToAction(nameof(Index));
 
             ApplicationUser? appUser = await userManager.FindByIdAsync(userId);
+
             if (appUser == null) return RedirectToAction(nameof(Index));
 
             appUser.AvatarUrl = string.IsNullOrWhiteSpace(avatarUrl) ? null : avatarUrl;
+
             await userManager.UpdateAsync(appUser);
 
             return RedirectToAction(nameof(Index));
         }
-
-        private string GetRankName(int stars) => stars switch
-        {
-            >= 100 => "Legendary Collector",
-            >= 30 => "Superstar Collector",
-            >= 10 => "Popular Collector",
-            >= 5 => "Rising Star",
-            >= 1 => "Novice Collector",
-            _ => "Newcomer"
-        };
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheBigThree.Data;
 using TheBigThree.Data.Models;
+using TheBigThree.GCommon;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Services.Core.Repositories;
 using TheBigThree.Web.ViewModels;
@@ -28,16 +29,6 @@ public class CollectionService : ICollectionService
         this.genreRepository = genreRepository;
         this.dbContext = dbContext;
     }
-
-    private string CalculateRank(int stars) => stars switch
-    {
-        >= 100 => "Legendary Collector",
-        >= 30 => "Superstar Collector",
-        >= 10 => "Popular Collector",
-        >= 5 => "Rising Star",
-        >= 1 => "Novice Collector",
-        _ => "Newcomer"
-    };
 
     public async Task<CollectionQueryModel> GetAllCollectionsAsync(CollectionQueryModel query)
     {
@@ -86,7 +77,7 @@ public class CollectionService : ICollectionService
 
         foreach (CollectionAllViewModel collection in hubCollections)
         {
-            collection.PublisherRank = CalculateRank(collection.TotalStars);
+            collection.PublisherRank = RankHelper.GetRank(collection.TotalStars);
         }
 
         query.Genres = await genreRepository.All()
@@ -101,27 +92,27 @@ public class CollectionService : ICollectionService
     public async Task<IEnumerable<CollectionAllViewModel>> GetMineCollectionsAsync(string userId)
     {
         List<CollectionAllViewModel> personalCollections = await collectionRepository.All()
-                        .AsNoTracking()
-                        .Where(c => c.UserId == userId)
-                        .Select(c => new CollectionAllViewModel
-                        {
-                            Id = c.Id,
-                            Title = c.Title,
-                            Publisher = c.User.UserName ?? "Unknown",
-                            TotalStars = c.TotalStars,
-                            GameImages = c.Games.Select(g => g.ImageUrl).ToList(),
-                            PublisherRank = "",
-                            AvatarUrl = dbContext.Users.OfType<ApplicationUser>()
-                        .Where(u => u.Id == c.UserId)
-                        .Select(u => u.AvatarUrl)
-                        .FirstOrDefault()
-                        })
-                .ToListAsync();
+            .AsNoTracking()
+            .Where(c => c.UserId == userId)
+            .Select(c => new CollectionAllViewModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Publisher = c.User.UserName ?? "Unknown",
+                TotalStars = c.TotalStars,
+                GameImages = c.Games.Select(g => g.ImageUrl).ToList(),
+                PublisherRank = "",
+                AvatarUrl = dbContext.Users.OfType<ApplicationUser>()
+                    .Where(u => u.Id == c.UserId)
+                    .Select(u => u.AvatarUrl)
+                    .FirstOrDefault()
+            })
+            .ToListAsync();
 
         foreach (CollectionAllViewModel collection in personalCollections)
         {
             collection.Publisher = collection.Publisher.Split('@')[0];
-            collection.PublisherRank = CalculateRank(collection.TotalStars);
+            collection.PublisherRank = RankHelper.GetRank(collection.TotalStars);
         }
 
         return personalCollections;
@@ -195,7 +186,6 @@ public class CollectionService : ICollectionService
         }
 
         await collectionRepository.AddAsync(newlyCreated);
-
         await collectionRepository.SaveChangesAsync();
     }
 
@@ -233,10 +223,7 @@ public class CollectionService : ICollectionService
 
     public async Task<bool> UserHasCollectionAsync(string userId)
     {
-        bool isAlreadyCreated = await collectionRepository.All()
-            .AnyAsync(c => c.UserId == userId);
-
-        return isAlreadyCreated;
+        return await collectionRepository.All().AnyAsync(c => c.UserId == userId);
     }
 
     public async Task<CollectionFormViewModel?> GetCollectionForEditAsync(int id, string userId)
@@ -278,7 +265,6 @@ public class CollectionService : ICollectionService
         for (int i = 0; i < existingCollection.Games.Count; i++)
         {
             Game gameToUpdate = existingCollection.Games.ElementAt(i);
-
             GameFormViewModel updatedInfo = updatedData.Games[i];
 
             gameToUpdate.Title = updatedInfo.Title;
@@ -297,8 +283,7 @@ public class CollectionService : ICollectionService
 
         if (collectionToDelete == null) return null;
 
-        CollectionDetailsViewModel? deletionPreview = await GetCollectionDetailsByIdAsync(id);
-        return deletionPreview;
+        return await GetCollectionDetailsByIdAsync(id);
     }
 
     public async Task DeleteCollectionAsync(int id, string userId)
@@ -313,12 +298,9 @@ public class CollectionService : ICollectionService
                 .Where(l => l.CollectionId == id)
                 .ToListAsync();
 
-            if (relatedStars.Any())
+            foreach (Like like in relatedStars)
             {
-                foreach (Like like in relatedStars)
-                {
-                    dbContext.Set<Like>().Remove(like);
-                }
+                dbContext.Set<Like>().Remove(like);
             }
 
             foreach (Game game in targetCollection.Games)
@@ -327,7 +309,6 @@ public class CollectionService : ICollectionService
             }
 
             await collectionRepository.DeleteAsync(id);
-
             await collectionRepository.SaveChangesAsync();
         }
     }

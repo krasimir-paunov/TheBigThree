@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheBigThree.Data;
 using TheBigThree.Data.Models;
+using TheBigThree.GCommon;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Services.Core.Repositories;
 using TheBigThree.Web.ViewModels;
@@ -20,16 +21,6 @@ namespace TheBigThree.Services
             this.dbContext = dbContext;
         }
 
-        private string CalculateRank(int stars) => stars switch
-        {
-            >= 100 => "Legendary Collector",
-            >= 30 => "Superstar Collector",
-            >= 10 => "Popular Collector",
-            >= 5 => "Rising Star",
-            >= 1 => "Novice Collector",
-            _ => "Newcomer"
-        };
-
         public async Task StarCollectionAsync(int collectionId, string userId)
         {
             Collection? targetCollection = await collectionRepository.All()
@@ -39,7 +30,8 @@ namespace TheBigThree.Services
 
             if (targetCollection.UserId == userId) throw new InvalidOperationException("You cannot star your own collection.");
 
-            bool isPreviouslyStarred = await likeRepository.All()
+            bool isPreviouslyStarred = await likeRepository
+                .All()
                 .AnyAsync(l => l.UserId == userId && l.CollectionId == collectionId);
 
             if (isPreviouslyStarred) throw new InvalidOperationException("You have already starred this collection.");
@@ -55,7 +47,8 @@ namespace TheBigThree.Services
 
         public async Task RemoveStarAsync(int collectionId, string userId)
         {
-            Like? existingStar = await likeRepository.All()
+            Like? existingStar = await likeRepository
+                .All()
                 .FirstOrDefaultAsync(l => l.UserId == userId && l.CollectionId == collectionId);
 
             if (existingStar == null) return;
@@ -71,15 +64,14 @@ namespace TheBigThree.Services
 
         public async Task<bool> IsStarredByUserAsync(int collectionId, string userId)
         {
-            bool isStarred = await likeRepository.All()
+            return await likeRepository.All()
                 .AnyAsync(l => l.UserId == userId && l.CollectionId == collectionId);
-
-            return isStarred;
         }
 
         public async Task<IEnumerable<CollectionAllViewModel>> GetStarredCollectionsAsync(string userId)
         {
-            List<CollectionAllViewModel> favoriteCollections = await likeRepository.All()
+            List<CollectionAllViewModel> favoriteCollections = await likeRepository
+                .All()
                 .Where(l => l.UserId == userId)
                 .Select(l => l.Collection)
                 .OrderByDescending(c => c.TotalStars)
@@ -102,7 +94,7 @@ namespace TheBigThree.Services
             {
                 collection.Publisher = collection.Publisher.Split('@')[0];
 
-                collection.PublisherRank = CalculateRank(collection.TotalStars);
+                collection.PublisherRank = RankHelper.GetRank(collection.TotalStars);
             }
 
             return favoriteCollections;
