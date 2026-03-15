@@ -4,6 +4,7 @@ using System.Security.Claims;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Web.ViewModels;
 
+//TODO: Change to RedirectToAction with route values
 namespace TheBigThree.Controllers
 {
     [Authorize]
