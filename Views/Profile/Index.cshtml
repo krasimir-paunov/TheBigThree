@@ -68,6 +68,12 @@
 
                     <p class="text-white fw-bold mb-1" style="font-size: 1.6rem;">@Model.Username</p>
                     <p class="text-muted small mb-3">@Model.Email</p>
+                    <a asp-controller="PublicProfile" asp-action="Index"
+                       asp-route-username="@Model.Username"
+                       class="btn btn-sm btn-outline-info rounded-pill px-3 mb-3"
+                       style="font-size: 0.75rem;">
+                        <i class="bi bi-person-badge me-1"></i>View Public Profile
+                    </a>
 
                     <div class="mb-4">
                         <span class="rank-badge @rankClass"
