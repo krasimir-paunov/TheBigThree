@@ -388,3 +388,261 @@ div:has(> #profile-form) {
         border-color: rgba(220,53,69,0.6) !important;
         color: rgba(220,53,69,0.8) !important;
     }
+
+/* --- RAWG Autocomplete --- */
+.rawg-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(8, 25, 30, 0.98);
+    border: 1px solid rgba(13,202,240,0.2);
+    border-radius: 10px;
+    z-index: 1000;
+    max-height: 280px;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.rawg-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+    .rawg-dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    .rawg-dropdown-item:hover {
+        background: rgba(13,202,240,0.08);
+    }
+
+    .rawg-dropdown-item img {
+        width: 40px;
+        height: 28px;
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+
+.rawg-dropdown-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rawg-dropdown-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.rawg-dropdown-meta {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+}
+
+/* --- RAWG Autocomplete --- */
+.rawg-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(8, 25, 30, 0.98);
+    border: 1px solid rgba(13,202,240,0.2);
+    border-radius: 10px;
+    z-index: 1000;
+    max-height: 280px;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.rawg-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+    .rawg-dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    .rawg-dropdown-item:hover {
+        background: rgba(13,202,240,0.08);
+    }
+
+    .rawg-dropdown-item img {
+        width: 40px;
+        height: 28px;
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+    .rawg-dropdown-item:hover img {
+        transform: scale(1.8);
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        z-index: 10;
+        position: relative;
+    }
+
+.rawg-dropdown-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rawg-dropdown-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.rawg-dropdown-meta {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+}
+
+/* --- RAWG Game Details Modal --- */
+.rawg-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+}
+
+.rawg-modal-hero {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background-size: cover;
+    background-position: center top;
+    overflow: hidden;
+}
+
+.rawg-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32px;
+}
+
+.rawg-hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 220px;
+}
+
+.rawg-hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rawg-stat-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+}
+
+.rawg-stat-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.rawg-hero-title-wrap {
+    align-self: flex-start;
+}
+
+.rawg-modal-title {
+    font-family: var(--heading-font);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    margin: 0;
+    line-height: 1;
+}
+
+.rawg-screenshots-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+}
+
+.rawg-screenshot {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+    .rawg-screenshot:hover {
+        opacity: 0.8;
+    }
+
+.lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 10;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+    .lightbox-arrow:hover {
+        background: rgba(13,202,240,0.4);
+    }
+
+.lightbox-arrow-left {
+    left: -56px;
+}
+
+.lightbox-arrow-right {
+    right: -56px;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+}

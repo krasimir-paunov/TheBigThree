@@ -58,6 +58,7 @@ namespace TheBigThree
             builder.Services.AddScoped<IProfileService, ProfileService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<IStatsService, StatsService>();
+            builder.Services.AddHttpClient<IRawgService, RawgService>();
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

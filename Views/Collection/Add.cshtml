@@ -31,18 +31,18 @@
                         @for (int i = 0; i < Model.Games.Count; i++)
                         {
                             <div class="col-md-4">
-                                <div class="game-edit-slot p-3">
+                                <div class="game-edit-slot p-3 game-slot-container">
                                     <h6 class="text-warning fw-bold mb-3 border-bottom border-secondary border-opacity-25 pb-1">Game #@(i + 1)</h6>
 
                                     <div class="mb-3">
                                         <label asp-for="@Model.Games[i].Title" class="form-label small fw-bold text-light">Title</label>
-                                        <input asp-for="@Model.Games[i].Title" class="form-control glass-input" placeholder="Game Title..." />
+                                        <input asp-for="@Model.Games[i].Title" class="form-control glass-input game-title-input" placeholder="Game Title..." />
                                         <span asp-validation-for="@Model.Games[i].Title" class="text-danger fw-bold small"></span>
                                     </div>
 
                                     <div class="mb-3">
                                         <label asp-for="@Model.Games[i].ImageUrl" class="form-label small fw-bold text-light">Image URL</label>
-                                        <input asp-for="@Model.Games[i].ImageUrl" class="form-control glass-input" placeholder="https://..." />
+                                        <input asp-for="@Model.Games[i].ImageUrl" class="form-control glass-input game-image-input" placeholder="https://..." />
                                         <span asp-validation-for="@Model.Games[i].ImageUrl" class="text-danger fw-bold small"></span>
                                     </div>
 
@@ -83,4 +83,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/rawg.js" asp-append-version="true"></script>
 }

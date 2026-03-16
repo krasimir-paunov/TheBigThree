@@ -132,7 +132,10 @@
                                         @collection.Publisher.Substring(0, 1).ToUpper()
                                     </div>
                                 }
-                                <span class="curator-name">@collection.Publisher</span>
+                                <a asp-controller="PublicProfile" asp-action="Index"
+                                   asp-route-username="@collection.Publisher"
+                                   class="curator-name text-decoration-none"
+                                   onclick="event.stopPropagation();">@collection.Publisher</a>
                                 @{
                                     string rankClass = collection.PublisherRank switch
                                     {
