@@ -28,5 +28,19 @@ namespace TheBigThree.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Promote(string id)
+        {
+            await adminService.PromoteToAdminAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Demote(string id)
+        {
+            await adminService.DemoteFromAdminAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

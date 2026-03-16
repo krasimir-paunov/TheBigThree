@@ -92,44 +92,65 @@
                                 }
                             </td>
                             <td>
-                                @if (user.Role != "Administrator")
-                                {
-                                    <button type="button"
-                                            class="btn btn-sm rounded-pill"
-                                            style="background: rgba(220,53,69,0.15); color: #ff6b7a; border: 1px solid rgba(220,53,69,0.3); font-size: 0.8rem;"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#deleteUserModal-@user.Id">
-                                        <i class="bi bi-trash3-fill me-1"></i>Delete
-                                    </button>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    @if (user.Role != "Administrator")
+                                    {
+                                        <form asp-area="Admin" asp-controller="Users" asp-action="Promote"
+                                              asp-route-id="@user.Id" method="post">
+                                            <button type="submit"
+                                                    class="btn btn-sm rounded-pill px-3"
+                                                    style="background: rgba(13,202,240,0.1); color: rgba(13,202,240,0.8); border: 1px solid rgba(13,202,240,0.3); font-size: 0.8rem;">
+                                                <i class="bi bi-shield-plus me-1"></i>Promote
+                                            </button>
+                                        </form>
+                                        <button type="button"
+                                                class="btn btn-sm rounded-pill px-3"
+                                                style="background: rgba(220,53,69,0.15); color: #ff6b7a; border: 1px solid rgba(220,53,69,0.3); font-size: 0.8rem;"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal-@user.Id">
+                                            <i class="bi bi-trash3-fill me-1"></i>Delete
+                                        </button>
 
-                                    <div class="modal fade" id="deleteUserModal-@user.Id" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content bg-dark border-secondary">
-                                                <div class="modal-header border-secondary">
-                                                    <h5 class="modal-title text-white">Delete User</h5>
-                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body text-light">
-                                                    Are you sure you want to delete <span class="text-info fw-bold">@user.Username</span>?
-                                                    This will permanently remove their account and cannot be undone.
-                                                </div>
-                                                <div class="modal-footer border-secondary">
-                                                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                                                    <form asp-area="Admin" asp-controller="Users" asp-action="Delete"
-                                                          asp-route-id="@user.Id" method="post">
-                                                        <button type="submit" class="btn btn-danger rounded-pill px-4">Delete</button>
-                                                    </form>
+                                        <div class="modal fade" id="deleteUserModal-@user.Id" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content bg-dark border-secondary">
+                                                    <div class="modal-header border-secondary">
+                                                        <h5 class="modal-title text-white">Delete User</h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body text-light">
+                                                        Are you sure you want to delete <span class="text-info fw-bold">@user.Username</span>?
+                                                        This will permanently remove their account and cannot be undone.
+                                                    </div>
+                                                    <div class="modal-footer border-secondary">
+                                                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                                                        <form asp-area="Admin" asp-controller="Users" asp-action="Delete"
+                                                              asp-route-id="@user.Id" method="post">
+                                                            <button type="submit" class="btn btn-danger rounded-pill px-4">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <span style="font-size: 0.78rem; color: rgba(255,255,255,0.2);">
-                                        <i class="bi bi-lock-fill me-1"></i>Protected
-                                    </span>
-                                }
+                                    }
+                                    else if (user.Id != User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+                                    {
+                                        <form asp-area="Admin" asp-controller="Users" asp-action="Demote"
+                                              asp-route-id="@user.Id" method="post">
+                                            <button type="submit"
+                                                    class="btn btn-sm rounded-pill px-3"
+                                                    style="background: rgba(255,193,7,0.1); color: #ffc107; border: 1px solid rgba(255,193,7,0.3); font-size: 0.8rem;">
+                                                <i class="bi bi-shield-minus me-1"></i>Demote
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size: 0.78rem; color: rgba(255,255,255,0.2);">
+                                            <i class="bi bi-lock-fill me-1"></i>Protected
+                                        </span>
+                                    }
+                                </div>
                             </td>
                         </tr>
                     }

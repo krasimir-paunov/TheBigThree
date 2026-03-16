@@ -153,5 +153,19 @@ namespace TheBigThree.Services
                 RecentCollections = recentCollections
             };
         }
+
+        public async Task PromoteToAdminAsync(string userId)
+        {
+            ApplicationUser? user = await userManager.FindByIdAsync(userId);
+            if (user == null) return;
+            await userManager.AddToRoleAsync(user, "Administrator");
+        }
+
+        public async Task DemoteFromAdminAsync(string userId)
+        {
+            ApplicationUser? user = await userManager.FindByIdAsync(userId);
+            if (user == null) return;
+            await userManager.RemoveFromRoleAsync(user, "Administrator");
+        }
     }
 }

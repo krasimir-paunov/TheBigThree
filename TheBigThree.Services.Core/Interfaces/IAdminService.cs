@@ -9,5 +9,7 @@ namespace TheBigThree.Services.Core.Interfaces
         Task<IEnumerable<CollectionManagementViewModel>> GetAllCollectionsAsync();
         Task DeleteCollectionAsync(int collectionId);
         Task<AdminDashboardViewModel> GetDashboardDataAsync();
+        Task PromoteToAdminAsync(string userId);
+        Task DemoteFromAdminAsync(string userId);
     }
 }
