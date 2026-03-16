@@ -18,11 +18,9 @@ namespace TheBigThree.Tests.Services
         public void SetUp()
         {
             collectionRepositoryMock = new Mock<IRepository<Collection>>();
-
             commentRepositoryMock = new Mock<IRepository<Comment>>();
 
             var store = new Mock<IUserStore<ApplicationUser>>();
-
             userManagerMock = new Mock<UserManager<ApplicationUser>>(
                 store.Object, null, null, null, null, null, null, null, null);
 
@@ -81,9 +79,7 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetOwnCollectionPreviewAsync(userId);
 
             Assert.That(result.Title, Is.Null);
-
             Assert.That(result.Id, Is.Null);
-
             Assert.That(result.GameImages, Is.Empty);
         }
 
@@ -115,9 +111,7 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetOwnCollectionPreviewAsync(userId);
 
             Assert.That(result.Title, Is.EqualTo("Sci-Fi and Soul"));
-
             Assert.That(result.Id, Is.EqualTo(1));
-
             Assert.That(result.GameImages.Count, Is.EqualTo(3));
         }
 
@@ -164,8 +158,158 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetOwnCollectionPreviewAsync(userId);
 
             Assert.That(result.Title, Is.EqualTo("Empty Collection"));
-
             Assert.That(result.GameImages, Is.Empty);
+        }
+
+        [Test]
+        public async Task GetPublicProfileAsync_ReturnsNull_WhenUserDoesNotExist()
+        {
+            List<ApplicationUser> users = new List<ApplicationUser>();
+
+            userManagerMock
+                .Setup(u => u.Users)
+                .Returns(users.AsQueryable().BuildMock());
+
+            var result = await profileService.GetPublicProfileAsync("nonexistent");
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public async Task GetPublicProfileAsync_ReturnsProfile_WhenUserExistsWithCollection()
+        {
+            string userId = "user-123";
+            string username = "GeraltOfRivia";
+
+            List<ApplicationUser> users = new List<ApplicationUser>
+            {
+                new ApplicationUser
+                {
+                    Id = userId,
+                    UserName = username,
+                    AvatarUrl = "https://example.com/avatar.jpg",
+                    CreatedOn = new DateTime(2024, 1, 15, 0, 0, 0, DateTimeKind.Utc)
+                }
+            };
+
+            List<Collection> collections = new List<Collection>
+            {
+                new Collection
+                {
+                    Id = 1,
+                    UserId = userId,
+                    Title = "Masterpieces of Atmosphere",
+                    TotalStars = 10,
+                    Games = new List<Game>
+                    {
+                        new Game { ImageUrl = "url1" },
+                        new Game { ImageUrl = "url2" },
+                        new Game { ImageUrl = "url3" }
+                    }
+                }
+            };
+
+            List<Comment> comments = new List<Comment>();
+
+            userManagerMock
+                .Setup(u => u.Users)
+                .Returns(users.AsQueryable().BuildMock());
+
+            collectionRepositoryMock
+                .Setup(r => r.All())
+                .Returns(collections.AsQueryable().BuildMock());
+
+            commentRepositoryMock
+                .Setup(r => r.All())
+                .Returns(comments.AsQueryable().BuildMock());
+
+            var result = await profileService.GetPublicProfileAsync(username);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.Username, Is.EqualTo(username));
+            Assert.That(result.TotalStars, Is.EqualTo(10));
+            Assert.That(result.CollectionTitle, Is.EqualTo("Masterpieces of Atmosphere"));
+            Assert.That(result.CollectionGameImages.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task GetPublicProfileAsync_ReturnsProfile_WhenUserExistsWithoutCollection()
+        {
+            string userId = "user-456";
+            string username = "NewUser";
+
+            List<ApplicationUser> users = new List<ApplicationUser>
+            {
+                new ApplicationUser
+                {
+                    Id = userId,
+                    UserName = username,
+                    CreatedOn = new DateTime(2024, 6, 1, 0, 0, 0, DateTimeKind.Utc)
+                }
+            };
+
+            List<Collection> collections = new List<Collection>();
+            List<Comment> comments = new List<Comment>();
+
+            userManagerMock
+                .Setup(u => u.Users)
+                .Returns(users.AsQueryable().BuildMock());
+
+            collectionRepositoryMock
+                .Setup(r => r.All())
+                .Returns(collections.AsQueryable().BuildMock());
+
+            commentRepositoryMock
+                .Setup(r => r.All())
+                .Returns(comments.AsQueryable().BuildMock());
+
+            var result = await profileService.GetPublicProfileAsync(username);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.CollectionId, Is.Null);
+            Assert.That(result.CollectionGameImages, Is.Empty);
+            Assert.That(result.TotalStars, Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task GetPublicProfileAsync_ReturnsCorrectRank_BasedOnStars()
+        {
+            string userId = "user-789";
+            string username = "StarCollector";
+
+            List<ApplicationUser> users = new List<ApplicationUser>
+            {
+                new ApplicationUser
+                {
+                    Id = userId,
+                    UserName = username,
+                    CreatedOn = new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc)
+                }
+            };
+
+            List<Collection> collections = new List<Collection>
+            {
+                new Collection { Id = 1, UserId = userId, Title = "Test", TotalStars = 35, Games = new List<Game>() }
+            };
+
+            List<Comment> comments = new List<Comment>();
+
+            userManagerMock
+                .Setup(u => u.Users)
+                .Returns(users.AsQueryable().BuildMock());
+
+            collectionRepositoryMock
+                .Setup(r => r.All())
+                .Returns(collections.AsQueryable().BuildMock());
+
+            commentRepositoryMock
+                .Setup(r => r.All())
+                .Returns(comments.AsQueryable().BuildMock());
+
+            var result = await profileService.GetPublicProfileAsync(username);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.Rank, Is.EqualTo("Superstar Collector"));
         }
     }
 }
