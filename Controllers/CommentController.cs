@@ -4,7 +4,6 @@ using System.Security.Claims;
 using TheBigThree.Services.Core.Interfaces;
 using TheBigThree.Web.ViewModels;
 
-//TODO: Change to RedirectToAction with route values
 namespace TheBigThree.Controllers
 {
     [Authorize]
@@ -23,7 +22,7 @@ namespace TheBigThree.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["CommentError"] = "Comment must be at least 20 characters long.";
-                return Redirect($"/collection/details/{collectionId}#comments");
+                return Redirect(Url.Action("Details", "Collection", new { id = collectionId }) + "#comments");
             }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
@@ -37,7 +36,7 @@ namespace TheBigThree.Controllers
                 TempData["Error"] = "An error occurred while adding your comment.";
             }
 
-            return Redirect($"/collection/details/{collectionId}#comments");
+            return Redirect(Url.Action("Details", "Collection", new { id = collectionId }) + "#comments");
         }
 
         [HttpPost]
@@ -61,7 +60,7 @@ namespace TheBigThree.Controllers
             {
                 TempData["Error"] = "An error occurred while deleting the comment.";
             }
-            return Redirect($"/collection/details/{collectionId}#comments");
+            return Redirect(Url.Action("Details", "Collection", new { id = collectionId }) + "#comments");
         }
 
     }

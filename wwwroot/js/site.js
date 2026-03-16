@@ -1,4 +1,10 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿window.addEventListener('scroll', function () {
+    var btn = document.getElementById('backToTop');
+    if (window.scrollY > 150) {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    } else {
+        btn.style.opacity = '0';
+        btn.style.pointerEvents = 'none';
+    }
+});

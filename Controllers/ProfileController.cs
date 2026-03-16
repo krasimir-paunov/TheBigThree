@@ -29,7 +29,7 @@ namespace TheBigThree.Controllers
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
             try

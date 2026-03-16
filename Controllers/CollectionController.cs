@@ -47,7 +47,7 @@ namespace TheBigThree.Controllers
 
             if (userId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
             CollectionMineViewModel? collection = await collectionService.GetMineCollectionAsync(userId);

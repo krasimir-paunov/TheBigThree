@@ -348,3 +348,33 @@ div:has(> #profile-form) {
     color: rgba(255, 255, 255, 0.4);
     border-color: rgba(255, 255, 255, 0.15);
 }
+
+/* --- Footer Links --- */
+.footer-link {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: rgba(13,202,240,0.8);
+}
+
+/* --- Back To Top Button --- */
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+    transition: opacity 0.4s ease, transform 0.2s, box-shadow 0.2s;
+}
+
+#backToTop:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(13,202,240,0.7);
+}
