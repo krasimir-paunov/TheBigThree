@@ -18,6 +18,7 @@ namespace TheBigThree.Tests.Services
         public void SetUp()
         {
             collectionRepositoryMock = new Mock<IRepository<Collection>>();
+
             commentRepositoryMock = new Mock<IRepository<Comment>>();
 
             var store = new Mock<IUserStore<ApplicationUser>>();
@@ -79,7 +80,9 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetOwnCollectionPreviewAsync(userId);
 
             Assert.That(result.Title, Is.Null);
+
             Assert.That(result.Id, Is.Null);
+
             Assert.That(result.GameImages, Is.Empty);
         }
 
@@ -111,7 +114,9 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetOwnCollectionPreviewAsync(userId);
 
             Assert.That(result.Title, Is.EqualTo("Sci-Fi and Soul"));
+
             Assert.That(result.Id, Is.EqualTo(1));
+
             Assert.That(result.GameImages.Count, Is.EqualTo(3));
         }
 
@@ -158,6 +163,7 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetOwnCollectionPreviewAsync(userId);
 
             Assert.That(result.Title, Is.EqualTo("Empty Collection"));
+
             Assert.That(result.GameImages, Is.Empty);
         }
 
@@ -226,9 +232,13 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetPublicProfileAsync(username);
 
             Assert.That(result, Is.Not.Null);
+
             Assert.That(result!.Username, Is.EqualTo(username));
+
             Assert.That(result.TotalStars, Is.EqualTo(10));
+
             Assert.That(result.CollectionTitle, Is.EqualTo("Masterpieces of Atmosphere"));
+
             Assert.That(result.CollectionGameImages.Count, Is.EqualTo(3));
         }
 
@@ -236,6 +246,7 @@ namespace TheBigThree.Tests.Services
         public async Task GetPublicProfileAsync_ReturnsProfile_WhenUserExistsWithoutCollection()
         {
             string userId = "user-456";
+
             string username = "NewUser";
 
             List<ApplicationUser> users = new List<ApplicationUser>
@@ -249,6 +260,7 @@ namespace TheBigThree.Tests.Services
             };
 
             List<Collection> collections = new List<Collection>();
+
             List<Comment> comments = new List<Comment>();
 
             userManagerMock
@@ -266,8 +278,11 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetPublicProfileAsync(username);
 
             Assert.That(result, Is.Not.Null);
+
             Assert.That(result!.CollectionId, Is.Null);
+
             Assert.That(result.CollectionGameImages, Is.Empty);
+
             Assert.That(result.TotalStars, Is.EqualTo(0));
         }
 
@@ -275,6 +290,7 @@ namespace TheBigThree.Tests.Services
         public async Task GetPublicProfileAsync_ReturnsCorrectRank_BasedOnStars()
         {
             string userId = "user-789";
+
             string username = "StarCollector";
 
             List<ApplicationUser> users = new List<ApplicationUser>
@@ -309,6 +325,7 @@ namespace TheBigThree.Tests.Services
             var result = await profileService.GetPublicProfileAsync(username);
 
             Assert.That(result, Is.Not.Null);
+
             Assert.That(result!.Rank, Is.EqualTo("Superstar Collector"));
         }
     }
