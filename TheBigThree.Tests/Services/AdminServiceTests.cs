@@ -25,7 +25,6 @@ namespace TheBigThree.Tests.Services
                 null!, null!, null!, null!, null!, null!, null!, null!);
 
             collectionRepositoryMock = new Mock<IRepository<Collection>>();
-
             commentRepositoryMock = new Mock<IRepository<Comment>>();
 
             adminService = new TheBigThree.Services.AdminService(
@@ -217,6 +216,70 @@ namespace TheBigThree.Tests.Services
             Assert.That(result.TotalUsers, Is.EqualTo(1));
 
             Assert.That(result.TopCollectionTitle, Is.EqualTo("Top Collection"));
+        }
+
+        [Test]
+        public async Task PromoteToAdminAsync_DoesNothing_WhenUserNotFound()
+        {
+            userManagerMock
+                .Setup(u => u.FindByIdAsync("nonexistent-id"))
+                .ReturnsAsync((ApplicationUser?)null);
+
+            await adminService.PromoteToAdminAsync("nonexistent-id");
+
+            userManagerMock.Verify(u => u.AddToRoleAsync(
+                It.IsAny<ApplicationUser>(),
+                It.IsAny<string>()), Times.Never);
+        }
+
+        [Test]
+        public async Task PromoteToAdminAsync_AddsAdminRole_WhenUserFound()
+        {
+            ApplicationUser user = new ApplicationUser { Id = "user-123", UserName = "TestUser" };
+
+            userManagerMock
+                .Setup(u => u.FindByIdAsync("user-123"))
+                .ReturnsAsync(user);
+
+            userManagerMock
+                .Setup(u => u.AddToRoleAsync(user, "Administrator"))
+                .ReturnsAsync(IdentityResult.Success);
+
+            await adminService.PromoteToAdminAsync("user-123");
+
+            userManagerMock.Verify(u => u.AddToRoleAsync(user, "Administrator"), Times.Once);
+        }
+
+        [Test]
+        public async Task DemoteFromAdminAsync_DoesNothing_WhenUserNotFound()
+        {
+            userManagerMock
+                .Setup(u => u.FindByIdAsync("nonexistent-id"))
+                .ReturnsAsync((ApplicationUser?)null);
+
+            await adminService.DemoteFromAdminAsync("nonexistent-id");
+
+            userManagerMock.Verify(u => u.RemoveFromRoleAsync(
+                It.IsAny<ApplicationUser>(),
+                It.IsAny<string>()), Times.Never);
+        }
+
+        [Test]
+        public async Task DemoteFromAdminAsync_RemovesAdminRole_WhenUserFound()
+        {
+            ApplicationUser user = new ApplicationUser { Id = "user-123", UserName = "TestUser" };
+
+            userManagerMock
+                .Setup(u => u.FindByIdAsync("user-123"))
+                .ReturnsAsync(user);
+
+            userManagerMock
+                .Setup(u => u.RemoveFromRoleAsync(user, "Administrator"))
+                .ReturnsAsync(IdentityResult.Success);
+
+            await adminService.DemoteFromAdminAsync("user-123");
+
+            userManagerMock.Verify(u => u.RemoveFromRoleAsync(user, "Administrator"), Times.Once);
         }
     }
 }
