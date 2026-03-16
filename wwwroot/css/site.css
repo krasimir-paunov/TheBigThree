@@ -4,8 +4,6 @@
     --dark-bg: #000;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --transition-speed: 0.3s ease;
-
-    /* Fonts */
     --heading-font: "Segoe UI Black", "Arial Black", Gadget, sans-serif;
     --body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -52,17 +50,6 @@ h1, h2, h3, h4, h5, h6, .hub-title, .card-title-gold {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-footer a, .footer a {
-    color: #adb5bd !important;
-    text-decoration: none;
-    transition: color var(--transition-speed);
-}
-
-    footer a:hover {
-        color: var(--accent-yellow) !important;
-        text-decoration: underline;
-    }
-
 /* --- Navbar --- */
 .navbar-nav .nav-link {
     position: relative;
@@ -90,7 +77,7 @@ footer a, .footer a {
             border-radius: 2px;
         }
 
-/* --- Hero & Hub Elements --- */
+/* --- Hero Elements --- */
 .hero-section {
     background-color: #000;
     image-rendering: -webkit-optimize-contrast;
@@ -115,12 +102,7 @@ footer a, .footer a {
     color: lightblue;
 }
 
-.hub-background {
-    background: radial-gradient(circle at top, #1c1c1e 0%, #0a0a0a 100%);
-    min-height: 100vh;
-    padding: 3rem 0 5rem 0;
-}
-
+/* --- Collection Card --- */
 .collection-card {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -135,62 +117,6 @@ footer a, .footer a {
         background: rgba(255, 255, 255, 0.08);
         border-color: var(--primary-cyan);
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(13, 202, 240, 0.2);
-    }
-
-.card-title-gold {
-    color: var(--accent-yellow);
-    font-size: 1.4rem;
-    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
-}
-
-.game-thumb-container {
-    background: rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s;
-}
-
-    .game-thumb-container:hover {
-        border-color: white;
-    }
-
-/* --- Profile & Lists --- */
-.profile-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 2rem;
-    transition: border-color var(--transition-speed);
-}
-
-    .profile-card:hover {
-        border-color: var(--primary-cyan);
-    }
-
-.profile-avatar-circle {
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(135deg, #0dcaf0 0%, #007bff 100%);
-    color: white;
-    font-family: var(--heading-font);
-    font-size: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin: 0 auto 1.5rem auto;
-    box-shadow: 0 0 20px rgba(13, 202, 240, 0.3);
-}
-
-.favorite-item {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all var(--transition-speed);
-}
-
-    .favorite-item:hover {
-        background: rgba(255, 255, 255, 0.07);
-        transform: translateX(5px);
     }
 
 /* --- Forms & Containers --- */
@@ -295,7 +221,6 @@ div:has(> #profile-form) {
         color: #000 !important;
     }
 
-
 /* --- Rank Badges --- */
 .rank-badge {
     font-size: 11px;
@@ -315,8 +240,13 @@ div:has(> #profile-form) {
 }
 
 @keyframes legendaryPulse {
-    0%, 100% { box-shadow: 0 0 6px rgba(255, 215, 0, 0.2); }
-    50% { box-shadow: 0 0 14px rgba(255, 215, 0, 0.5); }
+    0%, 100% {
+        box-shadow: 0 0 6px rgba(255, 215, 0, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 14px rgba(255, 215, 0, 0.5);
+    }
 }
 
 .rank-superstar {
@@ -357,9 +287,9 @@ div:has(> #profile-form) {
     transition: color 0.2s;
 }
 
-.footer-link:hover {
-    color: rgba(13,202,240,0.8);
-}
+    .footer-link:hover {
+        color: rgba(13,202,240,0.8);
+    }
 
 /* --- Back To Top Button --- */
 #backToTop {
@@ -374,7 +304,87 @@ div:has(> #profile-form) {
     transition: opacity 0.4s ease, transform 0.2s, box-shadow 0.2s;
 }
 
-#backToTop:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 15px rgba(13,202,240,0.7);
+    #backToTop:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px rgba(13,202,240,0.7);
+    }
+
+/* --- Manage Account Pages --- */
+.manage-background {
+    background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('/images/backgrounds/mine-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
 }
+
+.manage-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.manage-nav-link {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+    .manage-nav-link:hover {
+        color: #fff;
+        background: rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.08);
+    }
+
+    .manage-nav-link.active {
+        color: rgba(13,202,240,0.9);
+        background: rgba(13,202,240,0.08);
+        border-color: rgba(13,202,240,0.2);
+    }
+
+.manage-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 28px;
+}
+
+.manage-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* --- Login Partial --- */
+.navbar-user-link {
+    transition: background 0.15s ease;
+}
+
+    .navbar-user-link:hover {
+        background: rgba(255,255,255,0.05);
+    }
+
+.navbar-logout-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(220,53,69,0.1);
+    border: 1px solid rgba(220,53,69,0.3);
+    color: rgba(220,53,69,0.8);
+    transition: all 0.15s ease;
+}
+
+    .navbar-logout-btn:hover {
+        background: rgba(220,53,69,0.2) !important;
+        border-color: rgba(220,53,69,0.6) !important;
+        color: rgba(220,53,69,0.8) !important;
+    }
