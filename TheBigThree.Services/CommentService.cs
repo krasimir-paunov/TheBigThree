@@ -11,7 +11,6 @@ namespace TheBigThree.Services
     {
         private readonly IRepository<Comment> commentRepository;
 
-        // Left this for ApplicationUser avatar queries (Identity-managed entity)
         private readonly TheBigThreeDbContext dbContext; 
 
         public CommentService(IRepository<Comment> commentRepository, TheBigThreeDbContext dbContext)
@@ -49,7 +48,7 @@ namespace TheBigThree.Services
             await commentRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentAsync(int commentId, string userId)
+        public async Task DeleteCommentAsync(int commentId, string userId, bool isAdmin = false)
         {
             var commentToDelete = await commentRepository.GetByIdAsync(commentId);
 
@@ -57,13 +56,13 @@ namespace TheBigThree.Services
             {
                 throw new ArgumentException($"Comment with ID {commentId} does not exist.");
             }
-
-            if (commentToDelete.UserId != userId)
+            if (commentToDelete.UserId != userId && !isAdmin)
             {
                 throw new UnauthorizedAccessException("You do not have permission to delete this comment.");
             }
 
             await commentRepository.DeleteAsync(commentId);
+
             await commentRepository.SaveChangesAsync();
         }
 

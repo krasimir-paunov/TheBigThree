@@ -9,7 +9,7 @@ namespace TheBigThree.Services.Core.Interfaces
 
         Task AddCommentAsync(AddCommentViewModel content, int collectionId, string userId);
 
-        Task DeleteCommentAsync(int commentId, string userId);
+        Task DeleteCommentAsync(int commentId, string userId, bool isAdmin = false);
 
         Task AdminDeleteCommentAsync(int commentId);
 

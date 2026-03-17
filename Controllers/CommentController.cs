@@ -49,7 +49,7 @@ namespace TheBigThree.Controllers
 
             try
             {
-                await commentService.DeleteCommentAsync(commentId, userId);
+                await commentService.DeleteCommentAsync(commentId, userId, User.IsInRole("Administrator"));
 
                 TempData["Success"] = "Comment deleted.";
             }
