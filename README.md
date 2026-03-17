@@ -389,10 +389,6 @@ TheBigThree/
 
 **Krasimir Paunov**
 - GitHub: [@krasimir-paunov](https://github.com/krasimir-paunov)
-- SoftUni: Software Engineer with C# — Advanced Module
 
 ---
 
-## 📄 License
-
-This project was developed as a final assignment for the **ASP.NET Advanced** course at [SoftUni](https://softuni.bg), February 2026.
