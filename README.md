@@ -1,218 +1,398 @@
 # 🎮 The Big Three
 
-A community‑driven web application where gamers curate **their personal Top 3 games of all time**, explain *why* they love them, why others should play them, and earn status based on community recognition.
+> *What are the three games that define you as a gamer?*
+
+**The Big Three** is a community-driven ASP.NET Core web application where gamers curate and share their ultimate three-game collections — the games that shaped them, defined them, or simply brought them the most joy. Discover what others have chosen, give stars to collections you love, and leave your mark on the community.
+
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-blue?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com/)
+[![EF Core](https://img.shields.io/badge/EF%20Core-8.0-purple?style=flat-square)](https://docs.microsoft.com/en-us/ef/core/)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-LocalDB-red?style=flat-square&logo=microsoftsqlserver)](https://www.microsoft.com/en-us/sql-server)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5-blueviolet?style=flat-square&logo=bootstrap)](https://getbootstrap.com/)
+[![NUnit](https://img.shields.io/badge/Tests-53%20passing-brightgreen?style=flat-square)](https://nunit.org/)
 
 ---
 
-## ✨ Core Idea
+## 📸 Screenshots
 
-Every registered user can create **one personal collection** featuring their **Top 3 games of all time**.
-Each game entry includes a personal description explaining:
+| Community Hub | Collection Details |
+|---|---|
+| ![Hub](https://placeholder.com/hub.png) | ![Details](https://placeholder.com/details.png) |
 
-* Why the user fell in love with the game
-* Why others should experience it
+| Player Profile | Game Info Modal |
+|---|---|
+| ![Profile](https://placeholder.com/profile.png) | ![Modal](https://placeholder.com/modal.png) |
 
-Other users can explore collections, star the ones they like, and help creators climb the community ranking ladder.
-
----
-
-## 👥 User Experiences
-
-### 👀 Guest (Unregistered User)
-
-Guests have access to the **Hub** area where they can:
-
-* Browse all public collections
-* View collection details and game descriptions
-* See collection ratings (stars)
-* Sort collections by:
-
-  * Newest added
-  * Most starred
-
-> Guests **cannot** create, edit, delete, or star collections.
+| Stats Page | Admin Panel |
+|---|---|
+| ![Stats](https://placeholder.com/stats.png) | ![Admin](https://placeholder.com/admin.png) |
 
 ---
 
-### 🧑‍💻 Registered User
+## ✨ Features
 
-Registered users have all guest capabilities **plus**:
+### 🏠 Community Hub
+- Browse all curated collections in a beautiful card-based layout
+- Search by collection title or curator name
+- Filter by game genre
+- Sort by newest or most starred
+- Pagination for easy browsing
 
-* ⭐ Star other users’ collections
+### 📚 Collections
+- Every registered user can create exactly one "Big Three" collection — their three defining games
+- Each game slot includes a title, cover image, genre, and personal description
+- Full edit and delete functionality for your own collection
+- Star/unstar collections from other curators
 
-  * Only **1 star per collection**
-  * Cannot star their **own** collection
-* 📦 Create **their own Top 3 collection**
-* ✏️ Edit or delete their own collection
-* 👤 Access a **Personal Page** showing:
+### 🎮 RAWG API Integration
+- **Autocomplete** — start typing a game title in the Add/Edit form and get live suggestions from the RAWG database, complete with cover thumbnails, release year, and rating
+- **Game Details Modal** — click any game cover on a collection page to open a cinematic modal showing Metacritic score, release date, developer, platforms, genres, and a full screenshot gallery
+- **Screenshot Lightbox** — click any screenshot to view it full size with prev/next navigation
+- Graceful degradation — the app works fully without an API key; RAWG features are silently hidden
 
-  * Collections they have starred
-  * Status + additional info
-* 🏆 Earn **status ranks** based on community stars
+### 👤 User Profiles
+- Public profile pages for every user — viewable by anyone
+- Private dashboard showing your own collection, starred collections, rank, and stats
+- Custom avatar via URL
+- Collector Rank system based on stars earned
+
+### 🏆 Rank System
+| Stars Earned | Rank |
+|---|---|
+| 100+ | 🥇 Legendary Collector |
+| 30+ | 🌟 Superstar Collector |
+| 10+ | 🔥 Popular Collector |
+| 5+ | ⬆️ Rising Star |
+| 1+ | 🌱 Novice Collector |
+| 0 | 👋 Newcomer |
+
+### 📊 Stats & Leaderboard
+- Community-wide statistics: total collections, members, stars, comments
+- Top 3 collections podium
+- Most popular genres bar chart
+- Top 10 collectors and commenters leaderboard
+
+### 💬 Comments
+- Leave comments on any collection
+- Delete your own comments
+- Admins can moderate all comments
+
+### 🛡️ Admin Panel
+- Full user management: view, search, delete users
+- Promote users to Administrator or demote them back to User
+- Collection management: view and delete any collection
+- Admin dashboard with community overview
 
 ---
 
-## 🏅 User Status & Ranking System
+## 🏗️ Architecture
 
-User status is determined dynamically based on the **total number of stars** their collection receives.
+The project follows a clean **N-Tier architecture** split across 7 projects:
 
-| Total Stars | Status              |
-| ----------- | ------------------- |
-| **100+**    | Legendary Collector |
-| **30+**     | Superstar Collector |
-| **10+**     | Popular Collector   |
-| **5+**      | Rising Star         |
-| **1+**      | Novice Collector    |
-| **0**       | Newcomer            |
-
-> Status updates automatically as stars increase, reflecting the creator’s reputation within the community.
-
----
-
-## 🛠️ Technologies Used
-
-| Category | Technology | Description |
-|----------|------------|-------------|
-| Backend | ASP.NET Core MVC (.NET 8) | Main web framework |
-| Database | Entity Framework Core | ORM, Code-First approach |
-| Security | ASP.NET Identity | Authentication & authorization |
-| Database | MS SQL Server / LocalDB | Relational database engine |
-| UI | Razor Views | Server-side rendering |
-| Frontend | Bootstrap 5 | Responsive design framework |
-| Styling | HTML & CSS | Custom UI styling |
-
----
-## ✅ Prerequisites
-
-Before running the project, make sure you have:
-
-- .NET SDK 8.0+
-- Visual Studio 2022 (recommended)
-- SQL Server / LocalDB
-- Git (optional, for cloning)
----
-## 📁 Project Structure
-
-```text
-TheBigThree/
-  TheBigThree.Data/           # EF Core DbContext, migrations, seed data
-  TheBigThree.Models/         # Domain models and DTOs
-  TheBigThree.Services.Core/  # Business logic and service interfaces
-  TheBigThree.Web/            # ASP.NET Core MVC Web layer
-    Controllers/              # Request handling
-    Views/                    # UI Templates
-    ViewModels/               # View-specific models
-    wwwroot/                  # Static files
-    Program.cs                # Entry point
-  
-README.md                     # Project documentation
 ```
-## 🌱 Seeded Example Data
+TheBigThree/                        ← ASP.NET Core Web (MVC)
+├── TheBigThree.Data/               ← DbContext, Migrations, Repository
+├── TheBigThree.Data.Models/        ← Entity classes
+├── TheBigThree.GCommon/            ← Shared helpers (RankHelper)
+├── TheBigThree.Services/           ← Service implementations
+├── TheBigThree.Services.Core/      ← Service interfaces, IRepository<T>
+├── TheBigThree.Web.ViewModels/     ← ViewModels for all views
+└── TheBigThree.Tests/              ← NUnit unit tests
+```
 
-To ensure the application is **not empty on first run**, the database includes:
+### Layers
 
-* **2 pre-seeded example collections**:
-  
-* Each collection demonstrates:
+| Layer | Project | Responsibility |
+|---|---|---|
+| Presentation | TheBigThree | Controllers, Views, Areas, wwwroot |
+| Application | TheBigThree.Services | Business logic, service implementations |
+| Contracts | TheBigThree.Services.Core | Interfaces, Repository abstraction |
+| Data | TheBigThree.Data | EF Core DbContext, migrations, generic repository |
+| Domain | TheBigThree.Data.Models | Entity classes (Collection, Game, Genre, Like, Comment, ApplicationUser) |
+| Shared | TheBigThree.GCommon | Cross-cutting helpers (RankHelper) |
+| ViewModels | TheBigThree.Web.ViewModels | Data transfer objects for views |
 
-  * Proper game entries
-  * Descriptive recommendation text
-  * Star-based ranking behavior
+### Generic Repository Pattern
 
-This allows examiners and users to immediately explore the Hub without needing to create data manually.
+All data access goes through `IRepository<T>`:
+
+```csharp
+public interface IRepository<T>
+{
+    Task<T?> GetByIdAsync(int id);
+    Task<IEnumerable<T>> GetAllAsync();
+    Task AddAsync(T entity);
+    Task UpdateAsync(T entity);
+    Task DeleteAsync(int id);
+    Task SaveChangesAsync();
+    IQueryable<T> All();
+}
+```
 
 ---
 
-## 🚀 Getting Started 
+## 🗄️ Entity Models
 
-Follow these steps to run the project locally:
+```
+ApplicationUser  ──────────────────────────────────────────
+    │ Id, UserName, Email, AvatarUrl, CreatedOn            │
+    │                                                       │
+    ├──< Collection >──────────────────────────────────────┤
+    │       Id, Title, TotalStars, CreatedOn, UserId        │
+    │             │                                         │
+    │             ├──< Game >────────────────────────────── │
+    │             │       Id, Title, ImageUrl,              │
+    │             │       Description, GenreId              │
+    │             │             │                           │
+    │             │             └──< Genre >                │
+    │             │                   Id, Name              │
+    │             │                                         │
+    │             └──< Comment >──────────────────────────  │
+    │                     Id, Content, CreatedOn,           │
+    │                     UserId, CollectionId              │
+    │                                                       │
+    └──< Like >─────────────────────────────────────────── ─┘
+            UserId (PK), CollectionId (PK)
+            [Many-to-Many junction table]
+```
 
-### 1️⃣ Clone the Repository
+---
+
+## 🔧 Services
+
+| Service | Responsibilities |
+|---|---|
+| `CollectionService` | CRUD for collections, search, filter, pagination, star system |
+| `CommentService` | Add and delete comments with authorization checks |
+| `LikeService` | Star/unstar collections, fetch starred collections |
+| `ProfileService` | User profile data, own collection preview, public profiles |
+| `StatsService` | Community statistics, top collections, leaderboard data |
+| `AdminService` | User and collection management, promote/demote roles |
+| `RawgService` | RAWG API integration — game search and detail fetching |
+
+---
+
+## ✅ Validation
+
+### Server-Side
+- All form inputs validated with Data Annotations
+- `[Required]`, `[StringLength]`, `[RegularExpression]` on ViewModels
+- Custom business logic validation in services (e.g., one collection per user)
+- Authorization checks in service layer (not just controller)
+- AntiForgeryToken on all POST forms
+
+### Client-Side
+- jQuery Unobtrusive Validation on all forms
+- Inline error messages per field
+
+### Database Level
+- Required fields enforced at schema level
+- Foreign key constraints
+- Composite primary key on `Likes` (UserId + CollectionId)
+
+---
+
+## 🌱 Seeded Data
+
+The application seeds the following on first run:
+
+- **2 roles**: `User`, `Administrator`
+- **7 users** including 1 admin (`CommanderShepard`)
+- **19 genres** (Action, RPG, Horror, Strategy, etc.)
+- **7 collections** with 3 games each, complete with cover images
+- **Likes** between users and collections
+- **Comments** on various collections
+
+Admin credentials for testing:
+```
+Username: CommanderShepard
+Email:    shepard@normandy.com
+Password: Spectre123!
+```
+
+---
+
+## 🔐 Security
+
+| Threat | Mitigation |
+|---|---|
+| SQL Injection | EF Core parameterized queries — no raw SQL |
+| XSS | Razor auto-encodes all output; HTML tags escaped |
+| CSRF | `[AutoValidateAntiforgeryToken]` globally applied |
+| Unauthorized access | `[Authorize]` on all controllers; service-layer ownership checks |
+| Account lockout | 3 failed attempts triggers 5-minute lockout |
+| Secure cookies | HttpOnly, SecurePolicy.Always, SameSite.Strict |
+| Parameter tampering | Ownership verified server-side before any mutation |
+
+---
+
+## 🎮 RAWG API Setup
+
+The Big Three integrates with the [RAWG Video Games Database API](https://rawg.io/apidocs) to power:
+- **Game autocomplete** when adding/editing a collection
+- **Game details modal** with Metacritic scores, platforms, developers, and screenshots
+
+### Getting Your API Key
+
+1. Create a free account at [rawg.io](https://rawg.io)
+2. Go to [rawg.io/apidocs](https://rawg.io/apidocs) and register your app
+3. Copy your API key
+
+### Configuring the Key (User Secrets — Recommended)
+
+The API key is stored using **ASP.NET User Secrets** and is **never committed to the repository**.
+
+From the project root (where `TheBigThree.csproj` lives):
 
 ```bash
-git clone <repository-url>
+dotnet user-secrets set "RawgApi:ApiKey" "YOUR_API_KEY_HERE" --project TheBigThree.csproj
 ```
 
-Or download the repository as a ZIP and extract it.
+> **Note:** Without an API key, the application works fully — RAWG features (autocomplete and game details modal) are silently disabled. No errors will occur.
 
 ---
 
-### 2️⃣ Open the Project
+## 🚀 Setup & Running Locally
 
-* Open the solution file (`.sln`) in **Visual Studio**
-* Ensure the startup project is set correctly
+### Prerequisites
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) or later
+- SQL Server LocalDB (included with Visual Studio)
 
----
+### Steps
 
-### 3️⃣ Configure Database Connection
+1. **Clone the repository**
+```bash
+git clone https://github.com/krasimir-paunov/TheBigThree.git
+cd TheBigThree
+```
 
-> ⚠️ **Important:** This project stores its connection string in `appsettings.Development.json`, which **is included in the repository**.
+2. **Open in Visual Studio**
+   - Open `TheBigThree.sln`
 
-1. Open `appsettings.Development.json`
-2. Locate the `ConnectionStrings` section
-3. Verify or adjust the connection string to match your local SQL setup
-
-Example (LocalDB – recommended):
-
-````json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=(localdb)\mssqllocaldb;Database=TheBigThree;Trusted_Connection=True;MultipleActiveResultSets=true"
-}
-
-````
-
----
-
-### 4️⃣ Apply Migrations & Seed Data
-
-1. Open **Package Manager Console** (`Tools` → `NuGet Package Manager` → `Package Manager Console`)
-2. Ensure the **Default project** is set to **TheBigThree**
-3. Run:
-
+3. **Apply migrations and seed the database**
+   - In Package Manager Console, set Default Project to `TheBigThree.Data`
+   - Run:
 ```powershell
 Update-Database
 ```
 
-This will:
+4. **(Optional) Configure RAWG API**
+```bash
+dotnet user-secrets set "RawgApi:ApiKey" "YOUR_KEY_HERE" --project TheBigThree.csproj
+```
 
-* Create the database
-* Apply all migrations
-* Seed the example collections
+5. **Run the application**
+   - Press `F5` or `Ctrl+F5` in Visual Studio
+   - Navigate to `https://localhost:{port}`
 
----
-
-### 5️⃣ Run the Application
-
-* Press **F5** or click **Run** in Visual Studio
-* The application will start in your browser
-
----
-
-## 🔐 Authentication Notes
-
-* Authentication is handled via **ASP.NET Identity**
-* Guests can browse freely
-* Registered users unlock full interaction features
+6. **Login with the seeded admin account**
+```
+Username: CommanderShepard
+Password: Spectre123!
+```
 
 ---
 
-## 📌 Project Highlights
+## 🧪 Unit Tests
 
-* Clear **role‑based access control**
-* Full **CRUD operations** for collections
-* Custom business rules:
+The project includes **53 unit tests** across 6 service test classes, using **NUnit**, **Moq**, and **MockQueryable.Moq**.
 
-  * One collection per user
-  * One star per user per collection
-  * Cannot star own collection
-* Dynamic ranking & status system
-* Clean MVC separation
-* User‑friendly UI and navigation
+```
+TheBigThree.Tests/
+└── Services/
+    ├── CollectionServiceTests.cs    (10 tests)
+    ├── CommentServiceTests.cs       (7 tests)
+    ├── LikeServiceTests.cs          (8 tests)
+    ├── ProfileServiceTests.cs       (10 tests)
+    ├── AdminServiceTests.cs         (11 tests)
+    └── StatsServiceTests.cs         (7 tests)
+```
+
+### Running Tests
+
+In Visual Studio: `Test → Run All Tests`
+
+Or via CLI:
+```bash
+dotnet test
+```
+
+### Coverage Areas
+- Collection CRUD and business rules (one per user)
+- Comment add/delete with authorization
+- Like/unlike with duplicate prevention
+- Profile and public profile data loading
+- Admin promote/demote/delete operations
+- Community stats and leaderboard ordering
+
+---
+
+## 🌐 Deployment
+
+> Deployment information will be updated once the application is hosted publicly.
+
+---
+
+## 📁 Project Structure
+
+```
+TheBigThree/
+├── Areas/
+│   ├── Admin/                  ← Admin area (Dashboard, Users, Collections)
+│   └── Identity/               ← Scaffolded Identity pages (Login, Register, Manage)
+├── Controllers/                ← Main app controllers
+├── Views/                      ← Razor views per controller
+├── wwwroot/
+│   ├── css/                    ← Per-page CSS files + site.css
+│   ├── js/                     ← site.js, hub.js, rawg.js, public-profile.js
+│   └── images/
+│       ├── seed/               ← Seeded game cover images
+│       └── backgrounds/        ← Page background textures
+├── TheBigThree.Data/
+│   ├── TheBigThreeDbContext.cs
+│   ├── Migrations/
+│   └── Repository.cs
+├── TheBigThree.Data.Models/
+│   ├── ApplicationUser.cs
+│   ├── Collection.cs
+│   ├── Game.cs
+│   ├── Genre.cs
+│   ├── Like.cs
+│   └── Comment.cs
+├── TheBigThree.Services/       ← Service implementations
+├── TheBigThree.Services.Core/  ← Interfaces + IRepository<T>
+├── TheBigThree.Web.ViewModels/ ← ViewModels
+├── TheBigThree.GCommon/        ← RankHelper
+└── TheBigThree.Tests/          ← NUnit tests
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| ASP.NET Core MVC | 8.0 | Web framework |
+| Entity Framework Core | 8.0 | ORM / data access |
+| ASP.NET Identity | 8.0 | Authentication & authorization |
+| SQL Server LocalDB | Latest | Database |
+| Bootstrap | 5.3 | UI framework |
+| Bootstrap Icons | 1.11 | Icon library |
+| NUnit | 3.x | Unit testing |
+| Moq | 4.x | Mocking |
+| MockQueryable.Moq | 7.0 | IQueryable mocking |
+| RAWG API | v1 | Game database |
+
+---
+
+## 👨‍💻 Author
+
+**Krasimir Paunov**
+- GitHub: [@krasimir-paunov](https://github.com/krasimir-paunov)
+- SoftUni: Software Engineer with C# — Advanced Module
 
 ---
 
 ## 📄 License
 
-This project is created for **educational purposes**.
-
----
+This project was developed as a final assignment for the **ASP.NET Advanced** course at [SoftUni](https://softuni.bg), February 2026.
