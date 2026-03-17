@@ -385,10 +385,4 @@ TheBigThree/
 
 ---
 
-## 👨‍💻 Author
-
-**Krasimir Paunov**
-- GitHub: [@krasimir-paunov](https://github.com/krasimir-paunov)
-
----
 
