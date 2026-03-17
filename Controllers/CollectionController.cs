@@ -112,6 +112,8 @@ namespace TheBigThree.Controllers
             {
                 await collectionService.AddCollectionAsync(collectionInput, userId);
 
+                TempData["Success"] = "Your Big Three collection has been created!";
+
                 return RedirectToAction(nameof(Mine));
             }
             catch (Exception)
@@ -152,6 +154,8 @@ namespace TheBigThree.Controllers
             {
                 await collectionService.EditCollectionAsync(updatedInput, id, userId);
 
+                TempData["Success"] = "Collection updated successfully!";
+
                 return RedirectToAction(nameof(Mine));
             }
             catch (Exception)
@@ -186,6 +190,8 @@ namespace TheBigThree.Controllers
             {
                 await collectionService.DeleteCollectionAsync(id, userId);
 
+                TempData["Success"] = "Collection deleted.";
+
                 return RedirectToAction(nameof(Mine));
             }
             catch (Exception)
@@ -204,6 +210,8 @@ namespace TheBigThree.Controllers
             try
             {
                 await likeService.StarCollectionAsync(id, userId);
+
+                TempData["Success"] = "⭐ Collection starred!";
             }
             catch (InvalidOperationException ex)
             {
@@ -225,6 +233,8 @@ namespace TheBigThree.Controllers
             try
             {
                 await likeService.RemoveStarAsync(id, userId);
+
+                TempData["Success"] = "Star removed.";
             }
             catch (Exception)
             {

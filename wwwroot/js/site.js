@@ -8,3 +8,11 @@
         btn.style.pointerEvents = 'none';
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var toasts = document.querySelectorAll('.toast');
+    toasts.forEach(function (toastEl) {
+        var toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    });
+});

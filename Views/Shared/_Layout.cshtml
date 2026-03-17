@@ -110,17 +110,36 @@
     </header>
 
     <div>
-        @if (TempData["Error"] != null)
-        {
-            <div class="container">
-                <div class="alert alert-danger mt-3">
-                    @TempData["Error"]
-                </div>
-            </div>
-        }
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        @if (TempData["Success"] != null)
+        {
+            <div class="toast toast-success align-items-center border-0 show"
+                 role="alert" aria-live="assertive" data-bs-autohide="true" data-bs-delay="3000">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-check-circle-fill me-2"></i>@TempData["Success"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="toast toast-error align-items-center border-0 show"
+                 role="alert" aria-live="assertive" data-bs-autohide="true" data-bs-delay="4000">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>@TempData["Error"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
     </div>
 
     <footer style="background: rgba(0,0,0,0.9); border-top: 1px solid rgba(255,255,255,0.06);">

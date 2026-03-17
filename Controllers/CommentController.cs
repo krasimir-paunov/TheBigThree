@@ -22,6 +22,7 @@ namespace TheBigThree.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["CommentError"] = "Comment must be at least 20 characters long.";
+
                 return Redirect(Url.Action("Details", "Collection", new { id = collectionId }) + "#comments");
             }
 
@@ -30,6 +31,8 @@ namespace TheBigThree.Controllers
             try
             {
                 await commentService.AddCommentAsync(model, collectionId, userId);
+
+                TempData["Success"] = "Comment posted!";
             }
             catch (Exception)
             {
@@ -47,6 +50,8 @@ namespace TheBigThree.Controllers
             try
             {
                 await commentService.DeleteCommentAsync(commentId, userId);
+
+                TempData["Success"] = "Comment deleted.";
             }
             catch (UnauthorizedAccessException)
             {
@@ -60,8 +65,8 @@ namespace TheBigThree.Controllers
             {
                 TempData["Error"] = "An error occurred while deleting the comment.";
             }
+
             return Redirect(Url.Action("Details", "Collection", new { id = collectionId }) + "#comments");
         }
-
     }
 }

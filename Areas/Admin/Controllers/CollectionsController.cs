@@ -26,6 +26,8 @@ namespace TheBigThree.Areas.Admin.Controllers
         {
             await adminService.DeleteCollectionAsync(id);
 
+            TempData["Success"] = "Collection deleted.";
+
             return RedirectToAction(nameof(Index));
         }
     }

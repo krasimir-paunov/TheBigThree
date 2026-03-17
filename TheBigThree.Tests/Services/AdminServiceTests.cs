@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
+using TheBigThree.Data;
 using TheBigThree.Data.Models;
 using TheBigThree.Services.Core.Repositories;
 using TheBigThree.Web.ViewModels;
@@ -13,6 +15,7 @@ namespace TheBigThree.Tests.Services
         private Mock<UserManager<ApplicationUser>> userManagerMock;
         private Mock<IRepository<Collection>> collectionRepositoryMock;
         private Mock<IRepository<Comment>> commentRepositoryMock;
+        private TheBigThreeDbContext dbContext;
         private TheBigThree.Services.AdminService adminService;
 
         [SetUp]
@@ -25,12 +28,26 @@ namespace TheBigThree.Tests.Services
                 null!, null!, null!, null!, null!, null!, null!, null!);
 
             collectionRepositoryMock = new Mock<IRepository<Collection>>();
+
             commentRepositoryMock = new Mock<IRepository<Comment>>();
+
+            DbContextOptions<TheBigThreeDbContext> options = new DbContextOptionsBuilder<TheBigThreeDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            dbContext = new TheBigThreeDbContext(options);
 
             adminService = new TheBigThree.Services.AdminService(
                 userManagerMock.Object,
                 collectionRepositoryMock.Object,
-                commentRepositoryMock.Object);
+                commentRepositoryMock.Object,
+                dbContext);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            dbContext.Dispose();
         }
 
         [Test]

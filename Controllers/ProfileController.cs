@@ -27,6 +27,7 @@ namespace TheBigThree.Controllers
         public async Task<IActionResult> Index()
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (userId == null)
             {
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
@@ -83,6 +84,8 @@ namespace TheBigThree.Controllers
             appUser.AvatarUrl = string.IsNullOrWhiteSpace(avatarUrl) ? null : avatarUrl;
 
             await userManager.UpdateAsync(appUser);
+
+            TempData["Success"] = "Avatar updated!";
 
             return RedirectToAction(nameof(Index));
         }

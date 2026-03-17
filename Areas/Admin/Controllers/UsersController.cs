@@ -26,6 +26,8 @@ namespace TheBigThree.Areas.Admin.Controllers
         {
             await adminService.DeleteUserAsync(id);
 
+            TempData["Success"] = "User deleted.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -33,6 +35,9 @@ namespace TheBigThree.Areas.Admin.Controllers
         public async Task<IActionResult> Promote(string id)
         {
             await adminService.PromoteToAdminAsync(id);
+
+            TempData["Success"] = "User promoted to Administrator.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -40,6 +45,9 @@ namespace TheBigThree.Areas.Admin.Controllers
         public async Task<IActionResult> Demote(string id)
         {
             await adminService.DemoteFromAdminAsync(id);
+
+            TempData["Success"] = "User demoted to User.";
+
             return RedirectToAction(nameof(Index));
         }
     }
