@@ -16,15 +16,15 @@
 
 | Community Hub | Collection Details |
 |---|---|
-| ![Hub](https://placeholder.com/hub.png) | ![Details](https://placeholder.com/details.png) |
+| ![Hub](https://raw.githubusercontent.com/krasimir-paunov/TheBigThree/main/docs/screenshots/hub.png) | ![Details](https://raw.githubusercontent.com/krasimir-paunov/TheBigThree/main/docs/screenshots/details.png) |
 
 | Player Profile | Game Info Modal |
 |---|---|
-| ![Profile](https://placeholder.com/profile.png) | ![Modal](https://placeholder.com/modal.png) |
+| ![Profile](https://raw.githubusercontent.com/krasimir-paunov/TheBigThree/main/docs/screenshots/profile.png) | ![Modal](https://raw.githubusercontent.com/krasimir-paunov/TheBigThree/main/docs/screenshots/modal.png) |
 
 | Stats Page | Admin Panel |
 |---|---|
-| ![Stats](https://placeholder.com/stats.png) | ![Admin](https://placeholder.com/admin.png) |
+| ![Stats](https://raw.githubusercontent.com/krasimir-paunov/TheBigThree/main/docs/screenshots/stats.png) | ![Admin](https://raw.githubusercontent.com/krasimir-paunov/TheBigThree/main/docs/screenshots/admin.png) |
 
 ---
 
