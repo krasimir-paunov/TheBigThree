@@ -199,8 +199,6 @@ The application seeds the following on first run:
 - **7 users** including 1 admin (`CommanderShepard`)
 - **19 genres** (Action, RPG, Horror, Strategy, etc.)
 - **7 collections** with 3 games each, complete with cover images
-- **Likes** between users and collections
-- **Comments** on various collections
 
 Admin credentials for testing:
 ```
