@@ -12,6 +12,12 @@
 		<Compile Include="Services\*.cs" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Include="Controllers\CollectionControllerTests.cs" />
+	  <Compile Include="Controllers\HomeControllerTests.cs" />
+	  <Compile Include="Controllers\LeaderboardControllerTests.cs" />
+	  <Compile Include="Controllers\StatsControllerTests.cs" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="coverlet.collector" Version="6.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
@@ -22,6 +28,7 @@
 		<PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\TheBigThree.csproj" />
 		<ProjectReference Include="..\TheBigThree.Data.Models\TheBigThree.Data.Models.csproj" />
 		<ProjectReference Include="..\TheBigThree.GCommon\TheBigThree.GCommon.csproj" />
 		<ProjectReference Include="..\TheBigThree.Services.Core\TheBigThree.Services.Core.csproj" />
