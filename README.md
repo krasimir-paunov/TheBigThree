@@ -8,7 +8,7 @@
 [![EF Core](https://img.shields.io/badge/EF%20Core-8.0-purple?style=flat-square)](https://docs.microsoft.com/en-us/ef/core/)
 [![SQL Server](https://img.shields.io/badge/SQL%20Server-LocalDB-red?style=flat-square&logo=microsoftsqlserver)](https://www.microsoft.com/en-us/sql-server)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5-blueviolet?style=flat-square&logo=bootstrap)](https://getbootstrap.com/)
-[![NUnit](https://img.shields.io/badge/Tests-53%20passing-brightgreen?style=flat-square)](https://nunit.org/)
+[![NUnit](https://img.shields.io/badge/Tests-97%20passing-brightgreen?style=flat-square)](https://nunit.org/)
 
 ---
 
@@ -267,23 +267,37 @@ cd TheBigThree
 2. **Open in Visual Studio**
    - Open `TheBigThree.sln`
 
-3. **Apply migrations and seed the database**
+3. **Configure the database connection string**
+
+   Open `appsettings.json` and update the connection string to match your local SQL Server instance:
+
+   ```json
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=TheBigThreeDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+     }
+   }
+   ```
+
+   > **Note:** If you are using a named SQL Server instance instead of LocalDB, replace `(localdb)\\mssqllocaldb` with your server name, for example `Server=.\\SQLEXPRESS` or `Server=YOUR_PC_NAME\\SQLEXPRESS`.
+
+4. **Apply migrations and seed the database**
    - In Package Manager Console, set Default Project to `TheBigThree.Data`
    - Run:
 ```powershell
 Update-Database
 ```
 
-4. **(Optional) Configure RAWG API**
+5. **(Optional) Configure RAWG API**
 ```bash
 dotnet user-secrets set "RawgApi:ApiKey" "YOUR_KEY_HERE" --project TheBigThree.csproj
 ```
 
-5. **Run the application**
+6. **Run the application**
    - Press `F5` or `Ctrl+F5` in Visual Studio
    - Navigate to `https://localhost:{port}`
 
-6. **Login with the seeded admin account**
+7. **Login with the seeded admin account**
 ```
 Username: CommanderShepard
 Password: Spectre123!
@@ -293,17 +307,22 @@ Password: Spectre123!
 
 ## 🧪 Unit Tests
 
-The project includes **53 unit tests** across 6 service test classes, using **NUnit**, **Moq**, and **MockQueryable.Moq**.
+The project includes **97 unit tests** across 10 test classes, using **NUnit**, **Moq**, and **MockQueryable.Moq**, with **73.8% service layer coverage**.
 
 ```
 TheBigThree.Tests/
-└── Services/
-    ├── CollectionServiceTests.cs    (10 tests)
-    ├── CommentServiceTests.cs       (7 tests)
-    ├── LikeServiceTests.cs          (8 tests)
-    ├── ProfileServiceTests.cs       (10 tests)
-    ├── AdminServiceTests.cs         (11 tests)
-    └── StatsServiceTests.cs         (7 tests)
+├── Services/
+│   ├── CollectionServiceTests.cs    (19 tests)
+│   ├── CommentServiceTests.cs       (10 tests)
+│   ├── LikeServiceTests.cs          (11 tests)
+│   ├── ProfileServiceTests.cs       (10 tests)
+│   ├── AdminServiceTests.cs         (11 tests)
+│   └── StatsServiceTests.cs         (7 tests)
+└── Controllers/
+    ├── HomeControllerTests.cs       (5 tests)
+    ├── StatsControllerTests.cs      (3 tests)
+    ├── LeaderboardControllerTests.cs (3 tests)
+    └── CollectionControllerTests.cs (18 tests)
 ```
 
 ### Running Tests
@@ -316,18 +335,28 @@ dotnet test
 ```
 
 ### Coverage Areas
+
+**Services (73.8% line coverage)**
 - Collection CRUD and business rules (one per user)
-- Comment add/delete with authorization
-- Like/unlike with duplicate prevention
+- Comment add/delete with authorization and admin bypass
+- Like/unlike with duplicate prevention and star decrement
 - Profile and public profile data loading
 - Admin promote/demote/delete operations
 - Community stats and leaderboard ordering
+
+**Controllers**
+- Action return types (ViewResult, RedirectToActionResult)
+- Correct view model passing
+- Redirect targets on not-found and error scenarios
+- Service delegation verification
+- Authenticated user context mocking
+- Exception handling branches (Star/RemoveStar)
 
 ---
 
 ## 🌐 Deployment
 
-> Deployment information will be updated once the application is hosted publicly.
+The application is designed to be deployable to **Microsoft Azure** (App Service + Azure SQL). Deployment instructions will be added if a public hosting URL becomes available.
 
 ---
 
@@ -382,5 +411,3 @@ TheBigThree/
 | RAWG API | v1 | Game database |
 
 ---
-
-
