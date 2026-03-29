@@ -28,6 +28,14 @@
 
 ---
 
+## 🎬 Demo Video
+
+[![Watch the Demo](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=flat-square&logo=youtube)](https://youtu.be/K5KLoc1G2Qg)
+
+> A full walkthrough of The Big Three — features, RAWG API integration, Admin panel, and more.
+
+---
+
 ## ✨ Features
 
 ### 🏠 Community Hub
