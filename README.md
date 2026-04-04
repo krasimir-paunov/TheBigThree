@@ -297,9 +297,17 @@ Update-Database
 ```
 
 5. **(Optional) Configure RAWG API**
+
+   A demo key has been provided for evaluation purposes:
 ```bash
-dotnet user-secrets set "RawgApi:ApiKey" "YOUR_KEY_HERE" --project TheBigThree.csproj
+   dotnet user-secrets set "RawgApi:ApiKey" "1114097eb59340f19cf02a957f4bd3e8" --project TheBigThree.csproj
 ```
+   > Run this command in the **Developer PowerShell** terminal inside Visual Studio (View → Terminal), from the solution root folder.
+   >
+   > **Important:** After setting the key, fully restart the application (Stop + F5) for the changes to take effect.
+   >
+   > This demo key was created specifically for academic project evaluation.
+   > For your own key, register a free account at [rawg.io](https://rawg.io).
 
 6. **Run the application**
    - Press `F5` or `Ctrl+F5` in Visual Studio
