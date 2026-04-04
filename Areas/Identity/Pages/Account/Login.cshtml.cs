@@ -114,16 +114,17 @@ namespace TheBigThree.Areas.Identity.Pages.Account
 
                 if (user != null)
                 {
-                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(
+                    var result = await _signInManager.PasswordSignInAsync(
                         user.UserName,
                         Input.Password,
                         Input.RememberMe,
                         lockoutOnFailure: true);
 
                     if (result.Succeeded)
-                    {
                         return LocalRedirect(returnUrl);
-                    }
+
+                    if (result.IsLockedOut)
+                        return RedirectToPage("./Lockout");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
