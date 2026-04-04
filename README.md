@@ -2,6 +2,8 @@
 
 > *What are the three games that define you as a gamer?*
 
+> **📋 For Evaluators:** Admin credentials, database setup, and RAWG API demo key are provided in the [Setup & Running Locally](#-setup--running-locally) section below.
+
 **The Big Three** is a community-driven ASP.NET Core web application where gamers curate and share their ultimate three-game collections — the games that shaped them, defined them, or simply brought them the most joy. Discover what others have chosen, give stars to collections you love, and leave your mark on the community.
 
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-blue?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com/)
