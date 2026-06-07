@@ -1,3 +1,4 @@
+![CI](https://github.com/krasimir-paunov/TheBigThree/actions/workflows/ci.yml/badge.svg)
 # 🎮 The Big Three
 
 > *What are the three games that define you as a gamer?*
